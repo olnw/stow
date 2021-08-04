@@ -54,6 +54,7 @@ picom -b
 fcitx -r &
 pypy3 ~/dmenubar.py &
 stalonetray &
+volctl &
 
 # For better font rendering
 xsettingsd &
