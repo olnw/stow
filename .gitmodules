@@ -1,9 +1,12 @@
 [submodule "Neovim/.config/nvim/plugged/tokyonight-vim"]
 	path = Neovim/.config/nvim/plugged/tokyonight-vim
 	url = https://github.com/ghifarit53/tokyonight-vim
+	branch = master
 [submodule "Neovim/.config/nvim/plugged/nerdtree"]
 	path = Neovim/.config/nvim/plugged/nerdtree
 	url = https://github.com/preservim/nerdtree
+	branch = master
 [submodule "Vim/.vim/pack/vendor/start/nerdtree"]
-	path = Vim/.vim/pack/vendor/start/nerdtree
-	url = https://github.com/preservim/nerdtree
+        path = Vim/.vim/pack/vendor/start/nerdtree
+        url = https://github.com/preservim/nerdtree
+	branch = master
