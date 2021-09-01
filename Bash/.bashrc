@@ -118,4 +118,4 @@ export PATH=/home/oliver/.local/bin:$PATH
 # (allows you to use your config).
 export EDITOR=emacs
 
-alias sk='keychain --eval --quiet id_ed25519 ~/.ssh/id_ed25519'
+eval $(keychain --eval --quiet id_ed25519 ~/.ssh/id_ed25519)
