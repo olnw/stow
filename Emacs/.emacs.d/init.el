@@ -7,11 +7,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(highlight-indent-guides aggressive-indent elisp-format
-                                                       smart-hungry-delete moe-theme
-                                                       highlight-parentheses slime
-                                                       rainbow-delimiters treemacs-evil treemacs
-                                                       evil)))
+ '(package-selected-packages
+   '(latex-preview-pane evil-collection highlight-indent-guides aggressive-indent elisp-format smart-hungry-delete moe-theme highlight-parentheses slime rainbow-delimiters treemacs-evil treemacs evil)))
 
 (require 'elisp-format)
 
@@ -20,24 +17,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t 
-                                     (:foreground "dark orange")))) 
- '(rainbow-delimiters-depth-2-face ((t 
-                                     (:foreground "deep pink")))) 
- '(rainbow-delimiters-depth-3-face ((t 
-                                     (:foreground "chartreuse")))) 
- '(rainbow-delimiters-depth-4-face ((t 
-                                     (:foreground "deep sky blue")))) 
- '(rainbow-delimiters-depth-5-face ((t 
-                                     (:foreground "yellow")))) 
- '(rainbow-delimiters-depth-6-face ((t 
-                                     (:foreground "orchid")))) 
- '(rainbow-delimiters-depth-7-face ((t 
-                                     (:foreground "spring green")))) 
- '(rainbow-delimiters-depth-8-face ((t 
-                                     (:foreground "sienna1")))) 
- '(whitespace-tab ((t 
-                    (:foreground "#636363")))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))
+ '(whitespace-tab ((t (:foreground "#636363")))))
 
 (load-theme 'moe-dark t)
 (show-paren-mode t)
@@ -46,8 +34,20 @@
 (require 'slime)
 (setq inferior-lisp-program "sbcl")
 
-(require 'evil)
-(evil-mode 1)
+;; https://github.com/emacs-evil/evil-collection
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (define-key evil-motion-state-map "j" 'evil-backward-char)
 (define-key evil-motion-state-map ";" 'evil-forward-char)
@@ -65,15 +65,23 @@
               ("C-x t 1"   . treemacs-delete-other-windows) 
               ("C-x t B"   . treemacs-bookmark) 
               ("C-x t C-t" . treemacs-find-file) 
-              ("C-x t M-t" . treemacs-find-tag) 
-              ("C-x c" . comint-clear-buffer) 
-              ("C-x x" . shell)))
+              ("C-x t M-t" . treemacs-find-tag)))
 
 ;; https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+;; Shortcut to compile current file into a pdf
+(define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
+;; Manual way (better to use latex-preview-pane): (define-key global-map (kbd "C-,") (lambda() (interactive) (shell-command (format "pdflatex %s &" (buffer-file-name)))))
+
+;; Clear shell buffer
+(define-key global-map (kbd "C-x c") 'comint-clear-buffer)
+
+;; Open shell
+(define-key global-map (kbd "C-x x") 'shell)
 
 ;; Set indentation levels style
 (setq highlight-indent-guides-method 'character)
@@ -85,7 +93,6 @@
 (setq backward-delete-char-method 'hungry)
 
 (setq-default electric-indent-inhibit t)
-
 (local-set-key (kbd "TAB") 'tab-to-tab-stop) 
 
 ;; Indent with tabs for all languages except Lisps
