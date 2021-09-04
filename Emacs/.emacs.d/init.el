@@ -8,7 +8,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(latex-preview-pane evil-collection highlight-indent-guides aggressive-indent elisp-format smart-hungry-delete moe-theme highlight-parentheses slime rainbow-delimiters treemacs-evil treemacs evil)))
+   '(nov auctex latex-preview-pane evil-collection highlight-indent-guides aggressive-indent elisp-format smart-hungry-delete moe-theme highlight-parentheses slime rainbow-delimiters treemacs-evil treemacs evil)))
 
 (require 'elisp-format)
 
@@ -34,6 +34,7 @@
 (require 'slime)
 (setq inferior-lisp-program "sbcl")
 
+(require 'use-package)
 ;; https://github.com/emacs-evil/evil-collection
 (use-package evil
   :ensure t
@@ -73,9 +74,16 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-;; Shortcut to compile current file into a pdf
-(define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
-;; Manual way (better to use latex-preview-pane): (define-key global-map (kbd "C-,") (lambda() (interactive) (shell-command (format "pdflatex %s &" (buffer-file-name)))))
+;; Easy buffer switching with C-x b
+(ido-mode 1)
+
+;; Open latex-preview-pane... I don't think this can handle bibliographies.
+;; (define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
+;; Manual way: (define-key global-map (kbd "C-,") (lambda() (interactive) (shell-command (format "pdflatex %s &" (buffer-file-name)))))
+
+;; https://old.reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
+(load-file "~/.emacs.d/latexmk-mode.el")
+(add-hook 'LaTeX-mode-hook 'latexmk-mode)
 
 ;; Clear shell buffer
 (define-key global-map (kbd "C-x c") 'comint-clear-buffer)
@@ -154,3 +162,21 @@ or just one char if that's not possible"
 
 (when (version<= "26.0.50" emacs-version) 
   (global-display-line-numbers-mode))
+
+;; Use pdf-view to view PDFs
+;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
+;; Need to run M-x pdf-tools-install
+(require 'pdf-view)
+
+(setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
+
+(setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
+                                 ,(face-attribute 'default :background)))
+
+(add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+
+(add-hook 'pdf-view-mode-hook (lambda ()
+                                (pdf-view-midnight-minor-mode)
+				(auto-revert-mode))) ;; Display changes live
+
+(provide 'init-pdfview)
