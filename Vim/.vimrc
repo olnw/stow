@@ -1,3 +1,15 @@
+call plug#begin('~/.vim/plugged')
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'preservim/nerdtree'
+call plug#end()
+
+set termguicolors
+
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+
+colorscheme tokyonight
+
 noremap ; l
 noremap l k
 noremap k j
