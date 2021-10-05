@@ -112,10 +112,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/home/oliver/.local/bin:$PATH
+export PATH=/sbin:/home/oliver/.local/bin:$PATH
 
 # For use with commands such as: sudoedit <filename>
 # (allows you to use your config).
 export EDITOR=emacs
 
-eval $(keychain --eval --quiet id_ed25519 ~/.ssh/id_ed25519)
+alias startkeychain='eval $(keychain --eval --quiet id_ed25519 ~/.ssh/id_ed25519)'
+alias starti2p='~/i2p/i2prouter start'

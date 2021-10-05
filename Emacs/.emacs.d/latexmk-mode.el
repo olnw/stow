@@ -9,9 +9,10 @@
   :lighter " LatexMK "
 )
 
+;; --shell-escape necessary for GNU plot
 (defun my/run-latexmk ()
   (interactive)
-  (start-process "latexmk" "latexmk out" "latexmk" "--silent" "--pdf" (buffer-file-name (current-buffer)))
+  (start-process "latexmk" "latexmk out" "latexmk" "--shell-escape" "--silent" "--pdf" (buffer-file-name (current-buffer)))
 )
 
 (defun my/try-run-latexmk ()

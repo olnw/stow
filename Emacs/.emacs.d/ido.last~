@@ -8,6 +8,7 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/oliver/"
  "/home/oliver/Documents/Investigation II/"
  "/home/oliver/.emacs.d/"
  "/home/oliver/Downloads/"
@@ -15,6 +16,8 @@
 
 ;; ----- ido-work-file-list -----
 (
+ ".bash_profile"
+ ".bashrc"
  "investigation_task_II.tex"
  "init.el"
  "(Dover Books on Mathematics) Konrad Knopp - Theory of Functions, Parts I and II-Dover Publications (1996).epub"
@@ -22,6 +25,8 @@
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/oliver/" (24919 3636 223298 101000) "Bitwig Studio/" "CTnotes.ctb" ".vimrc" "yarn.lock" ".xsession-errors" ".audacity-data/" ".conan/" ".Xmodmap" "--all-subs" "dmenubar.py" "Pictures/" ".bash_history" "Videos/" ".emacs.d/" ".stalonetrayrc" "../" ".BitwigStudio/" "node_modules/" ".profile" "output.mp4" ".cache/" "data.tex" "CTnotes.ctb~~~" "Downloads/" ".yarnrc" ".steampath" ".python_history" "bibliography.bib" ".gitconfig" ".steam/" ".config/" ".kde/" ".mozilla/" "2021-09-18 22-31-14.mkv" ".var/" "Desktop/" "Calibre Library/" "CTnotes.ctb~" ".ssh/" ".rpmdb/" "bibliography.bib~" "qmk_firmware/" ".krita-9576-document_0-autosave.kra" "./" ".nvidia-settings-rc" ".fonts.conf" ".local/" ".bash_profile" ".viminfo" ".keychain/" ".xinputrc" "tenacity-Audacity-3.0.3-RC2.tar.gz" "Games/" "2021-09-18 22-33-30.mkv" ".Xauthority" ".vim/" ".wine/" "usb/" ".texlive2020/" ".gnupg/" ".fehbg" ".xsettingsd" ".bashrc" ".steampid" "CTnotes.ctb~~" "output.mkv" "Public/" "Latin by the Ranieri-Dowling Method/" ".xinitrc" ".gtkrc-2.0" "data.eps" "Passwords.kdbx" "stow/" ".pki/" ".bash_logout" "Documents/" ".wget-hsts" ".gnuplot_history" "data.pdf")
+
  ("/home/oliver/stow/Emacs/.emacs.d/" (24883 7363 753257 322000) "init.el" "auto-save-list/" "../" "games/" ".cache/" "latexmk-mode.el" "auto-save/" "./" "elpa/" "url/" "ido.last~" "init.log" "init.el~" "ido.last")
 
  ("/home/oliver/.emacs.d/" (24883 7363 753257 322000) "init.el" "auto-save-list/" "../" "games/" ".cache/" "latexmk-mode.el" "auto-save/" "./" "elpa/" "url/" "ido.last~" "init.log" "init.el~" "ido.last")
@@ -33,8 +38,6 @@
  ("/home/oliver/stow/" (24880 51591 127307 179000) "README.md" "Xorg/" ".gitmodules" "Bash/" "../" "picom/" "Emacs/" "Git/" "Vim/" "./" "Neovim/" ".git/" "ssh/" "dmenu/" "feh/" "Stalonetray/")
 
  ("/home/oliver/stow/Emacs/" (24879 33909 205051 426000) ".emacs.d/" "../" "./")
-
- ("/home/oliver/" (24882 53975 643861 293000) "CTnotes.ctb" ".vimrc" "yarn.lock" ".xsession-errors" ".Xmodmap" "--all-subs" "dmenubar.py" "Pictures/" ".bash_history" "Videos/" ".emacs.d/" ".stalonetrayrc" "../" "CTnotes.ctb!" "node_modules/" ".profile" ".cache/" "CTnotes.ctb~~~" "Downloads/" ".yarnrc" ".steampath" ".python_history" "bibliography.bib" ".gitconfig" ".steam/" ".latexmkrc" ".config/" ".kde/" ".mozilla/" ".var/" "Desktop/" "Calibre Library/" "CTnotes.ctb~" ".ssh/" "Music/" ".rpmdb/" "bibliography.bib~" "qmk_firmware/" ".krita-9576-document_0-autosave.kra" "./" ".nvidia-settings-rc" ".local/" ".bash_profile" ".viminfo" ".keychain/" ".xinputrc" ".Xauthority" ".vim/" "usb/" ".gnupg/" ".fehbg" ".xsettingsd" ".bashrc" ".steampid" "CTnotes.ctb~~" "Public/" "Latin by the Ranieri-Dowling Method/" ".xinitrc" ".gtkrc-2.0" "Passwords.kdbx" "stow/" ".pki/" ".bash_logout" "Documents/" ".wget-hsts")
 
  ("/home/oliver/Documents/" (24882 54753 339809 564000) "CRISPR.docx" "CTnotes.ctb" "../" "Investigation II/" "./")
 )
