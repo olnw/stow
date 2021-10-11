@@ -1,3 +1,4 @@
-Neovim/.config/nvim/plugged/tokyonight-vim
-Neovim/.local/share/nvim/shada/main.shada
-Vim/.vim/plugged/tokyonight-vim
+Neovim/.config/nvim/plugged
+Neovim/.local/share/nvim/shada
+Neovim/.local/share/nvim/swap
+Vim/.vim/plugged
