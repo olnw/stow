@@ -1,1 +1,0 @@
-/usr/bin/jackd -dalsa -dhw:Generic,0 -r48000 -p256 -n2
