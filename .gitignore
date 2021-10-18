@@ -3,3 +3,9 @@ Neovim/.local/share/nvim/shada
 Neovim/.local/share/nvim/swap
 Vim/.vim/plugged
 Emacs/.emacs.d/auto-save-list
+Emacs/.emacs.d/auto-save
+Emacs/.emacs.d/games
+# Ignore backup files
+*~
+# Ignore log files
+*.log
