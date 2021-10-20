@@ -12,6 +12,7 @@ Emacs/.emacs.d/elpa
 Emacs/.emacs.d/nov-places
 Emacs/.emacs.d/.pdf-view-restore
 Emacs/.emacs.d/custom.el
+Emacs/.emacs.d/ido.last
 
 # Ignore backup files
 *~
