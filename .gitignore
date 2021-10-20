@@ -2,10 +2,20 @@ Neovim/.config/nvim/plugged
 Neovim/.local/share/nvim/shada
 Neovim/.local/share/nvim/swap
 Vim/.vim/plugged
+
 Emacs/.emacs.d/auto-save-list
 Emacs/.emacs.d/auto-save
 Emacs/.emacs.d/games
+Emacs/.emacs.d/.cache
+Emacs/.emacs.d/elpa
+
+Emacs/.emacs.d/nov-places
+Emacs/.emacs.d/.pdf-view-restore
+Emacs/.emacs.d/custom.el
+
 # Ignore backup files
 *~
+*\#
+
 # Ignore log files
 *.log
