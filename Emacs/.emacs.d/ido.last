@@ -3,45 +3,52 @@
 ;; ----- ido-last-directory-list -----
 (
  ("/home/oliver/Documents/" . "Investigation II/")
- ("/home/oliver/" . "Documents/")
+ ("/home/oliver/" . ".emacs.d/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- "/etc/"
- "/home/oliver/"
- "/home/oliver/Documents/Investigation II/"
  "/home/oliver/.emacs.d/"
+ "/home/oliver/"
+ "/home/oliver/etc-nixos/"
+ "/etc/"
+ "/home/oliver/Documents/Investigation II/"
  "/home/oliver/Downloads/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "init.el"
+ "test.c"
+ "configuration.nix"
  "hosts"
  ".bash_profile"
  ".bashrc"
  "investigation_task_II.tex"
- "init.el"
  "(Dover Books on Mathematics) Konrad Knopp - Theory of Functions, Parts I and II-Dover Publications (1996).epub"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/etc/" (24929 4579 319059 757000) "apt/" "rc4.d/" "PackageKit/" "dictionaries-common/" "qemu-ifdown" "init.d/" "xattr.conf" "usb_modeswitch.d/" "dbus-1/" "ssl/" "libibverbs.d/" "rc5.d/" "devscripts.conf" "iproute2/" "chromium.d/" "locale.gen" "localtime" "samba/" "kernel/" "rc2.d/" "python3.9/" "X11/" "debconf.conf" "systemd/" "cowpoke.conf" "rcS.d/" "magic.mime" "gtk-2.0/" "modules-load.d/" ".pwd.lock" "rsyslog.conf" "pam.d/" "vdpau_wrapper.cfg" "pm/" "vim/" "email-addresses" "emacs/" "avahi/" "motd" "dkms/" "fuse.conf" "libblockdev/" "python3/" "xml/" "qemu-ifup" "shadow" "pulse/" "alsa/" "mpv/" "apparmor/" "cron.daily/" "bash_completion.d/" "mime.types" "host.conf" "ipp-usb/" "bash_completion" "timidity/" "subgid" "libnl-3/" "update-motd.d/" "xdg/" "hostname" "cupshelpers/" "mailname" "bash.bashrc" "ksysguarddrc" "fonts/" "rpc" "openal/" "crontab" "ld.so.cache" "libpaper.d/" "gtk-3.0/" "cups/" "resolv.conf" "rc3.d/" "nftables.conf" "chromium/" "fstab" "asound.conf" "login.defs" "initramfs-tools/" "sensors3.conf" "shells" "environment" "perl/" "protocols" "appstream.conf" "ghostscript/" "gshadow" "openni2/" "java-11-openjdk/" "sbclrc" "mailcap.order" "shadow-" "chktexrc" "environment.d/" "UPower/" "sudoers.d/" "wgetrc" "usb_modeswitch.conf" "NetworkManager/" "opt/" "ImageMagick-6/" "dput.cf" "rc6.d/" "wpa_supplicant/" "libaudit.conf" "dconf/" "manpath.config" "ca-certificates/" "plymouth/" "sudoers" "sane.d/" "discover-modprobe.conf" "rc1.d/" "dhcp/" "polkit-1/" "sysctl.d/" "subuid" "gufw/" "wodim.conf" "anacrontab" "glvnd/" "mailcap" "apache2/" "libao.conf" "netscsid.conf" "gimp/" "dpkg/" "logrotate.conf" "adjtime" "bluetooth/" "inputrc" "console-setup/" "ld.so.conf.d/" "texmf/" "aliases" "rmt" "rsyslog.d/" "bindresvport.blacklist" "signon-ui/" "clamav/" "gshadow-" "rc0.d/" "grub.d/" "terminfo/" "cron.monthly/" "speech-dispatcher/" "ethertypes" "skel/" "firebird/" "timezone" "nsswitch.conf" "kernel-img.conf" "machine-id" "sddm/" "groff/" "ucf.conf" "lighttpd/" "papersize" "ssh/" "gss/" "nvidia/" "mke2fs.conf" "geoclue/" "ufw/" "subgid-" "adduser.conf" "udisks2/" "sysctl.conf" "issue.net" "passwd-" "ldap/" "passwd" "exim4/" "mysql/" "os-release" "LatexMk" "pam.conf" "avrdude.conf" "java-17-openjdk/" "ca-certificates.conf" "locale.alias" "tmpfiles.d/" "deluser.conf" "services" "ifplugd/" "selinux/" "sudo_logsrvd.conf" "udev/" "profile" "debian_version" "vulkan/" "snmp/" "sudo.conf" "smartmontools/" "mtab" "group-" "network/" "security/" "binfmt.d/" "chatscripts/" "networks" "cron.weekly/" "GNUstep/" "sgml/" "sv/" "hosts" "smartd.conf" "default/" "gdb/" "issue" "alternatives/" "reportbug.conf" "group" ".java/" "e2scrub.conf" "discover.conf.d/" "runit/" "odbc.ini" "hosts.deny" "java/" "magic" "logcheck/" "ld.so.conf" "catdocrc" "cron.d/" "cron.hourly/" "modules" "gai.conf" "nanorc" "logrotate.d/" "netconfig" "checkinstallrc" "sensors.d/" "hosts.allow" "modprobe.d/" "libreoffice/" "profile.d/" "pipewire/" "subuid-" "apparmor.d/" "ppp/" "ODBCDataSources/" "../" "./")
+ ("/home/oliver/.emacs.d/" (24944 9257 828635 850000) "init.el" "nov-places" "#init.el#" "latexmk-mode.el" "./" ".cache/" "init.el~" "../" "custom.el" "auto-save/" "ido.last~" "ido.last" "elpa/" "auto-save-list/")
 
- ("/home/oliver/" (24929 17495 317131 212000) "Bitwig Studio/" ".lesshst" ".vimrc" ".xsession-errors" ".audacity-data/" ".conan/" ".Xmodmap" "dmenubar.py" "Pictures/" ".bash_history" "Videos/" ".emacs.d/" ".stalonetrayrc" "../" ".BitwigStudio/" "node_modules/" ".profile" ".i2p/" ".cache/" ".swt/" "Downloads/" ".yarnrc" ".steampath" ".python_history" "bibliography.bib" ".gitconfig" ".steam/" ".config/" ".kde/" ".mozilla/" ".var/" "Desktop/" "Calibre Library/" ".ssh/" ".rpmdb/" "bibliography.bib~" "qmk_firmware/" ".android/" "./" ".nvidia-settings-rc" ".fonts.conf" ".local/" ".bash_profile" ".viminfo" ".keychain/" ".xinputrc" "Games/" ".Xauthority" ".vim/" "usb/" ".texlive2020/" ".gnupg/" ".fehbg" ".xsettingsd" ".bashrc" ".steampid" ".biglybt/" "Public/" "Latin by the Ranieri-Dowling Method/" ".xinitrc" ".gtkrc-2.0" "Passwords.kdbx" "firefox/" "stow/" ".java/" ".pki/" ".bash_logout" "Documents/" ".wget-hsts" "i2p/" ".gnuplot_history")
+ ("/home/oliver/" (24944 8814 275096 703000) ".Xauthority" ".nvidia-settings-rc" ".steam/" "Desktop/" "Templates/" "Public/" ".pki/" ".lesshst" "./" "Downloads/" ".nix-defexpr/" "Music/" ".cache/" "Documents/" ".steampid" ".config/" ".var/" ".gtkrc-2.0" ".compose-cache/" ".gnome/" ".zshenv" ".zsh_history" ".keychain/" ".bash_history" ".kde/" "../" ".emacs.d/" ".minecraft/" ".zshrc" ".zcompdump" "Videos/" "etc-nixos/" ".umpv_socket" ".steampath" "Pictures/" ".python_history" ".nv/" ".ssh/" ".gitconfig" "stow/" ".local/" ".gnupg/" ".mozilla/")
 
- ("/home/oliver/stow/Emacs/.emacs.d/" (24883 7363 753257 322000) "init.el" "auto-save-list/" "../" "games/" ".cache/" "latexmk-mode.el" "auto-save/" "./" "elpa/" "url/" "ido.last~" "init.log" "init.el~" "ido.last")
+ ("/home/oliver/Downloads/" (24943 53122 158029 297000) "openwrt-21.02.0-ramips-mt7621-tplink_archer-a6-v3-squashfs-factory.bin" "./" "sha256sums" "../" "LICENSE")
 
- ("/home/oliver/.emacs.d/" (24883 7363 753257 322000) "init.el" "auto-save-list/" "../" "games/" ".cache/" "latexmk-mode.el" "auto-save/" "./" "elpa/" "url/" "ido.last~" "init.log" "init.el~" "ido.last")
+ ("/etc/" (24943 52705 354657 525000) "zprofile" "rpc" "nanorc" "bashrc" "chromium/" "./" "machine-id" "samba/" "default/" "zoneinfo/" "kbd/" "passwd" ".updated" "ssh/" "hostname" "netgroup" "modules-load.d/" "alsa/" "dconf/" "UPower/" "subuid" "resolv.conf" "printcap" "mtab" "profile" "systemd/" "protocols" "cups/" "pulse/" "nsswitch.conf" "polkit-1/" "subgid" "opt/" "gdm/" "modprobe.d/" "shadow" "fonts/" "nvidia/" "terminfo/" "geoclue/" "../" "PackageKit/" "NIXOS" "lvm/" "sysctl.d/" "NetworkManager/" "pam.d/" "services" "binfmt.d/" "sudoers" "login.defs" "tmpfiles.d/" "nscd.conf" "zshrc" "adjtime" "issue" "dhcpcd.exit-hook" "group" "pki/" "shells" "nix/" "nixos/" "fuse.conf" "X11/" "man_db.conf" "hosts" "pipewire/" "localtime" "os-release" "dbus-1/" "udev/" ".clean" "resolvconf.conf" "bluetooth/" "zinputrc" "set-environment" "ssl/" "static/" "locale.conf" "inputrc" "vconsole.conf" "rygel.conf" "host.conf" ".pwd.lock" "fstab" "ipsec.d/" "zshenv")
 
- ("/home/oliver/Downloads/" (24882 55046 59628 662000) "dotfiles-main-GPG-.gnupg/" "Salad-0.5.5.fc34.x86_64.rpm" "../" "dotfiles-main-ssh-.ssh.zip" "(Dover Books on Mathematics) Konrad Knopp - Theory of Functions, Parts I and II-Dover Publications (1996).epub" "./" "dotfiles-main-GPG-.gnupg.zip" "dotfiles-main-ssh-.ssh/" "salad_0.5.5-2_amd64.deb")
+ ("/home/oliver/etc-nixos/" (24943 61342 464834 118000) "blocked-domains.nix" ".git/" "./" "hardware-configuration.nix" "../" "configuration.nix" ".gitignore" "UNLICENSE")
+
+ ("/home/oliver/stow/" (24944 6569 139493 146000) ".git/" "Git/" "./" "Neovim/" "Zsh/" "../" "Vim/" ".gitignore" "Emacs/" "Xorg/")
+
+ ("/home/oliver/stow/Emacs/" (24941 19480 786157 538000) "./" "../" ".emacs.d/")
+
+ ("/home/oliver/stow/Emacs/.emacs.d/" (24944 8370 224994 365000) "init.el" "nov-places" "#init.el#" "latexmk-mode.el" "./" ".cache/" "init.el~" "../" "auto-save/" "ido.last~" "ido.last" "elpa/" "auto-save-list/")
+
+ ("/home/oliver/.ssh/" (24941 18238 723215 944000) "id_ed25519.pub" "./" "known_hosts" "../" "id_ed25519")
 
  ("/home/oliver/Documents/Investigation II/" (24883 6587 591677 224000) "investigation_task_II.tex~" "investigation_task_II.pdf" "investigation_task_II.tex.blg" "investigation_task_II.fls" "../" "investigation_task_II.bbl" "investigation_task_II.blg" "investigation_task_II.tex" "investigation_task_II.aux" "investigation_task_II.bcf" "./" "investigation_task_II.fdb_latexmk" "investigation_task_II.log" "investigation_task_II.tex.bbl" "investigation_task_II.run.xml")
-
- ("/home/oliver/stow/" (24880 51591 127307 179000) "README.md" "Xorg/" ".gitmodules" "Bash/" "../" "picom/" "Emacs/" "Git/" "Vim/" "./" "Neovim/" ".git/" "ssh/" "dmenu/" "feh/" "Stalonetray/")
-
- ("/home/oliver/stow/Emacs/" (24879 33909 205051 426000) ".emacs.d/" "../" "./")
 
  ("/home/oliver/Documents/" (24882 54753 339809 564000) "CRISPR.docx" "CTnotes.ctb" "../" "Investigation II/" "./")
 )
