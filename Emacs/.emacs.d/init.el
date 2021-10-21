@@ -7,11 +7,13 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(unless package-archive-contents
+  (package-refresh-contents))
+
 (dolist (package '(use-package))
   (unless (package-installed-p package)
     (package-install package)))
-
-
+ 
 (use-package rainbow-delimiters
   :ensure t
   :custom-face
@@ -40,14 +42,18 @@
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
+  
   :config
-  (evil-mode 1)
+  ;; Move the cursor with j k l ;                             
+  (define-key evil-motion-state-map "j" 'evil-backward-char)  
+  (define-key evil-motion-state-map "k" 'evil-next-line)      
+  (define-key evil-motion-state-map "l" 'evil-previous-line)
+  (define-key evil-motion-state-map ";" 'evil-forward-char)   
 
-  ;; Move the cursor with j k l ; 
-  (define-key evil-motion-state-map "j" 'evil-backward-char)
-  (define-key evil-motion-state-map ";" 'evil-forward-char)
-  (define-key evil-motion-state-map "k" 'evil-next-line)
-  (define-key evil-motion-state-map "l" 'evil-previous-line))
+  ;; Open treemacs with C-n
+  (define-key evil-normal-state-map (kbd "C-n") 'treemacs)
+
+  (evil-mode 1))
 
 (use-package evil-collection
   :after evil
@@ -55,25 +61,30 @@
   :config
   (evil-collection-init))
 
-;; Open treemacs with C-n
-;;(define-key evil-normal-state-map (kbd "C-n") 'treemacs)
-
 (use-package treemacs 
+  :after evil
   :ensure t 
   :defer t 
-  :config (treemacs-filewatch-mode t) 
+  :config
+  (treemacs-filewatch-mode t) 
+
+
   :bind (:map global-map
               ("C-x t 1"   . treemacs-delete-other-windows) 
               ("C-x t B"   . treemacs-bookmark) 
               ("C-x t C-t" . treemacs-find-file) 
               ("C-x t M-t" . treemacs-find-tag)
-	      ("C-x t t"   . treemacs)))
+              ("C-n"       . treemacs)))
 
 (use-package treemacs-evil
   :after (treemacs evil)
-  :ensure t)
+  :ensure t
+  :config
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
 
-;; https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 (use-package org
   :bind (:map global-map
 	      ("\C-cl" . org-store-link)
@@ -94,7 +105,10 @@
 (add-hook 'LaTeX-mode-hook 'latexmk-mode)
 
 ;; Set indentation levels style
-(setq highlight-indent-guides-method 'character)
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (setq highlight-indent-guides-method 'character))
 
 ;; Backspace tabs properly
 (setq backward-delete-char-method 'hungry)
@@ -115,6 +129,7 @@
 
 (setq-default electric-indent-inhibit t)
 
+(use-package aggressive-indent :ensure t)
 ;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
 ;; Maybe enable for prog-mode in the future.
 (add-hook 'emacs-lisp-mode-hook (lambda ()
