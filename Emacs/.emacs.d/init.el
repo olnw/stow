@@ -110,66 +110,18 @@
   :config
   (setq highlight-indent-guides-method 'character))
 
-;; Backspace tabs properly
-(setq backward-delete-char-method 'hungry)
-
-(local-set-key (kbd "TAB") 'tab-to-tab-stop) 
-
-(setq-default tab-width 8)
-
-(setq-default sgml-basic-offset tab-width)
-(setq-default css-indent-offset tab-width)
-(setq-default evil-shift-width tab-width)
-
-;; Indent with tabs for all languages except Lisps.
-(add-hook 'prog-mode-hook (lambda () 
-                            (highlight-indent-guides-mode) 
-                            (rainbow-delimiters-mode)
-                            (setq-default indent-tabs-mode t)))
-
-(setq-default electric-indent-inhibit t)
-
-(use-package aggressive-indent :ensure t)
-;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
-;; Maybe enable for prog-mode in the future.
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-				  (setq-default indent-tabs-mode nil)
-				  (aggressive-indent-mode)))
-
-(add-hook 'lisp-mode-hook (lambda ()
-			   (setq-default indent-tabs-mode nil)
-			   (aggressive-indent-mode)))
-
-(add-hook 'python-mode-hook (setq-default indent-tabs-mode nil)) 
-
-(setq c-default-style "linux")
-
-;; https://stackoverflow.com/questions/1450169/how-do-i-emulate-vims-softtabstop-in-emacs
-(local-set-key (kbd "DEL") 'backward-delete-whitespace-to-column)
-(defun backward-delete-whitespace-to-column ()
-  "delete back to the previous column of whitespace, or as much whitespace as possible,
-   or just one char if that's not possible"
-  (interactive)
-  (if indent-tabs-mode
-      (call-interactively 'backward-delete-char-untabify)
-    (let ((movement (% (current-column) tab-width))
-          (p (point)))
-      (when (= movement 0) (setq movement tab-width))
-      (save-match-data
-        (if (string-match "\\w*\\(\\s-+\\)$" (buffer-substring-no-properties (- p movement) p))
-            (backward-delete-char-untabify (- (match-end 1) (match-beginning 1)))
-          (call-interactively 'backward-delete-char-untabify))))))
-
 (use-package emacs
   :config
   ;; Custom directory for autosave files
   (setq auto-save-file-name-transforms `((".*" ,(concat user-emacs-directory "auto-save/") t)))
   
   ;; Show file full path in title bar
-  (setq-default frame-title-format (list '((buffer-file-name " %f" (dired-directory dired-directory
-                                                                                    (revert-buffer-function
-                                                                                     " %b" ("%b - Dir:  "
-                                                                                            default-directory)))))))
+  (setq-default frame-title-format
+                (list '((buffer-file-name " %f"
+                                          (dired-directory
+                                           dired-directory
+                                           (revert-buffer-function
+                                            " %b" ("%b - Dir:  " default-directory)))))))
   
   (setq inhibit-startup-screen t)
   
@@ -185,6 +137,40 @@
   (show-paren-mode t)
   (setq show-paren-style 'expression)
 
+  ;; Backspace tabs properly
+  (setq backward-delete-char-untabify-method 'hungry)
+
+  (setq-default tab-width 8)
+
+  (setq-default sgml-basic-offset tab-width)
+  (setq-default css-indent-offset tab-width)
+  (setq-default evil-shift-width tab-width)
+
+
+  (setq-default electric-indent-inhibit t)
+
+  ;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
+  ;; Maybe enable for prog-mode in the future.
+  ;; Indent with tabs for all languages except Lisps.
+
+  (use-package aggressive-indent :ensure t)
+
+  (add-hook 'prog-mode-hook (lambda ()
+                              (highlight-indent-guides-mode)
+                              (rainbow-delimiters-mode)
+                              (setq-default indent-tabs-mode t)))
+
+  (add-hook 'emacs-lisp-mode-hook (lambda ()
+				    (setq-default indent-tabs-mode nil)
+				    (aggressive-indent-mode)))
+
+  (add-hook 'lisp-mode-hook (lambda ()
+			      (setq-default indent-tabs-mode nil)
+			      (aggressive-indent-mode)))
+
+  (setq c-default-style "linux")
+
+  ;; Might want: https://www.emacswiki.org/emacs/BackspaceWhitespaceToTabStop
   :bind (:map global-map
 	      ("C-x c"  . comint-clear-buffer)
 	      ("C-x x"  . shell)))
@@ -202,7 +188,6 @@
                                   (pdf-view-midnight-minor-mode)
 				  (auto-revert-mode)))) ;; Display changes live
 
-(provide 'init-pdfview)
 (use-package pdf-view-restore
   :ensure t
   :after pdf-tools
