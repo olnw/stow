@@ -13,7 +13,13 @@
 (dolist (package '(use-package))
   (unless (package-installed-p package)
     (package-install package)))
- 
+
+(setq inferior-lisp-program "sbcl")
+
+(use-package lispy :ensure t)
+
+(use-package sly :ensure t)
+
 (use-package rainbow-delimiters
   :ensure t
   :custom-face
