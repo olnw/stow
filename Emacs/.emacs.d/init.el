@@ -103,7 +103,9 @@
 
 ;; Open latex-preview-pane... I don't think this can handle bibliographies.
 ;; (define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
-;; Manual way: (define-key global-map (kbd "C-,") (lambda() (interactive) (shell-command (format "pdflatex %s &" (buffer-file-name)))))
+;; Manual way: (define-key global-map (kbd "C-,") (lambda() (interactive)
+;;                                                 (shell-command
+;;                                                  (format "pdflatex %s &" (buffer-file-name)))))
 
 ;; https://old.reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
 (load-file "~/.emacs.d/latexmk-mode.el")
@@ -132,6 +134,9 @@
   
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
+
+  (add-to-list 'default-frame-alist '(height . 35))
+  (add-to-list 'default-frame-alist '(width . 110))
 
   (column-number-mode 1)
 
@@ -162,7 +167,8 @@
   (add-hook 'prog-mode-hook (lambda ()
                               (highlight-indent-guides-mode)
                               (rainbow-delimiters-mode)
-                              (setq-default indent-tabs-mode t)))
+                              (setq-default indent-tabs-mode t)
+                              (display-fill-column-indicator-mode)))
 
   (defun my-lisp-mode-hook ()
     (setq-default indent-tabs-mode nil)
