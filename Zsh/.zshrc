@@ -3,7 +3,7 @@ compinit
 promptinit
 
 # This will set the default prompt to the walters theme
-prompt adam2
+prompt adam1
 
 # alias startkeychain='eval $(keychain --eval --quiet id_ed25519 ~/.ssh/id_ed25519)'
 
