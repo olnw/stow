@@ -74,7 +74,6 @@
   :config
   (treemacs-filewatch-mode t) 
 
-
   :bind (:map global-map
               ("C-x t 1"   . treemacs-delete-other-windows) 
               ("C-x t B"   . treemacs-bookmark) 
@@ -180,6 +179,12 @@
   :bind (:map global-map
 	      ("C-x c"  . comint-clear-buffer)
 	      ("C-x x"  . shell)))
+
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset sgml-basic-offset))))
 
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
 (use-package pdf-tools
