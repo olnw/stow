@@ -9,7 +9,7 @@
 
 (unless package-archive-contents
   (package-refresh-contents))
-
+ 
 (dolist (package '(use-package))
   (unless (package-installed-p package)
     (package-install package)))
@@ -133,7 +133,6 @@
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
 
-  ;; Show cursor position.
   (column-number-mode 1)
 
   (setq-default word-wrap t)
@@ -165,26 +164,28 @@
                               (rainbow-delimiters-mode)
                               (setq-default indent-tabs-mode t)))
 
-  (add-hook 'emacs-lisp-mode-hook (lambda ()
-				    (setq-default indent-tabs-mode nil)
-				    (aggressive-indent-mode)))
+  (defun my-lisp-mode-hook ()
+    (setq-default indent-tabs-mode nil)
+    (aggressive-indent-mode)
+    (setq-default fill-column 100))
 
-  (add-hook 'lisp-mode-hook (lambda ()
-			      (setq-default indent-tabs-mode nil)
-			      (aggressive-indent-mode)))
+  (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+
+  (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
 
   (setq c-default-style "linux")
 
   ;; Might want: https://www.emacswiki.org/emacs/BackspaceWhitespaceToTabStop
+
+  (use-package web-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset sgml-basic-offset))))
+
   :bind (:map global-map
 	      ("C-x c"  . comint-clear-buffer)
 	      ("C-x x"  . shell)))
-
-(use-package web-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset sgml-basic-offset))))
 
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
 (use-package pdf-tools
