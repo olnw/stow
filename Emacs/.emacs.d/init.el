@@ -193,6 +193,7 @@
 	      ("C-x c"  . comint-clear-buffer)
 	      ("C-x x"  . shell)))
 
+;; Run M-x pdf-tools-install
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
 (use-package pdf-tools
   :ensure t
@@ -214,3 +215,9 @@
 
   ;; Save information to custom location.
   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
+
+;; Run M-x all-the-icons-install-fonts
+(use-package all-the-icons :ensure t)
+(use-package doom-modeline
+  :ensure t
+  :config (doom-modeline-mode 1))
