@@ -35,9 +35,18 @@
 
 (use-package moe-theme
   :ensure t
+  :init
+  (defvar moe-theme-mode-line-color 'yellow)
   :config
   (setq moe-theme-highlight-buffer-id t)
   (moe-dark))
+
+(set-face-foreground 'font-lock-comment-face "pink")
+
+(use-package nyan-mode
+  :ensure t
+  :config
+  (nyan-mode))
 
 (use-package nix-mode
   :ensure t
