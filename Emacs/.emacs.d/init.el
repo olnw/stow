@@ -14,7 +14,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "clisp")
 
 (use-package lispy :ensure t)
 
