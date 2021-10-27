@@ -18,7 +18,10 @@
 
 (use-package lispy :ensure t)
 
-(use-package sly :ensure t)
+(use-package sly
+  :ensure t
+  :config
+  (add-hook 'sly-mode-hook #'rainbow-delimiters-mode))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -60,10 +63,10 @@
   
   :config
   ;; Move the cursor with j k l ;                             
-  (define-key evil-motion-state-map "j" 'evil-backward-char)  
-  (define-key evil-motion-state-map "k" 'evil-next-line)      
-  (define-key evil-motion-state-map "l" 'evil-previous-line)
-  (define-key evil-motion-state-map ";" 'evil-forward-char)   
+  ;; (define-key evil-motion-state-map "j" 'evil-backward-char)  
+  ;; (define-key evil-motion-state-map "k" 'evil-next-line)      
+  ;; (define-key evil-motion-state-map "l" 'evil-previous-line)
+  ;; (define-key evil-motion-state-map ";" 'evil-forward-char)   
 
   ;; Open treemacs with C-n
   (define-key evil-normal-state-map (kbd "C-n") 'treemacs)
@@ -74,7 +77,8 @@
   :after evil
   :ensure t
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (setq evil-want-fine-undo t))
 
 (use-package treemacs 
   :after evil
@@ -92,12 +96,12 @@
 
 (use-package treemacs-evil
   :after (treemacs evil)
-  :ensure t
-  :config
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
-  (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+  :ensure t)
+  ;; :config
+  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
+  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
+  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
+  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
 
 (use-package org
   :bind (:map global-map
@@ -118,7 +122,7 @@
 
 ;; https://old.reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
 (load-file "~/.emacs.d/latexmk-mode.el")
-(add-hook 'LaTeX-mode-hook 'latexmk-mode)
+(add-hook 'LaTeX-mode-hook #'latexmk-mode)
 
 ;; Set indentation levels style
 (use-package highlight-indent-guides
@@ -184,9 +188,9 @@
     (aggressive-indent-mode)
     (setq-default fill-column 100))
 
-  (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+  (add-hook 'emacs-lisp-mode-hook #'my-lisp-mode-hook)
 
-  (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
+  (add-hook 'lisp-mode-hook #'my-lisp-mode-hook)
 
   (setq c-default-style "linux")
 
@@ -220,7 +224,7 @@
   :ensure t
   :after pdf-tools
   :config
-  (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)
+  (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
 
   ;; Save information to custom location.
   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
