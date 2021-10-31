@@ -204,7 +204,8 @@
 
   :bind (:map global-map
 	      ("C-x c"  . comint-clear-buffer)
-	      ("C-x x"  . shell)))
+	      ("C-x x"  . shell)
+              ("C-x p"  . (lambda () (interactive) (switch-to-buffer (find-file-noselect "~/.emacs.d/init.el"))))))
 
 ;; Run M-x pdf-tools-install
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
