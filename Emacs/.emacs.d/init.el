@@ -110,9 +110,31 @@
   :config
   (setq org-log-done t))
 
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
+
+(use-package helm
+  :ensure t
+  :preface (require 'helm-config)
+  :config
+  (helm-mode 1)
+  :bind (("M-x"   . helm-M-x)
+         ("s-b"   . (lambda () (interactive) (helm-buffers-list)))
+         :map helm-map
+         ("<tab>" . helm-execute-persistent-action)
+         ("C-i"   . helm-execute-persistent-action)
+         ("C-z"   . helm-select-action)))
+
 ;; Easy buffer switching with C-x b
-(use-package ido
-  :config (ido-mode 1))
+;; (use-package ido
+;;   :config (ido-mode 1))
 
 ;; Open latex-preview-pane... I don't think this can handle bibliographies.
 ;; (define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
@@ -204,34 +226,37 @@
 
   :bind (:map global-map
 	      ("C-x c"  . comint-clear-buffer)
-	      ("C-x x"  . shell)
+	      ("C-x x"  . vterm)
               ("C-x p"  . (lambda () (interactive) (switch-to-buffer (find-file-noselect "~/.emacs.d/init.el"))))))
 
 ;; Run M-x pdf-tools-install
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
-(use-package pdf-tools
-  :ensure t
-  :config
-  (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
-                                   ,(face-attribute 'default :background)))
-  
-  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-  
-  (add-hook 'pdf-view-mode-hook (lambda ()
-                                  (pdf-view-midnight-minor-mode)
-				  (auto-revert-mode)))) ;; Display changes live
-
-(use-package pdf-view-restore
-  :ensure t
-  :after pdf-tools
-  :config
-  (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
-
-  ;; Save information to custom location.
-  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
+;; (use-package pdf-tools
+;;   :ensure t
+;;   :config
+;;   (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
+;;                                    ,(face-attribute 'default :background)))
+;;   
+;;   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+;;   
+;;   (add-hook 'pdf-view-mode-hook (lambda ()
+;;                                   (pdf-view-midnight-minor-mode)
+;;  				  (auto-revert-mode)))) ;; Display changes live
+;; 
+;; (use-package pdf-view-restore
+;;   :ensure t
+;;   :after pdf-tools
+;;   :config
+;;   (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
+;;   
+;;   ;; Save information to custom location.
+;;   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
 
 ;; Run M-x all-the-icons-install-fonts
 (use-package all-the-icons :ensure t)
 (use-package doom-modeline
   :ensure t
   :config (doom-modeline-mode 1))
+
+(use-package vterm
+  :ensure t)
