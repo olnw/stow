@@ -10,10 +10,10 @@ let g:tokyonight_enable_italic = 1
 
 colorscheme tokyonight
 
-noremap ; l
-noremap l k
-noremap k j
-noremap j h
+" noremap ; l
+" noremap l k
+" noremap k j
+" noremap j h
 
 filetype plugin on
 set nocompatible
