@@ -58,7 +58,7 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default
   (setq evil-want-keybinding nil)
   
   :config
@@ -115,7 +115,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  ;; Completion without using double square brackets.
+  ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
@@ -138,14 +138,14 @@
          ("C-z"   . helm-select-action)))
 
 ;; Easy buffer switching with C-x b
+;; I'm now using helm-mode instead
 ;; (use-package ido
 ;;   :config (ido-mode 1))
 
-;; Open latex-preview-pane... I don't think this can handle bibliographies.
-;; (define-key global-map (kbd "C-,") 'latex-preview-pane-mode)
-;; Manual way: (define-key global-map (kbd "C-,") (lambda() (interactive)
-;;                                                 (shell-command
-;;                                                  (format "pdflatex %s &" (buffer-file-name)))))
+;; Invoke pdflatex manually 
+;; (define-key global-map (kbd "C-,") (lambda() (interactive)                                    
+;;                                      (shell-command                                            
+;;                                        (format "pdflatex %s &" (buffer-file-name)))))
 
 ;; https://old.reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
 (load-file "~/.emacs.d/latexmk-mode.el")
@@ -182,7 +182,7 @@
 
   (setq-default word-wrap t)
 
-  ;; Highlight text between parentheses.
+  ;; Highlight text between parentheses
   (show-paren-mode t)
   (setq show-paren-style 'expression)
 
@@ -199,8 +199,8 @@
   (setq-default electric-indent-inhibit t)
 
   ;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
-  ;; Maybe enable for prog-mode in the future.
-  ;; Indent with tabs for all languages except Lisps.
+  ;; Maybe enable for prog-mode in the future
+  ;; Indent with tabs for all languages except Lisps
 
   (use-package aggressive-indent :ensure t)
 
@@ -246,7 +246,7 @@
 ;;   
 ;;   (add-hook 'pdf-view-mode-hook (lambda ()
 ;;                                   (pdf-view-midnight-minor-mode)
-;;  				  (auto-revert-mode)))) ;; Display changes live
+;;  				     (auto-revert-mode)))) ;; Display changes live
 ;; 
 ;; (use-package pdf-view-restore
 ;;   :ensure t
@@ -254,7 +254,7 @@
 ;;   :config
 ;;   (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
 ;;   
-;;   ;; Save information to custom location.
+;;   ;; Save information to custom location
 ;;   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
 
 ;; Run M-x all-the-icons-install-fonts
@@ -265,3 +265,8 @@
 
 (use-package vterm
   :ensure t)
+
+;; IRC client
+(use-package erc
+  :config
+  (setq erc-nick "Basspoon"))
