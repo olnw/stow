@@ -129,6 +129,8 @@
   :ensure t
   :preface (require 'helm-config)
   :config
+  ;; Open helm buffer inside current window
+  (setq helm-split-window-in-side-p t)
   (helm-mode 1)
   :bind (("M-x"   . helm-M-x)
          ("s-b"   . (lambda () (interactive) (helm-buffers-list)))
