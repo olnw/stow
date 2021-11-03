@@ -131,9 +131,19 @@
   :config
   ;; Open helm buffer inside current window
   (setq helm-split-window-in-side-p t)
+
+  ;; https://emacsredux.com/blog/2013/04/21/edit-files-as-root/
+  (defadvice helm-find-files (after find-file-sudo activate)
+    "Find file as root if necessary."
+    (unless (and buffer-file-name
+                 (file-writable-p buffer-file-name))
+      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
   (helm-mode 1)
   :bind (("M-x"   . helm-M-x)
          ("s-b"   . (lambda () (interactive) (helm-buffers-list)))
+         ("s-f"   . helm-find-files)
+         ("s-s"   . helm-occur-from-isearch)
          :map helm-map
          ("<tab>" . helm-execute-persistent-action)
          ("C-i"   . helm-execute-persistent-action)
@@ -272,3 +282,5 @@
 (use-package erc
   :config
   (setq erc-nick "Basspoon"))
+
+(use-package magit :ensure t)
