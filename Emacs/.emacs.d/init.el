@@ -1,64 +1,71 @@
+;;;; TODO
+;;;  - Learn Magit
+
 ;; https://www.reddit.com/r/emacs/comments/9rrhy8/emacsers_with_beautiful_initel_files_what_about/
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+;; Set up straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(unless package-archive-contents
-  (package-refresh-contents))
- 
-(dolist (package '(use-package))
-  (unless (package-installed-p package)
-    (package-install package)))
+;; Install use-package and use it by default
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
 (setq inferior-lisp-program "clisp")
 
-(use-package lispy :ensure t)
+(use-package lispy)
 
 (use-package sly
-  :ensure t
   :config
   (add-hook 'sly-mode-hook #'rainbow-delimiters-mode))
 
+;; Custom colours for parentheses
 (use-package rainbow-delimiters
-  :ensure t
   :custom-face
   (rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
   (rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
-  (rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
+  (rainbow-delimiters-depth-3-face ((t (:foreground "dark red")))) ; chartreuse
   (rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
-  (rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
+  (rainbow-delimiters-depth-5-face ((t (:foreground "black")))) ; yellow
   (rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
   (rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
   (rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))
   (whitespace-tab ((t (:foreground "#636363")))))
 
 (use-package moe-theme
-  :ensure t
   :init
-  (defvar moe-theme-mode-line-color 'yellow)
+  ;; (defvar moe-theme-mode-line-color 'yellow)
   :config
   (setq moe-theme-highlight-buffer-id t)
-  (moe-dark))
+  (moe-light))
 
-(set-face-foreground 'font-lock-comment-face "pink")
+;; Make comments more visible
+;;(set-face-foreground 'font-lock-comment-face "pink")
 
+;; Nyan cat in modeline
 (use-package nyan-mode
-  :ensure t
   :config
   (nyan-mode))
 
 (use-package nix-mode
-  :ensure t
   :mode "\\.nix\\'")
 
 (use-package evil
-  :ensure t
   :init
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default
+  (setq evil-want-integration t)        ; This is optional since it's already set to t by default
   (setq evil-want-keybinding nil)
   
   :config
@@ -75,14 +82,12 @@
 
 (use-package evil-collection
   :after evil
-  :ensure t
   :config
   (evil-collection-init)
   (setq evil-want-fine-undo t))
 
 (use-package treemacs 
   :after evil
-  :ensure t 
   :defer t 
   :config
   (treemacs-filewatch-mode t) 
@@ -94,24 +99,32 @@
               ("C-x t M-t" . treemacs-find-tag)
               ("C-n"       . treemacs)))
 
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
-  ;; :config
-  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
-  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
-  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
-  ;; (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+(use-package treemacs-evil :after (treemacs evil))
+;; :config
+;; (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
+;; (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
+;; (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
+;; (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+
+;; Automatically chooses what text to display as variable-pitch and fixed-pitch
+(use-package mixed-pitch)
 
 (use-package org
   :bind (:map global-map
 	      ("\C-cl" . org-store-link)
 	      ("\C-ca" . org-agenda))
   :config
-  (setq org-log-done t))
+  (setq org-log-done t)
+
+  ;; Computer Modern
+  ;; https://sourceforge.net/projects/cm-unicode/
+  ;; (set-face-attribute 'variable-pitch nil :font "CMU Serif" :height 200) ; :height may not work
+  (add-hook 'org-mode-hook (lambda ()
+                             (mixed-pitch-mode)
+                             (setq fill-column 70) ; Better readability
+                             (setq org-hide-emphasis-markers t))))
 
 (use-package org-roam
-  :ensure t
   :init
   (setq org-roam-v2-ack t)
   :custom
@@ -126,7 +139,6 @@
   (org-roam-setup))
 
 (use-package helm
-  :ensure t
   :preface (require 'helm-config)
   :config
   ;; Open helm buffer inside current window
@@ -165,9 +177,12 @@
 
 ;; Set indentation levels style
 (use-package highlight-indent-guides
-  :ensure t
   :config
   (setq highlight-indent-guides-method 'character))
+
+;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
+;; Maybe enable for prog-mode in the future
+(use-package aggressive-indent)
 
 (use-package emacs
   :config
@@ -183,6 +198,7 @@
                                             " %b" ("%b - Dir:  " default-directory)))))))
   
   (setq inhibit-startup-screen t)
+  (setq initial-scratch-message nil)
   
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
@@ -207,20 +223,14 @@
   (setq-default css-indent-offset tab-width)
   (setq-default evil-shift-width tab-width)
 
-
   (setq-default electric-indent-inhibit t)
 
-  ;; Aggressive indent (DEMO: https://github.com/Malabarba/aggressive-indent-mode)
-  ;; Maybe enable for prog-mode in the future
-  ;; Indent with tabs for all languages except Lisps
-
-  (use-package aggressive-indent :ensure t)
+  (display-fill-column-indicator-mode)
 
   (add-hook 'prog-mode-hook (lambda ()
                               (highlight-indent-guides-mode)
                               (rainbow-delimiters-mode)
-                              (setq-default indent-tabs-mode t)
-                              (display-fill-column-indicator-mode)))
+                              (setq-default indent-tabs-mode t)))
 
   (defun my-lisp-mode-hook ()
     (setq-default indent-tabs-mode nil)
@@ -235,52 +245,52 @@
 
   ;; Might want: https://www.emacswiki.org/emacs/BackspaceWhitespaceToTabStop
 
-  (use-package web-mode
-    :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset sgml-basic-offset))))
-
   :bind (:map global-map
-	      ("C-x c"  . comint-clear-buffer)
-	      ("C-x x"  . vterm)
-              ("C-x p"  . (lambda () (interactive) (switch-to-buffer (find-file-noselect "~/.emacs.d/init.el"))))))
+	      ("s-t"  . vterm-other-window)
+              ("s-i"  . (lambda () (interactive) (switch-to-buffer
+                                                  (find-file-noselect "~/.emacs.d/init.el"))))))
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset sgml-basic-offset))))
 
 ;; Run M-x pdf-tools-install
 ;; https://old.reddit.com/r/emacs/comments/4ew1s8/blurry_pdf_in_pdftools_and_docviewmode/
-;; (use-package pdf-tools
-;;   :ensure t
-;;   :config
-;;   (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
-;;                                    ,(face-attribute 'default :background)))
-;;   
-;;   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-;;   
-;;   (add-hook 'pdf-view-mode-hook (lambda ()
-;;                                   (pdf-view-midnight-minor-mode)
-;;  				     (auto-revert-mode)))) ;; Display changes live
-;; 
-;; (use-package pdf-view-restore
-;;   :ensure t
-;;   :after pdf-tools
-;;   :config
-;;   (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
-;;   
-;;   ;; Save information to custom location
-;;   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
+(use-package pdf-tools
+  :config
+  (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
+                                   ,(face-attribute 'default :background)))
+  
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  
+  (add-hook 'pdf-view-mode-hook (lambda ()
+                                  (pdf-view-midnight-minor-mode)
+  				  (auto-revert-mode)))) ;; Display changes live
+
+(use-package pdf-view-restore
+  :after pdf-tools
+  :config
+  (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
+  
+  ;; Save information to custom location
+  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
 
 ;; Run M-x all-the-icons-install-fonts
-(use-package all-the-icons :ensure t)
-(use-package doom-modeline
-  :ensure t
-  :config (doom-modeline-mode 1))
+(use-package all-the-icons)
 
-(use-package vterm
-  :ensure t)
+(use-package doom-modeline :config (doom-modeline-mode 1))
+
+(use-package vterm)
 
 ;; IRC client
 (use-package erc
   :config
-  (setq erc-nick "Basspoon"))
+  (setq erc-nick "Basspoon")
 
-(use-package magit :ensure t)
+  (defun libera-chat ()
+    (interactive)
+    (erc-tls :server "irc.au.libera.chat"
+             :port   "6697")))
+
+(use-package magit)
+
