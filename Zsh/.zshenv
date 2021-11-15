@@ -1,5 +1,6 @@
-export VISUAL=emacs
-export EDITOR="$VISUAL"
+export EDITOR=emacsclient
+export SUDO_EDITOR=$EDITOR
+export VISUAL=$EDITOR
 export BROWSER=firefox
 
 # FCITX
