@@ -199,6 +199,7 @@
   
   (setq inhibit-startup-screen t)
   (setq initial-scratch-message nil)
+  (setq initial-buffer-choice "~/Documents/Org/todo.org")
   
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
@@ -292,5 +293,30 @@
     (erc-tls :server "irc.au.libera.chat"
              :port   "6697")))
 
+;; Git integration
 (use-package magit)
 
+;; RSS and Atom feed reader
+(use-package elfeed
+  :config
+  (defun ga/play-with-mpv ()
+    "Play the video corresponding to the URL under the cursor with mpv,
+     with a resolution of 1080p or lower. Install yt-dlp if there is
+     excessive buffering; mpv will use it by default."
+    (interactive)
+    (call-process-shell-command (concat
+                                 "mpv "
+                                 "--ytdl-format=\"(bestvideo[height<=1080]+bestaudio)[ext=webm]/
+bestvideo[height<=1080]+bestaudio/best[height<=1080]/bestvideo+bestaudio/best\" "
+                                 "--cache=yes "
+                                 "--cache-secs=120 "
+                                 "'" (browse-url-url-at-point) "' " "\&")
+                                nil 0))
+
+  :bind (:map global-map
+              ("s-w" . elfeed)
+              :map elfeed-show-mode-map
+              ("C-c o" . ga/play-with-mpv)))
+
+;; Smooth scrolling
+(use-package good-scroll :config (good-scroll-mode 1))
