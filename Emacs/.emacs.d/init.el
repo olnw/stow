@@ -1,6 +1,3 @@
-;;;; TODO
-;;;  - Learn Magit
-
 ;; https://www.reddit.com/r/emacs/comments/9rrhy8/emacsers_with_beautiful_initel_files_what_about/
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
@@ -132,9 +129,7 @@
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         :map org-mode-map
-         ("C-M-i"   . completion-at-point))
+         ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-setup))
 
@@ -199,7 +194,7 @@
   
   (setq inhibit-startup-screen t)
   (setq initial-scratch-message nil)
-  (setq initial-buffer-choice "~/Documents/Org/todo.org")
+  (setq initial-buffer-choice "~/Documents/start.org")
   
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
@@ -212,6 +207,7 @@
   (setq-default word-wrap t)
 
   ;; Highlight text between parentheses
+  (setq show-paren-delay 0)
   (show-paren-mode t)
   (setq show-paren-style 'expression)
 
@@ -295,28 +291,6 @@
 
 ;; Git integration
 (use-package magit)
-
-;; RSS and Atom feed reader
-(use-package elfeed
-  :config
-  (defun ga/play-with-mpv ()
-    "Play the video corresponding to the URL under the cursor with mpv,
-     with a resolution of 1080p or lower. Install yt-dlp if there is
-     excessive buffering; mpv will use it by default."
-    (interactive)
-    (call-process-shell-command (concat
-                                 "mpv "
-                                 "--ytdl-format=\"(bestvideo[height<=1080]+bestaudio)[ext=webm]/
-bestvideo[height<=1080]+bestaudio/best[height<=1080]/bestvideo+bestaudio/best\" "
-                                 "--cache=yes "
-                                 "--cache-secs=120 "
-                                 "'" (browse-url-url-at-point) "' " "\&")
-                                nil 0))
-
-  :bind (:map global-map
-              ("s-w" . elfeed)
-              :map elfeed-show-mode-map
-              ("C-c o" . ga/play-with-mpv)))
 
 ;; Smooth scrolling
 (use-package good-scroll :config (good-scroll-mode 1))
