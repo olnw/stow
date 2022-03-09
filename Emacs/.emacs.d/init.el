@@ -125,6 +125,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
+  (org-roam-directory "/mnt/hdd/Documents/org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -194,7 +195,7 @@
   
   (setq inhibit-startup-screen t)
   (setq initial-scratch-message nil)
-  (setq initial-buffer-choice "~/Documents/start.org")
+  (setq initial-buffer-choice "/mnt/hdd/Documents/start.org")
   
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
