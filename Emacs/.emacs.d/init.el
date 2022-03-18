@@ -106,6 +106,12 @@
 ;; Automatically chooses what text to display as variable-pitch and fixed-pitch
 (use-package mixed-pitch)
 
+;; Wrap text at fill-column instead of at the window edge,
+;; in buffers that use visual-line-mode.
+(use-package visual-fill-column
+  :config
+  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+
 (use-package org
   :bind (:map global-map
 	      ("\C-cl" . org-store-link)
@@ -119,6 +125,7 @@
   (add-hook 'org-mode-hook (lambda ()
                              (mixed-pitch-mode)
                              (setq fill-column 70) ; Better readability
+                             (visual-line-mode)
                              (setq org-hide-emphasis-markers t))))
 
 (use-package org-roam
@@ -200,12 +207,12 @@
   (when (version<= "26.0.50" emacs-version) 
     (global-display-line-numbers-mode))
 
+  ;; Set the default window size
   (add-to-list 'default-frame-alist '(height . 35))
   (add-to-list 'default-frame-alist '(width . 110))
 
+  ;; Display the column number in the mode line
   (column-number-mode 1)
-
-  (setq-default word-wrap t)
 
   ;; Highlight text between parentheses
   (setq show-paren-delay 0)
@@ -223,12 +230,11 @@
 
   (setq-default electric-indent-inhibit t)
 
-  (display-fill-column-indicator-mode)
-
   (add-hook 'prog-mode-hook (lambda ()
                               (highlight-indent-guides-mode)
                               (rainbow-delimiters-mode)
-                              (setq-default indent-tabs-mode t)))
+                              (setq-default indent-tabs-mode t)
+                              (display-fill-column-indicator-mode)))
 
   (defun my-lisp-mode-hook ()
     (setq-default indent-tabs-mode nil)
