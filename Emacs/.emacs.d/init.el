@@ -3,6 +3,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; Don't back up files inside of the working directory.
+(setq backup-directory-alist `(("" . ,(concat user-emacs-directory "emacs-backup"))))
+
 ;; Set up straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
