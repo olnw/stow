@@ -98,9 +98,6 @@
   :config
   (nyan-mode))
 
-(use-package nix-mode
-  :mode "\\.nix\\'")
-
 (use-package evil
   :init
   (setq evil-want-integration t)        ; This is optional since it's already set to t by default
