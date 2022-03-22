@@ -167,6 +167,9 @@
          ("C-i"   . helm-execute-persistent-action)
          ("C-z"   . helm-select-action)))
 
+;; Requires The Silver Searcher to be installed
+(use-package helm-ag)
+
 ;; Easy buffer switching with C-x b
 ;; I'm now using helm-mode instead
 ;; (use-package ido
