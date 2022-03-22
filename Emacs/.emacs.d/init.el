@@ -4,6 +4,8 @@
 
 ;; - Literate config in Org file
 
+;; - Create a better environment for writing prose
+
 ;; Key bindings:
 
 ;; TREEMACS
