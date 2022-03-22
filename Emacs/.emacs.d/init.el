@@ -170,11 +170,6 @@
 ;; Requires The Silver Searcher to be installed
 (use-package helm-ag)
 
-;; Easy buffer switching with C-x b
-;; I'm now using helm-mode instead
-;; (use-package ido
-;;   :config (ido-mode 1))
-
 ;; Invoke pdflatex manually 
 ;; (define-key global-map (kbd "C-,") (lambda() (interactive)                                    
 ;;                                      (shell-command                                            
