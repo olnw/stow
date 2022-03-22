@@ -1,3 +1,41 @@
+;; TODO:
+;; - Revamp all key bindings
+;;     - Change helm prefix key
+
+;; - Literate config in Org file
+
+;; Key bindings:
+
+;; TREEMACS
+
+;; C-x t 1    treemacs-delete-other-windows
+;; C-x t B    treemacs-bookmark
+;; C-x t C-t  treemacs-find-file
+;; C-x t M-t  treemacs-find-tag
+;; C-n        treemacs
+
+;; ORG
+
+;; \C-cl  org-store-link
+;; \C-ca  org-agenda
+
+;; C-c n l  org-roam-buffer-toggle
+;; C-c n f  org-roam-node-find
+;; C-c n i  org-roam-node-insert
+
+;; HELM
+
+;; M-x  helm-M-x
+;; s-b  helm-buffers-list
+;; s-f  helm-find-files
+;; s-s  helm-occur-from-isearch
+
+;; helm-map
+
+;; <tab>  helm-execute-persistent-action
+;; C-i    helm-execute-persistent-action
+;; C-z    helm-select-action
+
 ;; https://www.reddit.com/r/emacs/comments/9rrhy8/emacsers_with_beautiful_initel_files_what_about/
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
