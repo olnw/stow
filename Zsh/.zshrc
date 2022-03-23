@@ -2,7 +2,7 @@ autoload -Uz compinit promptinit
 compinit
 promptinit
 
-PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%~%f%b %# '
+PROMPT='%(?.%F{green}✓.%F{red}?%?)%f %B%F{240}%~%f%b %# '
 
 alias em='emacsclient'
 alias info='info --vi-keys'
