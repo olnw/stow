@@ -129,12 +129,6 @@
   (setq evil-want-keybinding nil)
   
   :config
-  ;; Move the cursor with j k l ;                             
-  ;; (define-key evil-motion-state-map "j" 'evil-backward-char)  
-  ;; (define-key evil-motion-state-map "k" 'evil-next-line)      
-  ;; (define-key evil-motion-state-map "l" 'evil-previous-line)
-  ;; (define-key evil-motion-state-map ";" 'evil-forward-char)   
-
   ;; Open treemacs with C-n
   (define-key evil-normal-state-map (kbd "C-n") 'treemacs)
 
@@ -160,11 +154,6 @@
               ("C-n"       . treemacs)))
 
 (use-package treemacs-evil :after (treemacs evil))
-;; :config
-;; (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
-;; (evil-define-key 'treemacs treemacs-mode-map (kbd "k") #'treemacs-next-line)
-;; (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
-;; (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
 
 (use-package olivetti :hook (org-mode . olivetti-mode))
 
