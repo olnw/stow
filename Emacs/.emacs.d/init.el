@@ -1,39 +1,48 @@
 ;; TODO:
+
 ;; - Revamp all key bindings
 ;;     - Change helm prefix key
-
-;; - Literate config in Org file
-
-;; - Create a better environment for writing prose
-
+;;     - Maybe make use of keys F5-F9 (undefined)
+;;     - Key binding to eval buffer?
+;;
+;; - LaTeX from Org mode
+;; 
+;; - Break up big Emacs use-package?
+;; 
+;; - Learn Emacs key bindings
+;;     - Won't have to worry about evil-collection supporting packages that I want to use
+;;     - Would be more seamless
+;;
+;; - Dired instead of Treemacs?
+;; 
 ;; Key bindings:
-
+;; 
 ;; TREEMACS
-
+;; 
 ;; C-x t 1    treemacs-delete-other-windows
 ;; C-x t B    treemacs-bookmark
 ;; C-x t C-t  treemacs-find-file
 ;; C-x t M-t  treemacs-find-tag
 ;; C-n        treemacs
-
+;; 
 ;; ORG
-
+;; 
 ;; \C-cl  org-store-link
 ;; \C-ca  org-agenda
-
+;; 
 ;; C-c n l  org-roam-buffer-toggle
 ;; C-c n f  org-roam-node-find
 ;; C-c n i  org-roam-node-insert
-
+;; 
 ;; HELM
-
+;; 
 ;; M-x  helm-M-x
 ;; s-b  helm-buffers-list
 ;; s-f  helm-find-files
 ;; s-s  helm-occur-from-isearch
-
+;; 
 ;; helm-map
-
+;; 
 ;; <tab>  helm-execute-persistent-action
 ;; C-i    helm-execute-persistent-action
 ;; C-z    helm-select-action
@@ -85,12 +94,26 @@
   (rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))
   (whitespace-tab ((t (:foreground "#636363")))))
 
-(use-package moe-theme
+;; (use-package moe-theme
+;;   :init
+;;   ;; (defvar moe-theme-mode-line-color 'yellow)
+;;   :config
+;;   (setq moe-theme-highlight-buffer-id t)
+;;   (moe-light))
+
+(use-package modus-themes
+  :ensure
   :init
-  ;; (defvar moe-theme-mode-line-color 'yellow)
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-region '(bg-only no-extend))
+
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
   :config
-  (setq moe-theme-highlight-buffer-id t)
-  (moe-light))
+  ;; Load the theme of your choice:
+  (modus-themes-load-operandi)) ;; OR (modus-themes-load-vivendi)
 
 ;; Make comments more visible
 ;;(set-face-foreground 'font-lock-comment-face "pink")
@@ -143,14 +166,17 @@
 ;; (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-previous-line)
 ;; (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
 
-;; Automatically chooses what text to display as variable-pitch and fixed-pitch
-(use-package mixed-pitch)
+(use-package olivetti :hook (org-mode . olivetti-mode))
 
-;; Wrap text at fill-column instead of at the window edge,
-;; in buffers that use visual-line-mode.
-(use-package visual-fill-column
+;; Automatically chooses what text to display as variable-pitch and fixed-pitch
+(use-package mixed-pitch :hook (org-mode . mixed-pitch-mode))
+
+;; Customise all Org headline markers
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
   :config
-  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+  (setq org-hide-leading-stars t)
+  (setq org-bullets-bullet-list '("☯" "○" "✸" "✿" "~")))
 
 (use-package org
   :bind (:map global-map
@@ -158,15 +184,12 @@
 	      ("\C-ca" . org-agenda))
   :config
   (setq org-log-done t)
+  (setq org-hide-emphasis-markers t)
 
-  ;; Computer Modern
-  ;; https://sourceforge.net/projects/cm-unicode/
-  ;; (set-face-attribute 'variable-pitch nil :font "CMU Serif" :height 200) ; :height may not work
-  (add-hook 'org-mode-hook (lambda ()
-                             (mixed-pitch-mode)
-                             (setq fill-column 70) ; Better readability
-                             (visual-line-mode)
-                             (setq org-hide-emphasis-markers t))))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (refill-mode 1)
+              (setq fill-column 90))))
 
 (use-package org-roam
   :init
@@ -227,6 +250,10 @@
 
 (use-package emacs
   :config
+  ;; Disable the top menu bar and tool bar, for a more focused experience
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+
   ;; Custom directory for autosave files
   (setq auto-save-file-name-transforms `((".*" ,(concat user-emacs-directory "auto-save/") t)))
   
@@ -242,9 +269,6 @@
   (setq initial-scratch-message nil)
   (setq initial-buffer-choice "/mnt/hdd/Documents/start.org")
   
-  (when (version<= "26.0.50" emacs-version) 
-    (global-display-line-numbers-mode))
-
   ;; Set the default window size
   (add-to-list 'default-frame-alist '(height . 35))
   (add-to-list 'default-frame-alist '(width . 110))
@@ -272,7 +296,8 @@
                               (highlight-indent-guides-mode)
                               (rainbow-delimiters-mode)
                               (setq-default indent-tabs-mode t)
-                              (display-fill-column-indicator-mode)))
+                              (display-fill-column-indicator-mode)
+                              (display-line-numbers-mode)))
 
   (defun my-lisp-mode-hook ()
     (setq-default indent-tabs-mode nil)
@@ -339,3 +364,27 @@
 
 ;; Smooth scrolling
 (use-package good-scroll :config (good-scroll-mode 1))
+
+
+(defun new-empty-buffer ()
+  "Create a new empty buffer.
+New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+
+It returns the buffer (for elisp programing).
+
+URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+Version 2017-11-01"
+  (interactive)
+  (let (($buf (generate-new-buffer "untitled")))
+    (switch-to-buffer $buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    $buf))
+
+(global-set-key (kbd "<f5>") #'new-empty-buffer)
+
+(use-package anaconda-mode
+  :config
+  (add-hook 'python-mode-hook (lambda ()
+                                (anaconda-mode)
+                                (anaconda-eldoc-mode))))
