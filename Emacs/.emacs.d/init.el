@@ -1,5 +1,5 @@
 ;; TODO:
-
+;;
 ;; - Revamp all key bindings
 ;;     - Change helm prefix key
 ;;     - Maybe make use of keys F5-F9 (undefined)
@@ -15,6 +15,8 @@
 ;;
 ;; - Dired instead of Treemacs?
 ;; 
+;; - Add code from Protesilaos' "focused editing" setup
+;;
 ;; Key bindings:
 ;; 
 ;; TREEMACS
@@ -353,7 +355,6 @@
 
 ;; Smooth scrolling
 (use-package good-scroll :config (good-scroll-mode 1))
-
 
 (defun new-empty-buffer ()
   "Create a new empty buffer.
