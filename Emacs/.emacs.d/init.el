@@ -9,12 +9,6 @@
 ;; 
 ;; - Break up big Emacs use-package?
 ;; 
-;; - Learn Emacs key bindings
-;;     - Won't have to worry about evil-collection supporting packages that I want to use
-;;     - Would be more seamless
-;;
-;; - Dired instead of Treemacs?
-;; 
 ;; - Add code from Protesilaos' "focused editing" setup
 ;;
 ;; Key bindings:
@@ -124,38 +118,6 @@
 (use-package nyan-mode
   :config
   (nyan-mode))
-
-(use-package evil
-  :init
-  (setq evil-want-integration t)        ; This is optional since it's already set to t by default
-  (setq evil-want-keybinding nil)
-  
-  :config
-  ;; Open treemacs with C-n
-  (define-key evil-normal-state-map (kbd "C-n") 'treemacs)
-
-  (evil-mode 1))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init)
-  (setq evil-want-fine-undo t))
-
-(use-package treemacs 
-  :after evil
-  :defer t 
-  :config
-  (treemacs-filewatch-mode t) 
-
-  :bind (:map global-map
-              ("C-x t 1"   . treemacs-delete-other-windows) 
-              ("C-x t B"   . treemacs-bookmark) 
-              ("C-x t C-t" . treemacs-find-file) 
-              ("C-x t M-t" . treemacs-find-tag)
-              ("C-n"       . treemacs)))
-
-(use-package treemacs-evil :after (treemacs evil))
 
 (use-package olivetti :hook (org-mode . olivetti-mode))
 
@@ -279,7 +241,6 @@
 
   (setq-default sgml-basic-offset tab-width)
   (setq-default css-indent-offset tab-width)
-  (setq-default evil-shift-width tab-width)
 
   (setq-default electric-indent-inhibit t)
 
