@@ -5,6 +5,7 @@
 
 /Emacs/.emacs.d/*
 !/Emacs/.emacs.d/init.el
+!/Emacs/.emacs.d/early-init.el
 !/Emacs/.emacs.d/latexmk-mode.el
 
 # Ignore backup files
