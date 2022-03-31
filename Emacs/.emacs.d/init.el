@@ -372,6 +372,7 @@ minibuffer with something like `exit-minibuffer'."
 (defun onw/set-fonts ()
   (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
   (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
+  (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
   (set-fontset-font t 'symbol "Noto Color Emoji")
 
   (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
