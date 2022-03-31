@@ -95,8 +95,8 @@ Version 2017-11-01"
 (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
 
 (global-set-key (kbd "s-i") (lambda ()
-                                (interactive)
-                                (switch-to-buffer (find-file-noselect (concat user-emacs-directory "Emacs.org")))))
+                              (interactive)
+                              (switch-to-buffer (find-file-noselect (concat user-emacs-directory "Emacs.org")))))
 
 (load "latexmk-mode.el")
 (add-hook 'LaTeX-mode-hook #'latexmk-mode)
@@ -189,18 +189,18 @@ Version 2017-11-01"
   :config
   (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
                                    ,(face-attribute 'default :background)))
-  
+
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-  
+
   (add-hook 'pdf-view-mode-hook (lambda ()
                                   (pdf-view-midnight-minor-mode)
-  				    (auto-revert-mode)))) ; Display changes live
+    				  (auto-revert-mode)))) ; Display changes live
 
 (use-package pdf-view-restore
   :after pdf-tools
   :config
   (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
-  
+
   ;; Save information to a custom location
   (setq pdf-view-restore-filename (concat user-emacs-directory ".pdf-view-restore")))
 
