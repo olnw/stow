@@ -4,7 +4,6 @@
 
 /Emacs/.emacs.d/*
 
-!/Emacs/.emacs.d/lisp/
 !/Emacs/.emacs.d/init.el
 !/Emacs/.emacs.d/early-init.el
 !/Emacs/.emacs.d/Emacs.org
