@@ -10,6 +10,8 @@
 
 (set-default-coding-systems 'utf-8)
 
+(setq user-emacs-directory "~/stow/Emacs/.emacs.d/")
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -138,6 +140,9 @@ minibuffer with something like `exit-minibuffer'."
   :bind (:map elfeed-search-mode-map
               ("C-c C-o" . onw/play-with-mpv)
               ("s"       . prot-elfeed-search-tag-filter)))
+
+(use-package vterm
+  :bind (("s-t" . vterm-other-window)))
 
 (use-package helm
   :preface (require 'helm-config)
@@ -346,11 +351,6 @@ Version 2017-11-01"
          ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-setup))
-
-(use-package vterm
-  :bind (("s-t" . vterm-other-window)))
-
-(setq user-emacs-directory "~/stow/Emacs/.emacs.d/")
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)

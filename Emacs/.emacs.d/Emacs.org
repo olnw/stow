@@ -26,6 +26,11 @@ Improve startup speed by reducing the frequency of garbage collection.
   (set-default-coding-systems 'utf-8)
 #+end_src
 
+* Set Emacs directory
+#+begin_src emacs-lisp
+(setq user-emacs-directory "~/stow/Emacs/.emacs.d/")
+#+end_src
+
 * Package Management
 Use Straight instead of Emacs' built-in ~package.el~
 #+begin_src emacs-lisp
@@ -175,6 +180,13 @@ Use Straight instead of Emacs' built-in ~package.el~
     :bind (:map elfeed-search-mode-map
                 ("C-c C-o" . onw/play-with-mpv)
                 ("s"       . prot-elfeed-search-tag-filter)))
+#+end_src
+
+** Terminal Emulator
+Use emacs-libvterm as a terminal emulator within Emacs.
+#+begin_src emacs-lisp
+  (use-package vterm
+    :bind (("s-t" . vterm-other-window)))
 #+end_src
 
 * Completion Framework
@@ -466,17 +478,8 @@ I use org-roam for Zettelkasten note-taking and daily journaling.
     (org-roam-setup))
 #+end_src
 
-* Terminal Emulator
-Use emacs-libvterm as a terminal emulator within Emacs.
-#+begin_src emacs-lisp
-  (use-package vterm
-    :bind (("s-t" . vterm-other-window)))
-#+end_src
-
 * General Configuration
 #+begin_src emacs-lisp
-  (setq user-emacs-directory "~/stow/Emacs/.emacs.d/")
-  
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
