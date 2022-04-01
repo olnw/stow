@@ -72,6 +72,136 @@ Use Straight instead of Emacs' built-in ~package.el~
   (push (concat user-emacs-directory "lisp/") load-path)
 #+end_src
 
+* General Configuration
+#+begin_src emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+
+  ;; Show the absolute file path in the title bar
+  (setq-default frame-title-format
+                (list '((buffer-file-name " %f"
+                                          (dired-directory
+                                           dired-directory
+                                           (revert-buffer-function
+                                           " %b" ("%b - Dir:  " default-directory)))))))
+
+  (setq inhibit-startup-screen t)
+  ;;(setq initial-scratch-message nil)
+
+  ;; Set the default frame dimensions
+  (add-to-list 'default-frame-alist '(height . 35))
+  (add-to-list 'default-frame-alist '(width . 110))
+
+  ;; Display the column number in the mode line
+  (column-number-mode 1)
+#+end_src
+
+** All The Icons
+For this to work, ~all-the-icons-install-fonts~ needs to be run.
+#+begin_src emacs-lisp
+  (use-package all-the-icons)
+  (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
+
+** Custom Faces
+#+begin_src emacs-lisp
+  (defun onw/set-fonts ()
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
+    (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
+    (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
+    (set-fontset-font t 'symbol "Noto Color Emoji")
+
+    (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
+    
+    (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
+
+  (if (daemonp)
+      (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
+    (onw/set-fonts))
+#+end_src
+
+** Improved Scrolling
+#+begin_src emacs-lisp
+  (use-package good-scroll :config (good-scroll-mode 1))
+#+end_src
+
+** Mode Line
+This uses icons from All The Icons.
+#+begin_src emacs-lisp
+  (use-package doom-modeline :config (doom-modeline-mode 1))
+#+end_src
+
+** Nyan Cat in the Mode Line
+This is necessary, trust me.
+#+begin_src emacs-lisp
+  (use-package nyan-mode :config (nyan-mode))
+#+end_src
+
+** Themes
+#+begin_src emacs-lisp
+  ;; Treat all themes as safe
+  (setq custom-safe-themes t)
+
+  (use-package moe-theme
+    :init
+    (defvar moe-theme-mode-line-color 'yellow)
+    :config
+    (setq moe-theme-highlight-buffer-id t))
+    ;;(moe-dark))
+
+  (use-package modus-themes
+    :init
+    ;; Add all your customizations prior to loading the themes
+    (setq modus-themes-italic-constructs t
+          modus-themes-bold-constructs nil
+          modus-themes-region '(bg-only no-extend)
+          modus-themes-fringes nil)
+
+    ;; Load the theme files before enabling a theme
+    (modus-themes-load-themes)
+    :config
+    (modus-themes-load-vivendi))
+
+  ;; Make comments more visible
+  ;;(set-face-foreground 'font-lock-comment-face "pink")
+#+end_src
+* Key Bindings
+** Cursor Movement
+Move the cursor with ~s-<j/k/l/;>~ instead of the awkward default bindings. This is beneficial because it keeps both hands on the home row, except for the left pinky. ~s-l~ will have to be re-bound in desktop environments that use it to lock the session.
+#+begin_src emacs-lisp
+  (define-key global-map (kbd "s-j") #'backward-char)
+  (define-key global-map (kbd "s-k") #'next-line)
+  (define-key global-map (kbd "s-l") #'previous-line)
+  (define-key global-map (kbd "s-;") #'forward-char)
+#+end_src
+
+** New Empty Buffer
+#+begin_src emacs-lisp
+  (defun xah/new-empty-buffer ()
+    "Create a new empty buffer.
+  New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+  
+  It returns the buffer (for elisp programing).
+  
+  URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+  Version 2017-11-01"
+    (interactive)
+    (let (($buf (generate-new-buffer "untitled")))
+      (switch-to-buffer $buf)
+      (funcall initial-major-mode)
+      (setq buffer-offer-save t)
+      $buf))
+  
+  (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
+#+end_src
+
+** Open The Configuration File
+#+begin_src emacs-lisp
+    (global-set-key (kbd "s-i") (lambda ()
+                                  (interactive)
+                                  (find-file (concat user-emacs-directory "Emacs.org"))))
+#+end_src
 * Applications
 ** IRC Client
 #+begin_src emacs-lisp
@@ -319,43 +449,6 @@ Use the Linux kernel coding style for C.
   (setq css-indent-offset tab-width)
 #+end_src
 
-* Key Bindings
-** Cursor Movement
-Move the cursor with ~s-<j/k/l/;>~ instead of the awkward default bindings. This is beneficial because it keeps both hands on the home row, except for the left pinky. ~s-l~ will have to be re-bound in desktop environments that use it to lock the session.
-#+begin_src emacs-lisp
-  (define-key global-map (kbd "s-j") #'backward-char)
-  (define-key global-map (kbd "s-k") #'next-line)
-  (define-key global-map (kbd "s-l") #'previous-line)
-  (define-key global-map (kbd "s-;") #'forward-char)
-#+end_src
-
-** New Empty Buffer
-#+begin_src emacs-lisp
-  (defun xah/new-empty-buffer ()
-    "Create a new empty buffer.
-  New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
-  
-  It returns the buffer (for elisp programing).
-  
-  URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
-  Version 2017-11-01"
-    (interactive)
-    (let (($buf (generate-new-buffer "untitled")))
-      (switch-to-buffer $buf)
-      (funcall initial-major-mode)
-      (setq buffer-offer-save t)
-      $buf))
-  
-  (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
-#+end_src
-
-** Open The Configuration File
-#+begin_src emacs-lisp
-    (global-set-key (kbd "s-i") (lambda ()
-                                  (interactive)
-                                  (find-file (concat user-emacs-directory "Emacs.org"))))
-#+end_src
-
 * LaTeX
 Use latexmk-mode from https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
 #+begin_src emacs-lisp
@@ -478,97 +571,3 @@ I use org-roam for Zettelkasten note-taking and daily journaling.
     (org-roam-setup))
 #+end_src
 
-* General Configuration
-#+begin_src emacs-lisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-
-  ;; Show the absolute file path in the title bar
-  (setq-default frame-title-format
-                (list '((buffer-file-name " %f"
-                                          (dired-directory
-                                           dired-directory
-                                           (revert-buffer-function
-                                           " %b" ("%b - Dir:  " default-directory)))))))
-
-  (setq inhibit-startup-screen t)
-  ;;(setq initial-scratch-message nil)
-
-  ;; Set the default frame dimensions
-  (add-to-list 'default-frame-alist '(height . 35))
-  (add-to-list 'default-frame-alist '(width . 110))
-
-  ;; Display the column number in the mode line
-  (column-number-mode 1)
-#+end_src
-
-** All The Icons
-For this to work, ~all-the-icons-install-fonts~ needs to be run.
-#+begin_src emacs-lisp
-  (use-package all-the-icons)
-  (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
-#+end_src
-
-** Custom Faces
-#+begin_src emacs-lisp
-  (defun onw/set-fonts ()
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
-    (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
-    (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
-    (set-fontset-font t 'symbol "Noto Color Emoji")
-
-    (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
-    
-    (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
-
-  (if (daemonp)
-      (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
-    (onw/set-fonts))
-#+end_src
-
-** Improved Scrolling
-#+begin_src emacs-lisp
-  (use-package good-scroll :config (good-scroll-mode 1))
-#+end_src
-
-** Mode Line
-This uses icons from All The Icons.
-#+begin_src emacs-lisp
-  (use-package doom-modeline :config (doom-modeline-mode 1))
-#+end_src
-
-** Nyan Cat in the Mode Line
-This is necessary, trust me.
-#+begin_src emacs-lisp
-  (use-package nyan-mode :config (nyan-mode))
-#+end_src
-
-** Themes
-#+begin_src emacs-lisp
-  ;; Treat all themes as safe
-  (setq custom-safe-themes t)
-
-  (use-package moe-theme
-    :init
-    (defvar moe-theme-mode-line-color 'yellow)
-    :config
-    (setq moe-theme-highlight-buffer-id t))
-    ;;(moe-dark))
-
-  (use-package modus-themes
-    :init
-    ;; Add all your customizations prior to loading the themes
-    (setq modus-themes-italic-constructs t
-          modus-themes-bold-constructs nil
-          modus-themes-region '(bg-only no-extend)
-          modus-themes-fringes nil)
-
-    ;; Load the theme files before enabling a theme
-    (modus-themes-load-themes)
-    :config
-    (modus-themes-load-vivendi))
-
-  ;; Make comments more visible
-  ;;(set-face-foreground 'font-lock-comment-face "pink")
-#+end_src

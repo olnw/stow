@@ -41,6 +41,103 @@
 
 (push (concat user-emacs-directory "lisp/") load-path)
 
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; Show the absolute file path in the title bar
+(setq-default frame-title-format
+              (list '((buffer-file-name " %f"
+                                        (dired-directory
+                                         dired-directory
+                                         (revert-buffer-function
+                                         " %b" ("%b - Dir:  " default-directory)))))))
+
+(setq inhibit-startup-screen t)
+;;(setq initial-scratch-message nil)
+
+;; Set the default frame dimensions
+(add-to-list 'default-frame-alist '(height . 35))
+(add-to-list 'default-frame-alist '(width . 110))
+
+;; Display the column number in the mode line
+(column-number-mode 1)
+
+(use-package all-the-icons)
+(use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
+
+(defun onw/set-fonts ()
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
+  (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
+  (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
+  (set-fontset-font t 'symbol "Noto Color Emoji")
+
+  (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
+
+  (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
+
+(if (daemonp)
+    (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
+  (onw/set-fonts))
+
+(use-package good-scroll :config (good-scroll-mode 1))
+
+(use-package doom-modeline :config (doom-modeline-mode 1))
+
+(use-package nyan-mode :config (nyan-mode))
+
+;; Treat all themes as safe
+(setq custom-safe-themes t)
+
+(use-package moe-theme
+  :init
+  (defvar moe-theme-mode-line-color 'yellow)
+  :config
+  (setq moe-theme-highlight-buffer-id t))
+  ;;(moe-dark))
+
+(use-package modus-themes
+  :init
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-region '(bg-only no-extend)
+        modus-themes-fringes nil)
+
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
+  :config
+  (modus-themes-load-vivendi))
+
+;; Make comments more visible
+;;(set-face-foreground 'font-lock-comment-face "pink")
+
+(define-key global-map (kbd "s-j") #'backward-char)
+(define-key global-map (kbd "s-k") #'next-line)
+(define-key global-map (kbd "s-l") #'previous-line)
+(define-key global-map (kbd "s-;") #'forward-char)
+
+(defun xah/new-empty-buffer ()
+  "Create a new empty buffer.
+New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+
+It returns the buffer (for elisp programing).
+
+URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+Version 2017-11-01"
+  (interactive)
+  (let (($buf (generate-new-buffer "untitled")))
+    (switch-to-buffer $buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    $buf))
+
+(global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
+
+(global-set-key (kbd "s-i") (lambda ()
+                              (interactive)
+                              (find-file (concat user-emacs-directory "Emacs.org"))))
+
 (use-package erc
 :config
 (setq erc-nick "Basspoon")
@@ -237,32 +334,6 @@ minibuffer with something like `exit-minibuffer'."
 (setq sgml-basic-offset tab-width)
 (setq css-indent-offset tab-width)
 
-(define-key global-map (kbd "s-j") #'backward-char)
-(define-key global-map (kbd "s-k") #'next-line)
-(define-key global-map (kbd "s-l") #'previous-line)
-(define-key global-map (kbd "s-;") #'forward-char)
-
-(defun xah/new-empty-buffer ()
-  "Create a new empty buffer.
-New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
-
-It returns the buffer (for elisp programing).
-
-URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
-Version 2017-11-01"
-  (interactive)
-  (let (($buf (generate-new-buffer "untitled")))
-    (switch-to-buffer $buf)
-    (funcall initial-major-mode)
-    (setq buffer-offer-save t)
-    $buf))
-
-(global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
-
-(global-set-key (kbd "s-i") (lambda ()
-                              (interactive)
-                              (find-file (concat user-emacs-directory "Emacs.org"))))
-
 (load "latexmk-mode.el")
 (add-hook 'LaTeX-mode-hook #'latexmk-mode)
 
@@ -351,74 +422,3 @@ Version 2017-11-01"
          ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-setup))
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-;; Show the absolute file path in the title bar
-(setq-default frame-title-format
-              (list '((buffer-file-name " %f"
-                                        (dired-directory
-                                         dired-directory
-                                         (revert-buffer-function
-                                         " %b" ("%b - Dir:  " default-directory)))))))
-
-(setq inhibit-startup-screen t)
-;;(setq initial-scratch-message nil)
-
-;; Set the default frame dimensions
-(add-to-list 'default-frame-alist '(height . 35))
-(add-to-list 'default-frame-alist '(width . 110))
-
-;; Display the column number in the mode line
-(column-number-mode 1)
-
-(use-package all-the-icons)
-(use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
-
-(defun onw/set-fonts ()
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
-  (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
-  (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
-  (set-fontset-font t 'symbol "Noto Color Emoji")
-
-  (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
-
-  (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
-
-(if (daemonp)
-    (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
-  (onw/set-fonts))
-
-(use-package good-scroll :config (good-scroll-mode 1))
-
-(use-package doom-modeline :config (doom-modeline-mode 1))
-
-(use-package nyan-mode :config (nyan-mode))
-
-;; Treat all themes as safe
-(setq custom-safe-themes t)
-
-(use-package moe-theme
-  :init
-  (defvar moe-theme-mode-line-color 'yellow)
-  :config
-  (setq moe-theme-highlight-buffer-id t))
-  ;;(moe-dark))
-
-(use-package modus-themes
-  :init
-  ;; Add all your customizations prior to loading the themes
-  (setq modus-themes-italic-constructs t
-        modus-themes-bold-constructs nil
-        modus-themes-region '(bg-only no-extend)
-        modus-themes-fringes nil)
-
-  ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
-  :config
-  (modus-themes-load-vivendi))
-
-;; Make comments more visible
-;;(set-face-foreground 'font-lock-comment-face "pink")
