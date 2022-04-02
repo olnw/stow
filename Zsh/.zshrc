@@ -4,7 +4,7 @@ promptinit
 
 PROMPT='%(?.%F{green}✓.%F{red}?%?)%f %B%F{240}%~%f%b %# '
 
-alias em='emacsclient'
+alias em='emacsclient -t'
 alias info='info --vi-keys'
 alias autoremove='sudo pacman -Rsn $(pacman -Qdtq)'
 
