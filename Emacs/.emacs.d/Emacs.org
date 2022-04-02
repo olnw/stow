@@ -50,6 +50,10 @@ Use Straight instead of Emacs' built-in ~package.el~
   ;; Install use-package and use it by default
   (straight-use-package 'use-package)
   (setq straight-use-package-by-default t)
+
+  (use-package bind-key
+    :config
+    (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 #+end_src
 
 * Keep .emacs.d Clean
@@ -112,9 +116,14 @@ For this to work, ~all-the-icons-install-fonts~ needs to be run.
     (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
     (set-fontset-font t 'symbol "Noto Color Emoji")
 
-    (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
-    
-    (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
+    (defgroup onw-faces nil "Group for my personal faces" :group 'faces)
+    (defface onw/org-bullets-face
+      '((t :font "Symbola" :height 150))
+      "Face for org-bullets-mode"
+      :group 'onw-faces)
+
+    ;; Make sure the fonts are only set once
+    (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) 
 
   (if (daemonp)
       (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
@@ -326,7 +335,7 @@ Use Helm as the completion framework.
     :preface (require 'helm-config)
     :config
     ;; Open helm buffer inside current window
-    (setq helm-split-window-in-side-p t)
+    (setq helm-split-window-inside-p t)
   
     ;; https://emacsredux.com/blog/2013/04/21/edit-files-as-root/
     (defadvice helm-find-files (after find-file-sudo activate)
@@ -568,6 +577,5 @@ I use org-roam for Zettelkasten note-taking and daily journaling.
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert))
     :config
-    (org-roam-setup))
+    (org-roam-db-autosync-mode))
 #+end_src
-

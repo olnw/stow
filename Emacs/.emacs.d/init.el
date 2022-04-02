@@ -29,6 +29,10 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
+(use-package bind-key
+  :config
+  (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
+
 (use-package no-littering)
 
 ;; Store backup and auto-save files in the var/ directory
@@ -72,9 +76,14 @@
   (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
   (set-fontset-font t 'symbol "Noto Color Emoji")
 
-  (defface onw/org-bullets-face '((t :font "Symbola" :height 150)) "Face for org-bullets-mode")
+  (defgroup onw-faces nil "Group for my personal faces" :group 'faces)
+  (defface onw/org-bullets-face
+    '((t :font "Symbola" :height 150))
+    "Face for org-bullets-mode"
+    :group 'onw-faces)
 
-  (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) ; Make sure the fonts are only set once
+  ;; Make sure the fonts are only set once
+  (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) 
 
 (if (daemonp)
     (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
@@ -245,7 +254,7 @@ minibuffer with something like `exit-minibuffer'."
   :preface (require 'helm-config)
   :config
   ;; Open helm buffer inside current window
-  (setq helm-split-window-in-side-p t)
+  (setq helm-split-window-inside-p t)
 
   ;; https://emacsredux.com/blog/2013/04/21/edit-files-as-root/
   (defadvice helm-find-files (after find-file-sudo activate)
@@ -421,4 +430,4 @@ minibuffer with something like `exit-minibuffer'."
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert))
   :config
-  (org-roam-setup))
+  (org-roam-db-autosync-mode))
