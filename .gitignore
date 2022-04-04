@@ -1,15 +1,10 @@
-/Neovim/.config/nvim/plugged
-/Neovim/.local/share/nvim/shada
-/Neovim/.local/share/nvim/swap
+/Neovim/.config/nvim/plugged/
 
 /Emacs/.emacs.d/*
 
 !/Emacs/.emacs.d/init.el
 !/Emacs/.emacs.d/early-init.el
 !/Emacs/.emacs.d/Emacs.org
-
-# Don't track my personal RSS feeds
-/Emacs/.emacs.d/lisp/onw-elfeed-feeds.el
 
 # Ignore backup files
 *~
