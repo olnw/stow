@@ -345,6 +345,7 @@ minibuffer with something like `exit-minibuffer'."
   (setq mixed-pitch-set-height t))
 
 (use-package org
+  :straight (:type built-in)
   :bind (:map global-map
               ("\C-cl" . org-store-link)
               ("\C-ca" . org-agenda))
