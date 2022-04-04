@@ -7,8 +7,6 @@
 * Preamble
 This is my Emacs configuration, written in Org Mode. Upon saving this file, all of the following code blocks are added to ~init.el~ using ~org-babel-tangle~. I got the code snippet for this from David Wilson's [[https://github.com/daviwil/emacs-from-scratch][Emacs from Scratch]] GitHub repository. I also got the snippet in the 'Startup' section from this same respository.
 
-In the 'RSS Feed Reader' section, there are two functions that allow a completion framework to be used while applying Elfeed search tags; these are from [[https://protesilaos.com/emacs/dotemacs#h:0cd8ddab-55d1-40df-b3db-1234850792ba][Protesilaos Stavrou's Emacs Configuration]], which has also proved to be a useful reference.
-
 * Startup
 Improve startup speed by reducing the frequency of garbage collection.
 #+begin_src emacs-lisp
@@ -239,6 +237,8 @@ This is necessary, trust me.
 #+end_src
 
 ** RSS/Atom Feed Reader
+The functions beginning with ~prot-~ are from [[https://protesilaos.com/emacs/dotemacs#h:0cd8ddab-55d1-40df-b3db-1234850792ba][Protesilaos Stavrou's Emacs Configuration]].
+
 #+begin_src emacs-lisp
   (defun prot-common-crm-exclude-selected-p (input)
     "Filter out INPUT from `completing-read-multiple'.
