@@ -178,15 +178,6 @@ This is necessary, trust me.
   ;;(set-face-foreground 'font-lock-comment-face "pink")
 #+end_src
 * Key Bindings
-** Cursor Movement
-Move the cursor with ~s-<j/k/l/;>~ instead of the awkward default bindings. This is beneficial because it keeps both hands on the home row, except for the left pinky. ~s-l~ will have to be re-bound in desktop environments that use it to lock the session.
-#+begin_src emacs-lisp
-  (define-key global-map (kbd "s-j") #'backward-char)
-  (define-key global-map (kbd "s-k") #'next-line)
-  (define-key global-map (kbd "s-l") #'previous-line)
-  (define-key global-map (kbd "s-;") #'forward-char)
-#+end_src
-
 ** New Empty Buffer
 #+begin_src emacs-lisp
   (defun xah/new-empty-buffer ()

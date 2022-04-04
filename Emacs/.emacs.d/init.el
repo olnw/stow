@@ -121,11 +121,6 @@
 ;; Make comments more visible
 ;;(set-face-foreground 'font-lock-comment-face "pink")
 
-(define-key global-map (kbd "s-j") #'backward-char)
-(define-key global-map (kbd "s-k") #'next-line)
-(define-key global-map (kbd "s-l") #'previous-line)
-(define-key global-map (kbd "s-;") #'forward-char)
-
 (defun xah/new-empty-buffer ()
   "Create a new empty buffer.
 New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
