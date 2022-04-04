@@ -315,10 +315,9 @@ This is necessary, trust me.
 #+end_src
 
 ** Terminal Emulator
-Use emacs-libvterm as a terminal emulator within Emacs.
+I use emacs-libvterm as a terminal emulator within Emacs. The ~emacs-vterm~ Guix package is needed for this to work on Guix System.
 #+begin_src emacs-lisp
-  (use-package vterm
-    :bind (("s-t" . vterm-other-window)))
+  (global-set-key (kbd "s-t") #'vterm-other-window)
 #+end_src
 
 * Completion Framework

@@ -242,8 +242,7 @@ minibuffer with something like `exit-minibuffer'."
               ("C-c C-o" . onw/play-with-mpv)
               ("s"       . prot-elfeed-search-tag-filter)))
 
-(use-package vterm
-  :bind (("s-t" . vterm-other-window)))
+(global-set-key (kbd "s-t") #'vterm-other-window)
 
 (use-package helm
   :preface (require 'helm-config)
