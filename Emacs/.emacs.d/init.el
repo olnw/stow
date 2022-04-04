@@ -38,7 +38,7 @@
 ;; Store backup and auto-save files in the var/ directory
 (setq backup-directory-alist `(("" . ,(no-littering-expand-var-file-name "emacs-backup/"))))
 (setq auto-save-file-name-transforms
-    `((".*" ,(no-littering-expand-var-file-name "emacs-auto-save/") t)))
+    `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
 ;; Store the custom file in the etc/directory
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
