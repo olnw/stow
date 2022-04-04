@@ -431,12 +431,11 @@ Use the Linux kernel coding style for C.
 
 *** Python
 #+begin_src emacs-lisp
-  (use-package anaconda-mode)
+  (use-package lpy)
   
   (add-hook 'python-mode-hook (lambda ()
                                 (setq indent-tabs-mode nil)
-                                (anaconda-mode)
-                                (anaconda-eldoc-mode)))
+                                (lpy-mode)))
 #+end_src
 
 ** Web

@@ -322,12 +322,11 @@ minibuffer with something like `exit-minibuffer'."
 (add-hook 'lisp-mode-hook #'onw/lisp-mode)
 (add-hook 'emacs-lisp-mode-hook #'onw/lisp-mode)
 
-(use-package anaconda-mode)
+(use-package lpy)
 
 (add-hook 'python-mode-hook (lambda ()
                               (setq indent-tabs-mode nil)
-                              (anaconda-mode)
-                              (anaconda-eldoc-mode)))
+                              (lpy-mode)))
 
 (use-package web-mode
   :config
