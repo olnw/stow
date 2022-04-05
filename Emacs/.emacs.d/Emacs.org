@@ -571,3 +571,4 @@ I use org-roam for Zettelkasten note-taking and daily journaling.
     :config
     (org-roam-db-autosync-mode))
 #+end_src
+

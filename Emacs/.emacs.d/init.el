@@ -425,3 +425,4 @@ minibuffer with something like `exit-minibuffer'."
          ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-db-autosync-mode))
+
