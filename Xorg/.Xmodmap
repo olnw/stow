@@ -1,0 +1,37 @@
+! Modified from:
+! https://gist.github.com/raven-rock/7115983a701c5b0f1ccf385a479be554
+
+clear control
+clear mod1
+clear mod4
+
+
+keycode 37  = Super_L     
+! left  Ctrl becomes Super
+keycode 64  = Control_L
+! left  Alt  becomes Control 
+keycode 133 = Alt_L Meta_L
+! left  Win  becomes Alt
+keycode 108 = Control_R
+! right Alt  becomes Control 
+keycode 135 = Alt_R Meta_R
+! right Menu becomes Alt
+keycode 105 = Super_R
+! right Ctrl becomes Super
+
+
+add control = Control_L Control_R
+add mod1 = Alt_L Meta_L
+add mod4 = Super_L Super_R
+
+
+! keycode 9 = Caps_Lock NoSymbol Caps_Lock
+! Caps Lock becomes Escape
+
+! keycode 66 = Escape NoSymbol Escape
+! Escape becomes Caps Lock
+
+remove Lock = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock
+
