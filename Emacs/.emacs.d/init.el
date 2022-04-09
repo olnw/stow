@@ -70,24 +70,29 @@
 (use-package all-the-icons)
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
 
-(defun onw/set-fonts ()
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
-  (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
+(defun onw/set-faces ()
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 120 :weight 'light)
+  (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 120 :weight 'light)
   (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
   (set-fontset-font t 'symbol "Noto Color Emoji")
 
-  (defgroup onw-faces nil "Group for my personal faces" :group 'faces)
+  (defgroup onw-faces nil "Oliver Winspear's personal faces" :group 'faces)
   (defface onw/org-bullets-face
-    '((t :font "Symbola" :height 150))
+    '((t :font "Symbola" :height 120))
     "Face for org-bullets-mode"
     :group 'onw-faces)
 
   ;; Make sure the fonts are only set once
-  (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) 
+  (remove-hook 'server-after-make-frame-hook #'onw/set-faces))
 
 (if (daemonp)
-    (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
-  (onw/set-fonts))
+    (add-hook 'server-after-make-frame-hook #'onw/set-faces)
+  (add-hook 'after-init-hook #'onw/set-faces))
+
+(use-package mixed-pitch
+  ;;:hook (org-mode . mixed-pitch-mode)
+  :config
+  (setq mixed-pitch-set-height t))
 
 (use-package good-scroll :config (good-scroll-mode 1))
 
@@ -278,6 +283,19 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
+(defun show-paren--locate-near-paren-ad ()
+  "Locate an unescaped paren \"near\" point to show.
+If one is found, return the cons (DIR . OUTSIDE), where DIR is 1
+for an open paren, -1 for a close paren, and OUTSIDE is the buffer
+position of the outside of the paren.  Otherwise return nil."
+  (let* ((before (show-paren--categorize-paren (point))))
+    (when (or
+           (eq (car before) 1)
+           (eq (car before) -1))
+      before)))
+
+(advice-add 'show-paren--locate-near-paren :override #'show-paren--locate-near-paren-ad)
+
 (setq show-paren-delay 0)
 (setq show-paren-style 'expression)
 (show-paren-mode t)
@@ -338,11 +356,6 @@ minibuffer with something like `exit-minibuffer'."
 
 (load "latexmk-mode.el")
 (add-hook 'LaTeX-mode-hook #'latexmk-mode)
-
-(use-package mixed-pitch
-  :hook (org-mode . mixed-pitch-mode)
-  :config
-  (setq mixed-pitch-set-height t))
 
 (use-package org
   :straight (:type built-in)
@@ -425,4 +438,3 @@ minibuffer with something like `exit-minibuffer'."
          ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-db-autosync-mode))
-

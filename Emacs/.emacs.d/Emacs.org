@@ -110,24 +110,33 @@ For this to work, ~all-the-icons-install-fonts~ needs to be run.
 
 ** Custom Faces
 #+begin_src emacs-lisp
-  (defun onw/set-fonts ()
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 100 :weight 'light)
-    (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 100 :weight 'light)
+  (defun onw/set-faces ()
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height 120 :weight 'light)
+    (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 120 :weight 'light)
     (set-face-attribute 'fill-column-indicator nil :background "white" :foreground "white")
     (set-fontset-font t 'symbol "Noto Color Emoji")
 
-    (defgroup onw-faces nil "Group for my personal faces" :group 'faces)
+    (defgroup onw-faces nil "Oliver Winspear's personal faces" :group 'faces)
     (defface onw/org-bullets-face
-      '((t :font "Symbola" :height 150))
+      '((t :font "Symbola" :height 120))
       "Face for org-bullets-mode"
       :group 'onw-faces)
 
     ;; Make sure the fonts are only set once
-    (remove-hook 'server-after-make-frame-hook #'onw/set-fonts)) 
+    (remove-hook 'server-after-make-frame-hook #'onw/set-faces))
 
   (if (daemonp)
-      (add-hook 'server-after-make-frame-hook #'onw/set-fonts)
-    (onw/set-fonts))
+      (add-hook 'server-after-make-frame-hook #'onw/set-faces)
+    (add-hook 'after-init-hook #'onw/set-faces))
+#+end_src
+
+** Mixed Pitch Mode
+Automatically chooses what text to display as variable-pitch and fixed-pitch.
+#+begin_src emacs-lisp
+  (use-package mixed-pitch
+    ;;:hook (org-mode . mixed-pitch-mode)
+    :config
+    (setq mixed-pitch-set-height t))
 #+end_src
 
 ** Improved Scrolling
@@ -369,7 +378,21 @@ Use Helm as the completion framework.
 #+end_src
 
 ** Highlight Matching Parentheses
+From [[https://emacs.stackexchange.com/questions/51986/show-paren-mode-only-highlights-when-cursor-is-one-character-after-closing-paren]]
 #+begin_src emacs-lisp
+  (defun show-paren--locate-near-paren-ad ()
+    "Locate an unescaped paren \"near\" point to show.
+  If one is found, return the cons (DIR . OUTSIDE), where DIR is 1
+  for an open paren, -1 for a close paren, and OUTSIDE is the buffer
+  position of the outside of the paren.  Otherwise return nil."
+    (let* ((before (show-paren--categorize-paren (point))))
+      (when (or
+             (eq (car before) 1)
+             (eq (car before) -1))
+        before)))
+
+  (advice-add 'show-paren--locate-near-paren :override #'show-paren--locate-near-paren-ad)
+
   (setq show-paren-delay 0)
   (setq show-paren-style 'expression)
   (show-paren-mode t)
@@ -454,15 +477,6 @@ Use latexmk-mode from https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpan
 #+begin_src emacs-lisp
   (load "latexmk-mode.el")
   (add-hook 'LaTeX-mode-hook #'latexmk-mode)
-#+end_src
-
-* Mixed Pitch Mode
-Automatically chooses what text to display as variable-pitch and fixed-pitch.
-#+begin_src emacs-lisp
-  (use-package mixed-pitch
-    :hook (org-mode . mixed-pitch-mode)
-    :config
-    (setq mixed-pitch-set-height t))
 #+end_src
 
 * Org Mode
