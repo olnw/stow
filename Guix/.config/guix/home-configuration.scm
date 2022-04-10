@@ -9,6 +9,11 @@
   (packages
     (map (compose list specification->package+output)
 	 (list 
+	   ;; Themes
+	   "adwaita-icon-theme"
+	   "gnome-themes-standard"
+	   "hicolor-icon-theme"
+
            ;; 3D & CAD
 	   "blender"
 
@@ -88,7 +93,7 @@
            "font-jetbrains-mono"
 
 	   ;; Gaming
-	   "steam-nvidia"
+	   ;;"steam-nvidia"
 
 	   ;; Misc. GUI Applications
 	   "keepassxc"
