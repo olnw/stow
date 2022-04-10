@@ -1,3 +1,7 @@
+;; disable pipewire auto-spawn in this file, one guix system reconfigure
+;; starts working again. might as well keep it in the config file for
+;; other systems?
+
 (use-modules (gnu)
 	     (nongnu packages nvidia)
 	     (nongnu packages linux)
@@ -6,7 +10,7 @@
 	     (guix build-system meson)
 	     (guix build-system cargo))
 
-(use-service-modules desktop networking ssh xorg dbus sddm)
+(use-service-modules desktop networking ssh xorg dbus sddm sound)
 (use-package-modules wm terminals version-control emacs package-management vim gnome suckless)
 
 ;; https://lists.gnu.org/archive/html/help-guix/2021-04/msg00040.html
@@ -43,7 +47,8 @@
             swaybg
             swayidle
             swaylock-effects
-	    dmenu
+	    wofi
+	    foot
             ;;tlp
             kitty
             git
@@ -55,19 +60,28 @@
 
   (services
     (append
-      (list (service gnome-keyring-service-type)
+      (list ;; Apparently gdm will start gnome-keyring-daemon through pam,
+	    ;; but I couldn't get gdm to work, so I'm using sddm
+	    ;; and running gnome-keyring-daemon in my sway config
+	    ;;(service gnome-keyring-service-type)
 
             (service sddm-service-type
 		     (sddm-configuration
 		       (display-server "wayland")))
-
             (simple-service 'ratbag dbus-root-service-type (list libratbag))
             (simple-service 'custom-udev-rules udev-service-type (list nvidia-driver)))
-;;            (set-xorg-configuration
-;;              (xorg-configuration
-;;                (keyboard-layout keyboard-layout))))
+
+            ;;(set-xorg-configuration
+            ;;  (xorg-configuration
+            ;;    (keyboard-layout keyboard-layout))))
+
       (modify-services %desktop-services
 		       (delete gdm-service-type)
+
+		       ;;(gdm-service-type config =>
+		       ;; 		 (gdm-configuration
+		       ;; 		   (inherit config)
+		       ;; 		   (wayland? #t)))
 
                        (guix-service-type config => (guix-configuration
                          (inherit config)
