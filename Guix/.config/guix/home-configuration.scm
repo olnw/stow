@@ -1,3 +1,6 @@
+;; Eventually I'd like to switch entirely from GNU Stow to Guix Home,
+;; but this will be a gradual process. Guix Home is also very new,
+;; and doesn't have many built-in service types.
 (use-modules
   (gnu home)
   (gnu packages)
@@ -8,42 +11,42 @@
 (home-environment
   (packages
     (map (compose list specification->package+output)
-	 (list 
-	   ;; Themes
-	   "adwaita-icon-theme"
-	   "gnome-themes-standard"
-	   "hicolor-icon-theme"
+         (list 
+           ;; Themes
+           "adwaita-icon-theme"
+           "gnome-themes-standard"
+           "hicolor-icon-theme"
 
            ;; 3D & CAD
-	   "blender"
+           "blender"
 
-	   ;; Audio
-	   "ardour"
-	   "pipewire"
-	   "pulseaudio"
-	   "wireplumber"
+           ;; Audio
+           "ardour"
+           "pipewire"
+           "pulseaudio"
+           "wireplumber"
 
-	   ;; Image Editing & Digital Art
-	   "gimp"
-	   "krita"
+           ;; Image Editing & Digital Art
+           "gimp"
+           "krita"
 
-	   ;; Video
+           ;; Video
            "mpv"
            "mpv-mpris" ; With this plugin, playerctl can be used with mpv.
            "playerctl"
            "gstreamer"
            "gst-plugins-base"
            "gst-plugins-good"
-	   ;; Might need both or either of these if videos won't play.
-	   ;;"gst-plugins-bad"
-	   ;;"gst-plugins-ugly"
+           ;; Might need both or either of these if videos won't play.
+           ;;"gst-plugins-bad"
+           ;;"gst-plugins-ugly"
            "gst-libav"
 
-	   ;; Browsers
-	   "icecat"
-	   "ungoogled-chromium"
+           ;; Browsers
+           "icecat"
+           "ungoogled-chromium"
 
-	   ;; C/C++
+           ;; C/C++
            "clang"
            "cmake"
            "gcc-toolchain"
@@ -57,13 +60,13 @@
            "pkg-config"
 
            ;; Python
-	   "python2"
-	   "python"
+           "python2"
+           "python"
 
-	   ;; CLI Tools
+           ;; CLI Tools
            "curl"
            "duplicity"
-	   "ffmpeg"
+           "ffmpeg"
            "file"
            "flatpak"
            "git"
@@ -80,11 +83,11 @@
            "yt-dlp"
 
            ;; Text Editors
-	   "emacs-next-pgtk"
-	   "emacs-vterm"
-	   "neovim"
+           "emacs-next-pgtk"
+           "emacs-vterm"
+           "neovim"
 
-	   ;; Fonts
+           ;; Fonts
            "font-adobe-source-han-sans"
            "font-fira-go"
            "font-google-noto"
@@ -92,10 +95,31 @@
            "font-iosevka-aile"
            "font-jetbrains-mono"
 
-	   ;; Gaming
-	   ;;"steam-nvidia"
+           ;; Gaming
+           ;;"steam-nvidia"
 
-	   ;; Misc. GUI Applications
-	   "keepassxc"
-	   "piper"))))
+           ;; Misc. GUI Applications
+           "keepassxc"
+           "piper")))
 
+  (services
+    ;; might need to add code for .profile to get sourced?
+    (list (service home-bash-service-type
+	    (home-bash-configuration
+              (environment-variables '(("KITTY_ENABLE_WAYLAND"    . "1")
+                                       ("WLR_NO_HARDWARE_CURSORS" . "1") ; Fix disappearing cursor in Sway
+                                       ("SSH_AUTH_SOCK"           . "${XDG_RUNTIME_DIR}/keyring/ssh")
+                                       ("EDITOR"                  . "emacsclient")
+                                       ("SUDO_EDITOR"             . "$EDITOR")
+                                       ("VISUAL"                  . "$EDITOR")
+                                       ("BROWSER"                 . "chromium")))
+                                       ;; IME
+                                       ;;("GLFW_IM_MODULE" . "fcitx5")
+                                       ;;("GTK_IM_MODULE"  . "fcitx5")
+                                       ;;("SDL_IM_MODULE"  . "fcitx5")
+                                       ;;("QT_IM_MODULE"   . "fcitx5")
+                                       ;;("XMODIFIERS"     . "@im=fcitx5")
+      
+              (aliases '(("emc" . "emacsclient -t")
+                         ("em"  . "emacs -nw"))))))))
+      
