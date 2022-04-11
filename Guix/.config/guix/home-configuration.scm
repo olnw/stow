@@ -49,6 +49,7 @@
            ;; C/C++
            "clang"
            "cmake"
+           "emacs-ccls"
            "gcc-toolchain"
            "glibc-locales"
            "lld"
@@ -62,6 +63,7 @@
            ;; Python
            "python2"
            "python"
+           "python-lsp-server"
 
            ;; CLI Tools
            "curl"
@@ -103,7 +105,6 @@
            "piper")))
 
   (services
-    ;; might need to add code for .profile to get sourced?
     (list (service home-bash-service-type
 	    (home-bash-configuration
               (environment-variables '(("KITTY_ENABLE_WAYLAND"    . "1")
