@@ -85,7 +85,7 @@
            "yt-dlp"
 
            ;; Text Editors
-           "emacs-next-pgtk"
+           "emacs"
            "emacs-vterm"
            "neovim"
 
