@@ -151,6 +151,9 @@ Version 2017-11-01"
   :straight (:type built-in)
   :config
   (setq erc-nick "Basspoon")
+  (setq erc-prompt-for-password nil)
+  (setq erc-prompt-for-nickserv-password nil)
+
   (defun libera-chat ()
         (interactive)
         (erc-tls :server "irc.au.libera.chat"
