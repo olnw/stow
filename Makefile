@@ -1,6 +1,6 @@
 .PHONY: stow
 stow:
-	stow $$(ls -d */)
+	stow */
 
 .PHONY: neovim
 neovim:
