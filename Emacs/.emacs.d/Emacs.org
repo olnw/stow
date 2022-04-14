@@ -461,6 +461,24 @@ Use the Linux kernel coding style for C.
   (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 #+end_src
 
+** LSP
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :init
+    ;; Set prefix for lsp-command-keymap
+    (setq lsp-keymap-prefix "C-c l")
+    :hook ((python-mode . lsp)
+           (c-mode . lsp)))
+
+  (use-package lsp-ui)
+
+  (use-package helm-lsp
+    :config
+    (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+
+  (use-package dap-mode)
+#+end_src
+
 ** Web
 #+begin_src emacs-lisp
   (use-package web-mode

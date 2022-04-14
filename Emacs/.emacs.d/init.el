@@ -346,6 +346,21 @@ position of the outside of the paren.  Otherwise return nil."
 
 (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
+(use-package lsp-mode
+  :init
+  ;; Set prefix for lsp-command-keymap
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((python-mode . lsp)
+         (c-mode . lsp)))
+
+(use-package lsp-ui)
+
+(use-package helm-lsp
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+
+(use-package dap-mode)
+
 (use-package web-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
