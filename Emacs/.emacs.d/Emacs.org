@@ -471,7 +471,8 @@ Use the Linux kernel coding style for C.
     ;; Set prefix for lsp-command-keymap
     (setq lsp-keymap-prefix "C-c l")
     :hook ((python-mode . lsp)
-           (c-mode . lsp)))
+           (c-mode . lsp)
+           (c++-mode . lsp)))
 
   (use-package lsp-ui)
 

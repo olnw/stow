@@ -354,7 +354,8 @@ position of the outside of the paren.  Otherwise return nil."
   ;; Set prefix for lsp-command-keymap
   (setq lsp-keymap-prefix "C-c l")
   :hook ((python-mode . lsp)
-         (c-mode . lsp)))
+         (c-mode . lsp)
+         (c++-mode . lsp)))
 
 (use-package lsp-ui)
 
