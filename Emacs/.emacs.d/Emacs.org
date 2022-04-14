@@ -441,15 +441,16 @@ Use the Linux kernel coding style for C.
 #+begin_src emacs-lisp
   (setq inferior-lisp-program "clisp")
   (use-package lispy)
-  (use-package sly)
-  
-  (defun onw/lisp-mode ()
+  (use-package sly :hook (common-lisp-mode . sly-mode))
+
+  (defun onw/lisp-setup ()
     (setq indent-tabs-mode nil)
     (setq fill-column 100)
-    (aggressive-indent-mode))
-  
-  (add-hook 'lisp-mode-hook #'onw/lisp-mode)
-  (add-hook 'emacs-lisp-mode-hook #'onw/lisp-mode)
+    (aggressive-indent-mode)
+    (lispy-mode))
+
+  (add-hook 'lisp-mode-hook #'onw/lisp-setup)
+  (add-hook 'emacs-lisp-mode-hook #'onw/lisp-setup)
 #+end_src
 
 *** Python

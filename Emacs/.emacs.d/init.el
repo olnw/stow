@@ -330,15 +330,16 @@ position of the outside of the paren.  Otherwise return nil."
 
 (setq inferior-lisp-program "clisp")
 (use-package lispy)
-(use-package sly)
+(use-package sly :hook (common-lisp-mode . sly-mode))
 
-(defun onw/lisp-mode ()
+(defun onw/lisp-setup ()
   (setq indent-tabs-mode nil)
   (setq fill-column 100)
-  (aggressive-indent-mode))
+  (aggressive-indent-mode)
+  (lispy-mode))
 
-(add-hook 'lisp-mode-hook #'onw/lisp-mode)
-(add-hook 'emacs-lisp-mode-hook #'onw/lisp-mode)
+(add-hook 'lisp-mode-hook #'onw/lisp-setup)
+(add-hook 'emacs-lisp-mode-hook #'onw/lisp-setup)
 
 (use-package lpy :hook (python-mode . lpy-mode))
 
