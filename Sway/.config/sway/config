@@ -233,13 +233,11 @@ bar {
     }
 }
 
-include /gnu/store/cg5y58k8069z4v1ik9bdr746549ycjyg-sway-1.6.1/etc/sway/config.d/*
+# Will replace with a pipewire home service
+exec pulseaudio --start
 
-# Start some programs. These should be made into Guix Home services.
-exec ~/wlanthy/build/wlanthy -i pass
-exec pipewire
-exec pipewire-pulse
-exec wireplumber
-exec pactl set-sink-volume @DEFAULT_SINK@ 20%
-exec gnome-keyring-daemon -dr
+# Allows DBus to work with Wayland
+exec dbus-update-activation-environment WAYLAND_DIPSLAY
 
+# Start the SSH component of the GNOME Keyring
+exec gnome-keyring-daemon --start --components=ssh
