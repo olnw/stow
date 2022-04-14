@@ -340,11 +340,9 @@ position of the outside of the paren.  Otherwise return nil."
 (add-hook 'lisp-mode-hook #'onw/lisp-mode)
 (add-hook 'emacs-lisp-mode-hook #'onw/lisp-mode)
 
-(use-package lpy)
+(use-package lpy :hook (python-mode . lpy-mode))
 
-(add-hook 'python-mode-hook (lambda ()
-                              (setq indent-tabs-mode nil)
-                              (lpy-mode)))
+(add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (use-package web-mode
   :config

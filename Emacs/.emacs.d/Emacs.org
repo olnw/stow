@@ -454,11 +454,9 @@ Use the Linux kernel coding style for C.
 
 *** Python
 #+begin_src emacs-lisp
-  (use-package lpy)
+  (use-package lpy :hook (python-mode . lpy-mode))
   
-  (add-hook 'python-mode-hook (lambda ()
-                                (setq indent-tabs-mode nil)
-                                (lpy-mode)))
+  (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 #+end_src
 
 ** Web
