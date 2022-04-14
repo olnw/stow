@@ -12,6 +12,10 @@
   (packages
     (map (compose list specification->package+output)
          (list 
+           ;; E-mail
+           "notmuch"
+           "offlineimap3"
+
            ;; Themes
            "adwaita-icon-theme"
            "gnome-themes-standard"
@@ -96,9 +100,6 @@
            "font-iosevka"
            "font-iosevka-aile"
            "font-jetbrains-mono"
-
-           ;; Gaming
-           ;;"steam-nvidia"
 
            ;; Misc. GUI Applications
            "keepassxc"
