@@ -118,7 +118,8 @@
                                        ("EDITOR"                  . "emacsclient")
                                        ("SUDO_EDITOR"             . "$EDITOR")
                                        ("VISUAL"                  . "$EDITOR")
-                                       ("BROWSER"                 . "chromium")))
+                                       ("BROWSER"                 . "chromium")
+                                       ("XDG_DATA_DIRS"           . "$XDG_DATA_DIRS:/home/oliver/.local/share/flatpak/exports/share")))
                                        ;; IME
                                        ;;("GLFW_IM_MODULE" . "fcitx5")
                                        ;;("GTK_IM_MODULE"  . "fcitx5")
