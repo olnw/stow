@@ -148,12 +148,13 @@ Version 2017-11-01"
                               (find-file (concat user-emacs-directory "Emacs.org"))))
 
 (use-package erc
-:config
-(setq erc-nick "Basspoon")
-(defun libera-chat ()
-      (interactive)
-      (erc-tls :server "irc.au.libera.chat"
-               :port   "6697")))
+  :straight (:type built-in)
+  :config
+  (setq erc-nick "Basspoon")
+  (defun libera-chat ()
+        (interactive)
+        (erc-tls :server "irc.au.libera.chat"
+                 :port   "6697")))
 
 (use-package pdf-tools
   :config

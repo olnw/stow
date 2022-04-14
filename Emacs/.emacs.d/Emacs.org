@@ -215,12 +215,13 @@ This is necessary, trust me.
 ** IRC Client
 #+begin_src emacs-lisp
   (use-package erc
-  :config
-  (setq erc-nick "Basspoon")
-  (defun libera-chat ()
-        (interactive)
-        (erc-tls :server "irc.au.libera.chat"
-                 :port   "6697")))
+    :straight (:type built-in)
+    :config
+    (setq erc-nick "Basspoon")
+    (defun libera-chat ()
+          (interactive)
+          (erc-tls :server "irc.au.libera.chat"
+                   :port   "6697")))
 #+end_src
 
 ** PDF Viewer
