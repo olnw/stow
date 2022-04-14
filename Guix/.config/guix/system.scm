@@ -1,9 +1,6 @@
-;; disable pipewire auto-spawn in this file, one guix system reconfigure
-;; starts working again. might as well keep it in the config file for
-;; other systems?
-
 (use-modules (gnu)
-	     (nongnu packages nvidia)
+;;             (gnu services)
+;;             (srfi srfi-1)
 	     (nongnu packages linux)
 	     (nongnu system linux-initrd)
              (ice-9 rdelim)
@@ -11,7 +8,7 @@
 	     (guix build-system cargo))
 
 (use-service-modules desktop networking ssh xorg dbus sddm sound)
-(use-package-modules wm terminals version-control emacs package-management vim gnome suckless)
+(use-package-modules wm terminals version-control emacs package-management vim gnome xdisorg)
 
 ;; https://lists.gnu.org/archive/html/help-guix/2021-04/msg00040.html
 (define steven-black-hosts (with-input-from-file "/home/oliver/.config/guix/hosts"
@@ -50,59 +47,56 @@
 	    wofi
 	    foot
             ;;tlp
+            gnome-keyring
             kitty
             git
             stow
             neovim
-            emacs
-	    nvidia-driver)
+            emacs)
       %base-packages))
 
   (services
     (append
-      (list ;; Apparently gdm will start gnome-keyring-daemon through pam,
-	    ;; but I couldn't get gdm to work, so I'm using sddm
-	    ;; and running gnome-keyring-daemon in my sway config
-	    ;;(service gnome-keyring-service-type)
+      (list (service gnome-keyring-service-type)
+            (simple-service 'ratbag dbus-root-service-type (list libratbag dconf gnome-keyring))
 
-            (service sddm-service-type
-		     (sddm-configuration
-		       (display-server "wayland")))
-            (simple-service 'ratbag dbus-root-service-type (list libratbag))
-            (simple-service 'custom-udev-rules udev-service-type (list nvidia-driver)))
+            (set-xorg-configuration
+              (xorg-configuration
+                (keyboard-layout keyboard-layout))))
 
-            ;;(set-xorg-configuration
-            ;;  (xorg-configuration
-            ;;    (keyboard-layout keyboard-layout))))
+            (modify-services %desktop-services
+                            (gdm-service-type config =>
+                                              (gdm-configuration
+                                                (inherit config)
+                                                (wayland? #t)))
 
-      (modify-services %desktop-services
-		       (delete gdm-service-type)
+                            (pulseaudio-service-type config =>
+                                                     (pulseaudio-configuration
+                                                       (inherit config)
+                                                       (client-conf '((autospawn . no)))))
 
-		       ;;(gdm-service-type config =>
-		       ;; 		 (gdm-configuration
-		       ;; 		   (inherit config)
-		       ;; 		   (wayland? #t)))
-
-                       (guix-service-type config => (guix-configuration
-                         (inherit config)
-                         (substitute-urls
-                           (append (list "https://substitutes.nonguix.org")
-                                   %default-substitute-urls))
-                         (authorized-keys
-                           (append (list (local-file "./signing-key.pub"))
-                                   %default-authorized-guix-keys)))))))
+                            (guix-service-type config => (guix-configuration
+                              (inherit config)
+                              (substitute-urls
+                                (append (list "https://substitutes.nonguix.org")
+                                        %default-substitute-urls))
+                              (authorized-keys
+                                (append (list (local-file "./signing-key.pub"))
+                                        %default-authorized-guix-keys)))))))
 
   (bootloader
     (bootloader-configuration
       (bootloader grub-efi-bootloader)
       (targets (list "/boot/efi"))
       (keyboard-layout keyboard-layout)))
+
   (mapped-devices
     (list (mapped-device
             (source
               (uuid "da689bfb-a1d4-4869-9ea9-c09342dccb4d"))
             (target "cryptroot")
             (type luks-device-mapping))))
+
   (file-systems
     (cons* (file-system
              (mount-point "/boot/efi")
@@ -118,7 +112,13 @@
 	     (device "/dev/sda1")
 	     (type "ext4"))
            %base-file-systems))
+
   (hosts-file (plain-file "hosts"
                           (string-append (local-host-aliases host-name)
-                                         steven-black-hosts))))
+                                         steven-black-hosts)))
+
+  ;; Show asterisks while entering a password
+  (sudoers-file (plain-file "sudoers"
+                            (string-append (plain-file-content %sudoers-specification)
+                                           "Defaults pwfeedback\n"))))
 
