@@ -475,8 +475,8 @@ Use the Linux kernel coding style for C.
 * LaTeX
 Use latexmk-mode from https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/
 #+begin_src emacs-lisp
-  (load "latexmk-mode.el")
-  (add-hook 'LaTeX-mode-hook #'latexmk-mode)
+  ;;(load "latexmk-mode.el")
+  ;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
 #+end_src
 
 * Org Mode

@@ -354,8 +354,8 @@ position of the outside of the paren.  Otherwise return nil."
 (setq sgml-basic-offset tab-width)
 (setq css-indent-offset tab-width)
 
-(load "latexmk-mode.el")
-(add-hook 'LaTeX-mode-hook #'latexmk-mode)
+;;(load "latexmk-mode.el")
+;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
 
 (use-package org
   :straight (:type built-in)
