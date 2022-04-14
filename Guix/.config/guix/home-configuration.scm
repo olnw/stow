@@ -64,6 +64,10 @@
            "ninja"
            "pkg-config"
 
+           ;; Lisp
+           "sbcl"
+           "clisp"
+
            ;; Python
            "python2"
            "python"
