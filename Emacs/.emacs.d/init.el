@@ -456,4 +456,8 @@ position of the outside of the paren.  Otherwise return nil."
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert))
   :config
+  (setq org-roam-capture-templates '(("d" "default" plain "%?"
+    :target (file+head "${slug}.org.gpg"
+                       "#+title: ${title}\n")
+    :unnarrowed t)))
   (org-roam-db-autosync-mode))
