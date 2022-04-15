@@ -237,7 +237,8 @@ bar {
 exec pulseaudio --start
 
 # Allows DBus to work with Wayland
-exec dbus-update-activation-environment WAYLAND_DIPSLAY
+exec dbus-update-activation-environment WAYLAND_DISPLAY
 
 # Start the SSH component of the GNOME Keyring
 exec gnome-keyring-daemon --start --components=ssh
+
