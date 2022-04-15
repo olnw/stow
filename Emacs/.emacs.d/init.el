@@ -150,7 +150,7 @@ Version 2017-11-01"
 (use-package erc
   :straight (:type built-in)
   :config
-  (setq erc-nick "Basspoon")
+  (setq erc-nick "olnw")
   (setq erc-prompt-for-password nil)
   (setq erc-prompt-for-nickserv-password nil)
 
