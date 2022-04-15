@@ -21,7 +21,7 @@ set $menu wofi -S drun | xargs swaymsg exec --
 ## Output configuration
 
 # Default wallpaper
-output * bg /gnu/store/cg5y58k8069z4v1ik9bdr746549ycjyg-sway-1.6.1/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/bg.png fill
 
 output HDMI-A-1 resolution 1920x1080 position 0,0
 output DP-1 resolution 1920x1080@143.855Hz position 1920,0
