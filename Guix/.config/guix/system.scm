@@ -1,6 +1,4 @@
 (use-modules (gnu)
-;;             (gnu services)
-;;             (srfi srfi-1)
 	     (nongnu packages linux)
 	     (nongnu system linux-initrd)
              (ice-9 rdelim)
@@ -52,13 +50,16 @@
             git
             stow
             neovim
-            emacs)
+            emacs
+            dconf) ; Fixes warnings when running seahorse
       %base-packages))
 
   (services
     (append
       (list (service gnome-keyring-service-type)
-            (simple-service 'ratbag dbus-root-service-type (list libratbag dconf gnome-keyring))
+
+            ;; dconf and libratbag are needed for piper
+            (simple-service 'my-dbus-services dbus-root-service-type (list dconf libratbag))
 
             (set-xorg-configuration
               (xorg-configuration
@@ -75,14 +76,15 @@
                                                        (inherit config)
                                                        (client-conf '((autospawn . no)))))
 
-                            (guix-service-type config => (guix-configuration
-                              (inherit config)
-                              (substitute-urls
-                                (append (list "https://substitutes.nonguix.org")
-                                        %default-substitute-urls))
-                              (authorized-keys
-                                (append (list (local-file "./signing-key.pub"))
-                                        %default-authorized-guix-keys)))))))
+                            (guix-service-type config =>
+                                               (guix-configuration
+                                                 (inherit config)
+                                                 (substitute-urls
+                                                   (append (list "https://substitutes.nonguix.org")
+                                                           %default-substitute-urls))
+                                                 (authorized-keys
+                                                   (append (list (local-file "./signing-key.pub"))
+                                                           %default-authorized-guix-keys)))))))
 
   (bootloader
     (bootloader-configuration
