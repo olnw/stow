@@ -1,7 +1,24 @@
+// Re-map modifier keys to be placed similarly to where
+// they are on the Space Cadet keyboard.
+// I bind caps lock to Hyper_L/Mod4,
+// and use it as the modifier key for Sway.
+// https://askubuntu.com/questions/1187610/reassigning-modifier-keys-with-xkb
+
 default partial alphanumeric_keys modifier_keys
 xkb_symbols "basic" {
     include "au"
-    name[Group1] = "English (Australian) [Custom]";
+    name[Group1] = "English (Custom Australian Layout)";
+
+    key <CAPS> { [ Hyper_L, Hyper_L ] };
+    replace key <LALT> { [ Control_L, Control_L ] };
+    replace key <LWIN> { [ Alt_L, Meta_L ] };
+    replace key <LCTL> { [ Super_L ] };
+    replace key <RALT> { [ Control_R, Control_R ] };
+    replace key <MENU> { [ Alt_R, Meta_R ] };
+    replace key <RCTL> { [ Super_R ] };
+    modifier_map Mod1 { <LWIN> };
     modifier_map Mod3 { Hyper_L };
+    modifier_map Mod4 { <LCTL> };
+    modifier_map Control { <LALT> };
 };
 

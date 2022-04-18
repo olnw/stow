@@ -60,14 +60,9 @@ input * {
     accel_profile "flat"
 }
 
-# Make Caps Lock act as Control, left Control as Hyper.
-# Use Menu as an additional Windows key.
-# View https://www.systutorials.com/docs/linux/man/7-xkeyboard-config/
-# for more options.
-input "type:keyboard" {
-    xkb_options "ctrl:swapcaps_hyper,altwin:menu_win"
-    xkb_layout au-custom
-}
+# Re-map modifier keys
+# See Xorg/.xkb/symbols/au-custom
+input "type:keyboard" xkb_layout au-custom
 
 ## Key bindings
 
