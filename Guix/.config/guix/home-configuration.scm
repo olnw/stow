@@ -48,6 +48,7 @@
 
            ;; Browsers
            "icecat"
+           "ungoogled-chromium"
 
            ;; C/C++
            "clang"
@@ -123,7 +124,7 @@
                                        ("EDITOR"                  . "emacsclient")
                                        ("SUDO_EDITOR"             . "$EDITOR")
                                        ("VISUAL"                  . "$EDITOR")
-                                       ("BROWSER"                 . "icecat")
+                                       ("BROWSER"                 . "chromium")
                                        ("XDG_DATA_DIRS"           . "$XDG_DATA_DIRS:\
 /home/$USER/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share")))
                                        ;; IME
