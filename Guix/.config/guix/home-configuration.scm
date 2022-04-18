@@ -48,7 +48,6 @@
 
            ;; Browsers
            "icecat"
-           "ungoogled-chromium"
 
            ;; C/C++
            "clang"
@@ -107,7 +106,13 @@
 
            ;; Misc. GUI Applications
            "keepassxc"
-           "piper")))
+           "pinentry"
+           "piper"
+           "seahorse"
+           "steam"
+
+           ;; Terminals
+           "foot")))
 
   (services
     (list (service home-bash-service-type
@@ -118,7 +123,7 @@
                                        ("EDITOR"                  . "emacsclient")
                                        ("SUDO_EDITOR"             . "$EDITOR")
                                        ("VISUAL"                  . "$EDITOR")
-                                       ("BROWSER"                 . "chromium")
+                                       ("BROWSER"                 . "icecat")
                                        ("XDG_DATA_DIRS"           . "$XDG_DATA_DIRS:\
 /home/$USER/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share")))
                                        ;; IME
