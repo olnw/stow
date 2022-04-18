@@ -107,6 +107,7 @@
            "font-jetbrains-mono"
 
            ;; Misc. GUI Applications
+           "copyq"
            "keepassxc"
            "pinentry"
            "piper"
