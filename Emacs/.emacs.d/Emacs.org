@@ -333,6 +333,11 @@ I use emacs-libvterm as a terminal emulator within Emacs. The ~emacs-vterm~ Guix
   (global-set-key (kbd "s-t") #'vterm-other-window)
 #+end_src
 
+** Mail Reader
+#+begin_src emacs-lisp
+  (use-package notmuch)
+#+end_src
+
 * Completion Framework
 Use Helm as the completion framework.
 #+begin_src emacs-lisp

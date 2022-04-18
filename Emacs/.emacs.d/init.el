@@ -253,6 +253,8 @@ minibuffer with something like `exit-minibuffer'."
 
 (global-set-key (kbd "s-t") #'vterm-other-window)
 
+(use-package notmuch)
+
 (use-package helm
   :preface (require 'helm-config)
   :config
