@@ -85,6 +85,7 @@
            "openssh"
            "p7zip"
            "pfetch"
+           "rlwrap"
            "stow"
            "syncthing"
            "the-silver-searcher"

@@ -203,7 +203,8 @@ for_window [class="Spotify"] move scratchpad; resize set 1024 768
 bindsym $mod+o exec swaymsg [class="Spotify"] scratchpad show
 
 exec keepassxc
-exec $term -a sbcl sbcl
+# Can use arrow keys in the SBCL REPL with rlwrap
+exec $term -a sbcl rlwrap sbcl
 exec flatpak run com.spotify.Client --no-zygote
 
 # Resizing containers:
