@@ -47,7 +47,7 @@
            "gst-libav"
 
            ;; Browsers
-           "icecat"
+           ;;"icecat"
            "ungoogled-chromium"
 
            ;; C/C++
