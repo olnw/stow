@@ -1,9 +1,11 @@
 (use-modules (gnu)
-	     (nongnu packages linux)
-	     (nongnu system linux-initrd)
+             (gnu packages linux)
+             (gnu packages disk)
+             (nongnu packages linux)
+             (nongnu system linux-initrd)
              (ice-9 rdelim)
-	     (guix build-system meson)
-	     (guix build-system cargo))
+             (guix build-system meson)
+             (guix build-system cargo))
 
 (use-service-modules desktop networking ssh xorg dbus sddm sound)
 (use-package-modules wm terminals version-control emacs package-management vim gnome xdisorg)
@@ -24,7 +26,7 @@
   (locale "en_AU.utf8")
   (timezone "Australia/Hobart")
   (keyboard-layout (keyboard-layout "au"))
-  (host-name "guix-pc")
+  (host-name "rms-our-saviour")
   (users (cons* (user-account
                   (name "oliver")
                   (comment "Oliver")
@@ -43,15 +45,15 @@
             swayidle
             swaylock-effects
 	    wofi
-	    foot
             ;;tlp
             gnome-keyring
             kitty
             git
             stow
-            neovim
             emacs
-            dconf) ; Fixes warnings when running seahorse
+            dconf ; Fixes warnings when running seahorse
+            ntfs-3g
+            dosfstools) ; provides mkfs.fat
       %base-packages))
 
   (services
@@ -95,14 +97,14 @@
   (mapped-devices
     (list (mapped-device
             (source
-              (uuid "da689bfb-a1d4-4869-9ea9-c09342dccb4d"))
+              (uuid "5d34455f-d9da-435b-80bf-6c2eef136e41"))
             (target "cryptroot")
             (type luks-device-mapping))))
 
   (file-systems
     (cons* (file-system
              (mount-point "/boot/efi")
-             (device (uuid "49E6-3E3E" 'fat32))
+             (device (uuid "C440-05BA" 'fat32))
              (type "vfat"))
            (file-system
              (mount-point "/")
