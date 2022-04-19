@@ -48,6 +48,11 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(setq inhibit-startup-screen t)
+;;(setq initial-scratch-message nil)
+
+(add-to-list 'default-frame-alist '(height . 35))
+(add-to-list 'default-frame-alist '(width . 110))
 
 ;; Show the absolute file path in the title bar
 (setq-default frame-title-format
@@ -56,16 +61,6 @@
                                          dired-directory
                                          (revert-buffer-function
                                          " %b" ("%b - Dir:  " default-directory)))))))
-
-(setq inhibit-startup-screen t)
-;;(setq initial-scratch-message nil)
-
-;; Set the default frame dimensions
-(add-to-list 'default-frame-alist '(height . 35))
-(add-to-list 'default-frame-alist '(width . 110))
-
-;; Display the column number in the mode line
-(column-number-mode 1)
 
 (use-package all-the-icons)
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
@@ -97,6 +92,9 @@
 (use-package good-scroll :config (good-scroll-mode 1))
 
 (use-package doom-modeline :config (doom-modeline-mode 1))
+
+;; Display the column number in the mode line
+(column-number-mode 1)
 
 (use-package nyan-mode :config (nyan-mode))
 
