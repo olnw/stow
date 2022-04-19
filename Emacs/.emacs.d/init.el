@@ -273,7 +273,7 @@ minibuffer with something like `exit-minibuffer'."
 
   (helm-mode 1)
   :bind (("M-x"   . helm-M-x)
-         ("s-b"   . (lambda () (interactive) (helm-buffers-list)))
+         ("s-b"   . helm-bookmarks)
          ("s-f"   . helm-find-files)
          :map helm-map
          ("<tab>" . helm-execute-persistent-action)
