@@ -124,6 +124,9 @@
 ;; Make comments more visible
 ;;(set-face-foreground 'font-lock-comment-face "pink")
 
+(use-package hydra)
+(use-package major-mode-hydra)
+
 (defun xah/new-empty-buffer ()
   "Create a new empty buffer.
 New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
@@ -275,9 +278,6 @@ minibuffer with something like `exit-minibuffer'."
          ("C-i"   . helm-execute-persistent-action)
          ("C-z"   . helm-select-action)))
 
-;; Requires The Silver Searcher to be installed
-(use-package helm-ag)
-
 (use-package avy
   :config (avy-setup-default)
   :bind (("C-:"   . 'avy-goto-char)
@@ -285,6 +285,50 @@ minibuffer with something like `exit-minibuffer'."
          ("M-g f" . 'avy-goto-line)
          ("M-g w" . 'avy-goto-word-1)
          ("M-g e" . 'avy-goto-word-0)))
+
+(use-package projectile)
+
+(use-package helm-projectile
+  :defer  5
+  :init
+  (setq projectile-completion-system 'helm)
+  :config
+  (require 'helm-projectile)
+  :bind
+  ("C-c p p" . helm-projectile)
+  :hook
+  (after-init . helm-projectile-on))
+
+(pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal )
+                     ("This Frame/Window"
+                      (("s"  helm-projectile-switch-project "Switch Projects")
+                       ("f" helm-projectile-find-file "Find File In Project")
+                       ("n" helm-projectile-find-file-in-known-projects "Find File In All Projects")
+                       ("d" helm-projectile-find-dir "Find Dir In Project")
+                       ("p" helm-projectile-find-file-dwim "Find File At Point")
+                       ("r" helm-projectile-recentf "Find Recent Files")
+                       ("b" helm-projectile-switch-to-buffer "Switch Buffers")
+                       ("a" helm-projectile-ag "Search Project"))
+                      "Other Frame/Window"
+                      (("F" projectile-find-file-other-frame "Find File Other Frame")
+                       ("w" projectile-find-file-other-window "Find File Other Window")
+                       ("o" projectile-find-other-file-other-window "Find Other Other Window")
+                       ("B" projectile-switch-to-buffer-other-window "Switch Buffer Other Window")
+                       ("m" projectile-multi-occur "Search Multi Occurances"))
+                      "Actions"
+                      (("c" projectile-edit-dir-locals "Add Project Config")
+                       ("I" projectile-invalidate-cache "Clear Projectile Cache")
+                       ("S" projectile-run-shell "Run Shell")
+                       ("v" projectile-save-project-buffers "Save Project Buffers")
+                       ("k" projectile-kill-project-buffers "kill Project Buffers")
+                       ("t" projectile-toggle-read-only "Toggle Project Read Only")
+                       ("D" projectile-discover-projects-in-directory "Discover Projects Directory")
+                       ("h" hydra-helm/body "Return To Helm" :color blue )
+                       ("<SPC>" nil "Quit" :color blue ))))
+
+(bind-key "C-c p h" 'Projectile/body)
+
+(use-package helm-ag)
 
 (use-package magit)
 
