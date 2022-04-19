@@ -12,6 +12,12 @@
   (packages
     (map (compose list specification->package+output)
          (list 
+           ;; Screenshots
+           "grim"
+           "slurp"
+           "swappy"
+           "wl-clipboard"
+
            ;; E-mail
            "notmuch"
            "offlineimap3"
