@@ -376,7 +376,9 @@ position of the outside of the paren.  Otherwise return nil."
 (setq-default electric-indent-inhibit t)
 (electric-indent-mode -1)
 
-(use-package aggressive-indent)
+(use-package aggressive-indent
+  :hook ((emacs-lisp-mode . aggressive-indent-mode)
+         (lisp-mode       . aggressive-indent-mode)))
 
 (add-hook 'prog-mode-hook (lambda ()
                             (display-fill-column-indicator-mode)
@@ -391,7 +393,6 @@ position of the outside of the paren.  Otherwise return nil."
 (defun onw/lisp-setup ()
   (setq indent-tabs-mode nil)
   (setq fill-column 100)
-  (aggressive-indent-mode)
   (lispy-mode))
 
 (add-hook 'lisp-mode-hook #'onw/lisp-setup)
