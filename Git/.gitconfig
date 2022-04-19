@@ -2,5 +2,5 @@
 	name = Oliver Nikolas Winspear
 	email = 6589285-Basspoon@users.noreply.gitlab.com
 [core]
-	editor = emacsclient
+	editor = $EDITOR
 
