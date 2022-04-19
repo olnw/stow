@@ -127,6 +127,8 @@
 (use-package hydra)
 (use-package major-mode-hydra)
 
+(use-package which-key :config (which-key-mode))
+
 (defun xah/new-empty-buffer ()
   "Create a new empty buffer.
 New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
@@ -403,8 +405,9 @@ position of the outside of the paren.  Otherwise return nil."
   ;; Set prefix for lsp-command-keymap
   (setq lsp-keymap-prefix "s-l")
   :hook ((python-mode . lsp)
-         (c-mode . lsp)
-         (c++-mode . lsp)))
+         (c-mode      . lsp)
+         (c++-mode    . lsp)
+         (lsp-mode    . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui)
 
