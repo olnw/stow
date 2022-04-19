@@ -280,6 +280,14 @@ minibuffer with something like `exit-minibuffer'."
 ;; Requires The Silver Searcher to be installed
 (use-package helm-ag)
 
+(use-package avy
+  :config (avy-setup-default)
+  :bind (("C-:"   . 'avy-goto-char)
+         ("C-'"   . 'avy-goto-char-2)
+         ("M-g f" . 'avy-goto-line)
+         ("M-g w" . 'avy-goto-word-1)
+         ("M-g e" . 'avy-goto-word-0)))
+
 (use-package magit)
 
 (setq backward-delete-char-untabify-method 'hungry)
