@@ -558,6 +558,8 @@ Use the Linux kernel coding style for C.
     (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
   (use-package dap-mode)
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
 #+end_src
 
 ** Web

@@ -415,6 +415,8 @@ position of the outside of the paren.  Otherwise return nil."
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
 (use-package dap-mode)
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
 
 (use-package web-mode
   :config
