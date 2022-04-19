@@ -147,7 +147,7 @@ Automatically chooses what text to display as variable-pitch and fixed-pitch.
 #+end_src
 
 ** Mode Line
-doom-modeline require icons from All The Icons.
+doom-modeline requires icons from All The Icons.
 #+begin_src emacs-lisp
   (use-package doom-modeline :config (doom-modeline-mode 1))
 
