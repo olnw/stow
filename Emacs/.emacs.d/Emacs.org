@@ -404,7 +404,7 @@ I got this hydra from [[https://readingworldmagazine.com/emacs/2020-03-15-emacs-
     :hook
     (after-init . helm-projectile-on))
 
-  (pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal )
+  (pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal)
     ("This Frame/Window" (("s"  helm-projectile-switch-project "Switch Projects")
                           ("f" helm-projectile-find-file "Find File In Project")
                           ("n" helm-projectile-find-file-in-known-projects "Find File In All Projects")
@@ -610,13 +610,13 @@ Org is a major mode for Emacs. It does a lot of things — I use it for note-tak
                                (visual-line-mode))))
 #+end_src
 
-** Babel Languages
+** Babel
 #+begin_src emacs-lisp
   (with-eval-after-load 'org
     (org-babel-do-load-languages
-        'org-babel-load-languages
-        '((emacs-lisp . t)
-        (python . t))))
+      'org-babel-load-languages
+	  '((emacs-lisp . t)
+	    (python . t))))
 #+end_src
 
 ** Structure Templates

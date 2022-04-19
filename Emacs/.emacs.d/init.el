@@ -299,7 +299,7 @@ minibuffer with something like `exit-minibuffer'."
   :hook
   (after-init . helm-projectile-on))
 
-(pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal )
+(pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal)
   ("This Frame/Window" (("s"  helm-projectile-switch-project "Switch Projects")
                         ("f" helm-projectile-find-file "Find File In Project")
                         ("n" helm-projectile-find-file-in-known-projects "Find File In All Projects")
@@ -457,9 +457,9 @@ position of the outside of the paren.  Otherwise return nil."
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-      (python . t))))
+    'org-babel-load-languages
+	'((emacs-lisp . t)
+	  (python . t))))
 
 ;; This is needed as of Org 9.2
 (require 'org-tempo)
