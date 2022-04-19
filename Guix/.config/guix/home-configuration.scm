@@ -118,6 +118,7 @@
            "pinentry"
            "piper"
            "seahorse"
+           "smartmontools"
            "steam"
 
            ;; Terminals
