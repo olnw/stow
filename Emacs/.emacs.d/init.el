@@ -374,6 +374,7 @@ position of the outside of the paren.  Otherwise return nil."
 (setq-default fill-column 79)
 (setq-default indent-tabs-mode t)
 (setq-default electric-indent-inhibit t)
+(electric-indent-mode -1)
 
 (use-package aggressive-indent)
 
