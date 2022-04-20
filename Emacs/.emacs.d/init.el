@@ -301,7 +301,7 @@ minibuffer with something like `exit-minibuffer'."
   :hook
   (after-init . helm-projectile-on))
 
-(pretty-hydra-define Projectile (:title "Projectile" :quit-key "q" :color teal)
+(pretty-hydra-define hydra-projectile (:title "Projectile" :quit-key "q" :color teal)
   ("This Frame/Window" (("s"  helm-projectile-switch-project "Switch Projects")
                         ("f" helm-projectile-find-file "Find File In Project")
                         ("n" helm-projectile-find-file-in-known-projects "Find File In All Projects")
@@ -325,7 +325,7 @@ minibuffer with something like `exit-minibuffer'."
               ("h" hydra-helm/body "Return To Helm" :color blue )
               ("<SPC>" nil "Quit" :color blue ))))
 
-(bind-key "C-c p h" 'Projectile/body)
+(bind-key "s-p H" 'hydra-projectile/body)
 
 (use-package helm-ag)
 
