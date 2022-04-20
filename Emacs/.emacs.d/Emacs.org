@@ -591,7 +591,9 @@ Org is a major mode for Emacs. It does a lot of things — I use it for note-tak
     :straight (:type built-in)
     :bind (:map global-map
                 ("\C-cl" . org-store-link)
-                ("\C-ca" . org-agenda))
+                ("\C-ca" . org-agenda)
+           :map org-mode-map
+                ("C-'"   . nil)) ; I use this binding for avy-goto-char-2
 
     :config
     (setq org-hide-emphasis-markers t)

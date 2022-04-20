@@ -434,7 +434,9 @@ position of the outside of the paren.  Otherwise return nil."
   :straight (:type built-in)
   :bind (:map global-map
               ("\C-cl" . org-store-link)
-              ("\C-ca" . org-agenda))
+              ("\C-ca" . org-agenda)
+         :map org-mode-map
+              ("C-'"   . nil)) ; I use this binding for avy-goto-char-2
 
   :config
   (setq org-hide-emphasis-markers t)
