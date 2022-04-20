@@ -327,8 +327,7 @@ minibuffer with something like `exit-minibuffer'."
               ("k" projectile-kill-project-buffers "kill Project Buffers")
               ("t" projectile-toggle-read-only "Toggle Project Read Only")
               ("D" projectile-discover-projects-in-directory "Discover Projects Directory")
-              ("h" hydra-helm/body "Return To Helm" :color blue )
-              ("<SPC>" nil "Quit" :color blue ))))
+              ("q" nil "Quit" :color blue))))
 
 (bind-key "s-p H" 'hydra-projectile/body)
 
