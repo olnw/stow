@@ -288,16 +288,14 @@ minibuffer with something like `exit-minibuffer'."
          ("M-g w" . 'avy-goto-word-1)
          ("M-g e" . 'avy-goto-word-0)))
 
-(use-package projectile)
+(use-package projectile
+  :config
+  (projectile-global-mode)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
 
 (use-package helm-projectile
-  :defer  5
   :init
   (setq projectile-completion-system 'helm)
-  :config
-  (require 'helm-projectile)
-  :bind
-  ("C-c p p" . helm-projectile)
   :hook
   (after-init . helm-projectile-on))
 

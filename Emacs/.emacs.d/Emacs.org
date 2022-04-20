@@ -396,16 +396,14 @@ I use Helm as my completion framework.
 ** Projectile
 I got this hydra from [[https://readingworldmagazine.com/emacs/2020-03-15-emacs-projectile-helm-smex/]]
 #+begin_src emacs-lisp
-  (use-package projectile)
+  (use-package projectile
+    :config
+    (projectile-global-mode)
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
 
   (use-package helm-projectile
-    :defer  5
     :init
     (setq projectile-completion-system 'helm)
-    :config
-    (require 'helm-projectile)
-    :bind
-    ("C-c p p" . helm-projectile)
     :hook
     (after-init . helm-projectile-on))
 
