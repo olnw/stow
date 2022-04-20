@@ -150,6 +150,14 @@ Version 2017-11-01"
                               (interactive)
                               (find-file (concat user-emacs-directory "Emacs.org"))))
 
+(pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
+  ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
+                   ("e" elfeed "Elfeed")
+                   ("v" vterm-other-window "vterm")
+                   ("q" nil "Quit"))))
+
+(bind-key "s-a" #'hydra-applications/body 'global-map)
+
 (use-package erc
   :straight (:type built-in)
   :config
@@ -253,8 +261,6 @@ minibuffer with something like `exit-minibuffer'."
   :bind (:map elfeed-search-mode-map
               ("C-c C-o" . onw/play-with-mpv)
               ("s"       . prot-elfeed-search-tag-filter)))
-
-(global-set-key (kbd "s-t") #'vterm-other-window)
 
 (use-package notmuch)
 

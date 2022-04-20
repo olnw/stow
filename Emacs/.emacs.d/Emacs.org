@@ -229,6 +229,18 @@ This is necessary, trust me.
                                   (find-file (concat user-emacs-directory "Emacs.org"))))
 #+end_src
 * Applications
+** Hydra
+This hydra serves as a launcher for applications that I frequently use.
+#+begin_src emacs-lisp
+  (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
+    ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
+                     ("e" elfeed "Elfeed")
+                     ("v" vterm-other-window "vterm")
+                     ("q" nil "Quit"))))
+
+  (bind-key "s-a" #'hydra-applications/body 'global-map)
+#+end_src
+
 ** IRC Client
 #+begin_src emacs-lisp
   (use-package erc
@@ -346,9 +358,6 @@ The functions beginning with ~prot-~ are from [[https://protesilaos.com/emacs/do
 
 ** Terminal Emulator
 I use emacs-libvterm as a terminal emulator within Emacs. The ~emacs-vterm~ Guix package is needed for this to work on Guix System.
-#+begin_src emacs-lisp
-  (global-set-key (kbd "s-t") #'vterm-other-window)
-#+end_src
 
 ** Mail Reader
 #+begin_src emacs-lisp
