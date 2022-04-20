@@ -260,6 +260,7 @@ minibuffer with something like `exit-minibuffer'."
 
 (use-package helm
   :preface (require 'helm-config)
+  :init (setq helm-command-prefix-key "s-h")
   :config
   ;; Open helm buffer inside current window
   (setq helm-split-window-inside-p t)
