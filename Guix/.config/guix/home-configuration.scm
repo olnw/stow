@@ -57,7 +57,7 @@
            "ungoogled-chromium"
 
            ;; C/C++
-           "clang"
+           "clang-toolchain"
            "cmake"
            "emacs-ccls"
            "gcc-toolchain"
