@@ -441,10 +441,7 @@ position of the outside of the paren.  Otherwise return nil."
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
 
   (setq org-directory "/mnt/hdd/Documents")
-
-  (setq org-agenda-files '("habits.org"
-                           "projects.org"
-                           "todo.org"))
+  (setq org-agenda-files (list org-directory))
 
   (push 'org-habit org-modules) ; Add org-habit to the list of modules
 
