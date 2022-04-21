@@ -8,7 +8,7 @@
              (guix build-system cargo))
 
 (use-service-modules desktop networking ssh xorg dbus sddm sound)
-(use-package-modules wm terminals version-control emacs package-management vim gnome xdisorg)
+(use-package-modules gnome)
 
 ;; https://lists.gnu.org/archive/html/help-guix/2021-04/msg00040.html
 (define steven-black-hosts (with-input-from-file "/home/oliver/.config/guix/hosts"
@@ -39,21 +39,27 @@
   ;; Core packages. Available to all users.
   (packages
     (append
-      (list (specification->package "nss-certs")
-            sway
-            swaybg
-            swayidle
-            swaylock-effects
-	    wofi
-            ;;tlp
-            gnome-keyring
-            kitty
-            git
-            stow
-            emacs
-            dconf ; Fixes warnings when running seahorse
-            ntfs-3g
-            dosfstools) ; provides mkfs.fat
+      (map specification->package
+           (list
+             "nss-certs"
+             "openbox"
+             "obconf"
+             "xterm"
+             "sway"
+             "swaybg"
+             "swayidle"
+             "swaylock-effects"
+             "wofi"
+             ;;"tlp"
+             "gnome-keyring"
+             "kitty"
+             "git"
+             "stow"
+             "emacs"
+             "dconf" ; Fixes warnings when running seahorse
+             "ntfs-3g"
+             "dosfstools" ; provides mkfs.fat
+             "libratbag")) ; needed for piper
       %base-packages))
 
   (services
