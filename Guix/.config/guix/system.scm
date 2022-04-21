@@ -52,7 +52,6 @@
              "wofi"
              ;;"tlp"
              "gnome-keyring"
-             "kitty"
              "git"
              "stow"
              "emacs"
