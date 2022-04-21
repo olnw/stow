@@ -61,7 +61,7 @@
       (list (service gnome-keyring-service-type)
 
             ;; dconf and libratbag are needed for piper
-            (simple-service 'my-dbus-services dbus-root-service-type (list dconf libratbag))
+            (simple-service 'my-dbus-root-services dbus-root-service-type (list dconf libratbag))
 
             (set-xorg-configuration
               (xorg-configuration
