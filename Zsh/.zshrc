@@ -4,7 +4,8 @@ promptinit
 
 PROMPT='%(?.%F{green}✓.%F{red}?%?)%f %B%F{240}%~%f%b %# '
 
-alias em='emacsclient -t'
+alias em='emacs -nw'
+alias emc='emacsclient -t'
 alias autoremove='sudo pacman -Rsn $(pacman -Qdtq)'
 alias grep='grep --color=auto'
 alias ll='ls -l'
