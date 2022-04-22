@@ -287,6 +287,9 @@ minibuffer with something like `exit-minibuffer'."
          ("C-i"   . helm-execute-persistent-action)
          ("C-z"   . helm-select-action)))
 
+(use-package ace-window
+  :bind (("C-x o" . ace-window)))
+
 (use-package avy
   :config (avy-setup-default)
   :bind (("C-:"   . 'avy-goto-char)

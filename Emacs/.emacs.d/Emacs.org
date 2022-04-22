@@ -392,6 +392,12 @@ I use Helm as my completion framework.
 #+end_src
 
 * Navigation
+** ace-window
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :bind (("C-x o" . ace-window)))
+#+end_src
+
 ** Avy
 #+begin_src emacs-lisp
   (use-package avy
