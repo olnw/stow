@@ -451,7 +451,7 @@ position of the outside of the paren.  Otherwise return nil."
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
 
-  (setq org-directory "/mnt/hdd/Documents")
+  (setq org-directory "/mnt/hdd/documents")
   (setq org-agenda-files (list org-directory))
 
   (push 'org-habit org-modules) ; Add org-habit to the list of modules
@@ -511,7 +511,7 @@ position of the outside of the paren.  Otherwise return nil."
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "/mnt/hdd/Documents/org-roam")
+  (org-roam-directory "/mnt/hdd/org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
