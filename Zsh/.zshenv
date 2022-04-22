@@ -1,9 +1,9 @@
 export EDITOR=emacsclient
 export SUDO_EDITOR=$EDITOR
 export VISUAL=$EDITOR
-export BROWSER=chromium
+export BROWSER=firefox
 export PATH=/home/oliver/.local/bin:$PATH
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
 
 # FCITX
 export GLFW_IM_MODULE=fcitx5
