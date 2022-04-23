@@ -2,10 +2,9 @@
 // they are on the Space Cadet keyboard.
 // I bind caps lock to Hyper_L/Mod4,
 // and use it exclusively for GNOME shortcuts.
-// https://askubuntu.com/questions/1187610/reassigning-modifier-keys-with-xkb
 
 default partial alphanumeric_keys modifier_keys
-xkb_symbols "basic" {
+xkb_symbols "au_custom_modifiers" {
     include "au"
     name[Group1] = "English (Custom Australian Layout)";
 

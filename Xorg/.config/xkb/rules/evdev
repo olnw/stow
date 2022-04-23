@@ -1,0 +1,5 @@
+! option = symbols
+  au_custom:au_custom_modifiers = +au_custom(au_custom_modifiers)
+
+! include %S/evdev
+
