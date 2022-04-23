@@ -451,7 +451,7 @@ position of the outside of the paren.  Otherwise return nil."
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
 
-  (setq org-directory "/mnt/hdd/documents")
+  (setq org-directory "/mnt/hdd/org")
   (setq org-agenda-files (list org-directory))
 
   (push 'org-habit org-modules) ; Add org-habit to the list of modules
