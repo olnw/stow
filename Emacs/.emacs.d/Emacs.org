@@ -187,7 +187,7 @@ This is necessary, trust me.
     (modus-themes-load-vivendi))
 
   ;; Make comments more visible
-  ;;(set-face-foreground 'font-lock-comment-face "pink")
+  (set-face-foreground 'font-lock-comment-face "pink")
 #+end_src
 
 ** Pulsar
