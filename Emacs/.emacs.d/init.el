@@ -386,33 +386,19 @@ minibuffer with something like `exit-minibuffer'."
 (setq c-default-style "linux")
 
 (setq inferior-lisp-program "clisp")
-(use-package lispy
-  :bind (:map lispy-mode-map
-          ("h" . nil)
-          ("j" . lispy-left)
-          ("k" . lispy-down)
-          ("l" . lispy-up)
-          (";" . lispy-right)))
+(use-package lispy :hook ((lisp-mode       . lispy-mode)
+                          (emacs-lisp-mode . lispy-mode)))
 
 (use-package sly :hook (common-lisp-mode . sly-mode))
 
 (defun onw/lisp-setup ()
   (setq indent-tabs-mode nil)
-  (setq fill-column 100)
-  (lispy-mode))
+  (setq fill-column 100))
 
 (add-hook 'lisp-mode-hook #'onw/lisp-setup)
 (add-hook 'emacs-lisp-mode-hook #'onw/lisp-setup)
 
-(use-package lpy
-  :hook (python-mode . lpy-mode)
-  :bind (:map lpy-mode-map
-          ("h" . nil)
-          ("j" . pspecial-lpy-left)
-          ("k" . pspecial-lpy-down)
-          ("l" . pspecial-lpy-up)
-          (";" . pspecial-lpy-right)))
-
+(use-package lpy :hook (python-mode . lpy-mode))
 (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (use-package lsp-mode
