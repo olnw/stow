@@ -191,7 +191,7 @@ Version 2017-11-01"
 
   (add-hook 'pdf-view-mode-hook (lambda ()
                                   (pdf-view-midnight-minor-mode)
-    				  (auto-revert-mode)))) ; Display changes live
+                                  (auto-revert-mode)))) ; Display changes live
 
 (use-package pdf-view-restore
   :after pdf-tools
