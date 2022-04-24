@@ -350,19 +350,6 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
-(defun show-paren--locate-near-paren-ad ()
-  "Locate an unescaped paren \"near\" point to show.
-If one is found, return the cons (DIR . OUTSIDE), where DIR is 1
-for an open paren, -1 for a close paren, and OUTSIDE is the buffer
-position of the outside of the paren.  Otherwise return nil."
-  (let* ((before (show-paren--categorize-paren (point))))
-    (when (or
-           (eq (car before) 1)
-           (eq (car before) -1))
-      before)))
-
-(advice-add 'show-paren--locate-near-paren :override #'show-paren--locate-near-paren-ad)
-
 (setq show-paren-delay 0)
 (setq show-paren-style 'expression)
 (show-paren-mode t)
