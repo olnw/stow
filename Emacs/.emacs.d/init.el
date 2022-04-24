@@ -130,7 +130,7 @@
   (pulsar-global-mode 1))
 
 ;; Pulse the line after jumping somewhere with avy.
-(defadvice avy-jump (after avy-pulse activate)
+(defadvice avy-jump (after avy-pulse-after-jump activate)
   (pulsar-pulse-line))
 
 (use-package hydra)
