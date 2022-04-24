@@ -133,6 +133,9 @@
 (defadvice avy-jump (after avy-pulse-after-jump activate)
   (pulsar-pulse-line))
 
+(setq whitespace-style '(tab-mark))
+(global-whitespace-mode)
+
 (use-package hydra)
 (use-package major-mode-hydra)
 

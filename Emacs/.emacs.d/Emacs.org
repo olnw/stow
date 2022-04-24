@@ -202,6 +202,12 @@ This is necessary, trust me.
     (pulsar-pulse-line))
 #+end_src
 
+** Visualise Blanks
+#+begin_src emacs-lisp
+  (setq whitespace-style '(tab-mark))
+  (global-whitespace-mode)
+#+end_src
+
 * Key Bindings
 ** Hydra
 #+begin_src emacs-lisp
