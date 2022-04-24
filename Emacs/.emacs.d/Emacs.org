@@ -190,6 +190,14 @@ This is necessary, trust me.
   ;;(set-face-foreground 'font-lock-comment-face "pink")
 #+end_src
 
+** Pulsar
+#+begin_src emacs-lisp
+  (use-package pulsar
+    :config
+    (setq pulsar-face 'pulsar-magenta)
+    (pulsar-global-mode 1))
+#+end_src
+
 * Key Bindings
 ** Hydra
 #+begin_src emacs-lisp

@@ -124,6 +124,11 @@
 ;; Make comments more visible
 ;;(set-face-foreground 'font-lock-comment-face "pink")
 
+(use-package pulsar
+  :config
+  (setq pulsar-face 'pulsar-magenta)
+  (pulsar-global-mode 1))
+
 (use-package hydra)
 (use-package major-mode-hydra)
 
