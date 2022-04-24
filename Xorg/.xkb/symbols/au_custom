@@ -1,0 +1,31 @@
+// Re-map modifier keys to be placed similarly to where
+// they are on the Space Cadet keyboard.
+// I bind caps lock to Hyper_L/Mod4,
+// and use it exclusively for GNOME shortcuts.
+
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "au_custom_modifiers" {
+    include "au"
+    name[Group1] = "English (Custom Australian Layout)";
+
+    key <CAPS> { [ Hyper_L, Hyper_L ] };
+    replace key <LALT> { [ Control_L, Control_L ] };
+    replace key <LWIN> { [ Alt_L, Meta_L ] };
+    replace key <LCTL> { [ Super_L ] };
+    replace key <RALT> { [ Control_R, Control_R ] };
+    replace key <MENU> { [ Alt_R, Meta_R ] };
+    replace key <RCTL> { [ Super_R ] };
+    //modifier_map Mod1 { <LWIN> };
+    //modifier_map Mod3 { Hyper_L };
+    //modifier_map Mod4 { <LCTL> };
+    //modifier_map Control { <LALT> };
+
+    modifier_map Mod3 { Super_L, Super_R };
+
+    key <SUPR> { [ NoSymbol, Super_L ] };
+    modifier_map Mod3 { <SUPR> };
+
+    key <HYPR> { [ NoSymbol, Hyper_L ] };
+    modifier_map Mod4 { <HYPR> };
+};
+
