@@ -25,11 +25,11 @@ add mod1 = Alt_L Meta_L
 add mod4 = Super_L Super_R
 
 
-keycode 9 = Caps_Lock NoSymbol Caps_Lock
-! Caps Lock becomes Escape
-
-! keycode 66 = Escape NoSymbol Escape
+! keycode 9 = Caps_Lock NoSymbol Caps_Lock
 ! Escape becomes Caps Lock
+
+keycode 66 = Escape NoSymbol Escape
+! Caps Lock becomes Escape
 
 remove Lock = Caps_Lock
 keysym Caps_Lock = Escape
