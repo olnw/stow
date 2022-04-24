@@ -129,6 +129,10 @@
   (setq pulsar-face 'pulsar-magenta)
   (pulsar-global-mode 1))
 
+;; Pulse the line after jumping somewhere with avy.
+(defadvice avy-jump (after avy-pulse activate)
+  (pulsar-pulse-line))
+
 (use-package hydra)
 (use-package major-mode-hydra)
 
