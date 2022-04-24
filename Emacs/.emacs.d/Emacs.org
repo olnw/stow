@@ -142,7 +142,14 @@ Automatically chooses what text to display as variable-pitch and fixed-pitch.
 #+end_src
 
 ** Improved Scrolling
+I found that scrolling was 'jumpy' when I used ~good-scroll-mode~ without any further customisations to the scrolling behaviour of Emacs. The following settings seem to make for a smoother scrolling experience.
+See [[https://www.emacswiki.org/emacs/SmoothScrolling]]
 #+begin_src emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1) ; scroll one line at a time with the mouse wheel
+        auto-window-vscroll nil ; potentially fixes jumpy scrolling (see the wiki page)
+        scroll-conservatively 1000 ; don't recenter the point if it moves off screen
+        mouse-wheel-progressive-speed t) ; accelerate scrolling with the mouse wheel
+
   (use-package good-scroll :config (good-scroll-mode 1))
 #+end_src
 

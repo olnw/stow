@@ -89,6 +89,11 @@
   :config
   (setq mixed-pitch-set-height t))
 
+(setq mouse-wheel-scroll-amount '(1) ; scroll one line at a time with the mouse wheel
+      auto-window-vscroll nil ; potentially fixes jumpy scrolling (see the wiki page)
+      scroll-conservatively 1000 ; don't recenter the point if it moves off screen
+      mouse-wheel-progressive-speed t) ; accelerate scrolling with the mouse wheel
+
 (use-package good-scroll :config (good-scroll-mode 1))
 
 (use-package doom-modeline :config (doom-modeline-mode 1))
