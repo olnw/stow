@@ -135,7 +135,7 @@
   (pulsar-global-mode 1))
 
 ;; Pulse the line after jumping somewhere with avy.
-(defadvice avy-jump (after avy-pulse-after-jump activate)
+(defadvice avy-action-goto (after avy-pulse-after-goto activate)
   (pulsar-pulse-line))
 
 (setq whitespace-style '(tab-mark))
