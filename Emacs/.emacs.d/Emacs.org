@@ -382,11 +382,9 @@ The functions beginning with ~prot-~ are from [[https://protesilaos.com/emacs/do
 #+end_src
 
 ** Terminal Emulator
-I use emacs-libvterm as a terminal emulator within Emacs. The ~emacs-vterm~ Guix package is needed for this to work on Guix System.
-
-** Mail Reader
+I use emacs-libvterm as a terminal emulator within Emacs.
 #+begin_src emacs-lisp
-  (use-package notmuch)
+  (use-package vterm)
 #+end_src
 
 * Completion Framework

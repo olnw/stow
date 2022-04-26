@@ -279,7 +279,7 @@ minibuffer with something like `exit-minibuffer'."
               ("C-c C-o" . onw/play-with-mpv)
               ("s"       . prot-elfeed-search-tag-filter)))
 
-(use-package notmuch)
+(use-package vterm)
 
 (use-package helm
   :preface (require 'helm-config)
