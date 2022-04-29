@@ -1,11 +1,11 @@
-#+TITLE: My Emacs Configuration
+#+TITLE: My GNU Emacs Configuration
 #+AUTHOR: Oliver Nikolas Winspear
 #+DATE: <2022-03-31 Thu>
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+STARTUP: content
 
 * Preamble
-This is my Emacs configuration, written in Org Mode. Upon saving this file, all of the following code blocks are added to ~init.el~ using ~org-babel-tangle~. I got the code snippet for this from David Wilson's [[https://github.com/daviwil/emacs-from-scratch][Emacs from Scratch]] GitHub repository. I also got the snippet in the 'Startup' section from this same respository.
+This is my GNU Emacs configuration, written in Org Mode. Upon saving this file, all of the following code blocks are added to ~init.el~ using ~org-babel-tangle~. I got the code snippet for this from David Wilson's [[https://github.com/daviwil/emacs-from-scratch][Emacs from Scratch]] GitHub repository.
 
 * Startup
 Improve startup speed by reducing the frequency of garbage collection.
