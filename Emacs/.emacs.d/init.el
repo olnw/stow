@@ -151,6 +151,33 @@
 (setq show-paren-style 'expression)
 (setq show-paren-mode 1)
 
+(use-package typo :defer 3)
+
+(use-package major-mode-hydra)
+
+(use-package which-key :config (which-key-mode))
+
+(defun xah/new-empty-buffer ()
+  "Create a new empty buffer.
+New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+
+It returns the buffer (for elisp programing).
+
+URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+Version 2017-11-01"
+  (interactive)
+  (let (($buf (generate-new-buffer "untitled")))
+    (switch-to-buffer $buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    $buf))
+
+(global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
+
+(global-set-key (kbd "s-i") (lambda ()
+                              (interactive)
+                              (find-file (concat user-emacs-directory "Emacs.org"))))
+
 (use-package helm
   :preface (require 'helm-config)
   :init (setq helm-command-prefix-key "s-h")
@@ -229,33 +256,6 @@
 (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
 
 (use-package good-scroll :config (good-scroll-mode 1))
-
-(use-package typo :defer 3)
-
-(use-package major-mode-hydra)
-
-(use-package which-key :config (which-key-mode))
-
-(defun xah/new-empty-buffer ()
-  "Create a new empty buffer.
-New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
-
-It returns the buffer (for elisp programing).
-
-URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
-Version 2017-11-01"
-  (interactive)
-  (let (($buf (generate-new-buffer "untitled")))
-    (switch-to-buffer $buf)
-    (funcall initial-major-mode)
-    (setq buffer-offer-save t)
-    $buf))
-
-(global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
-
-(global-set-key (kbd "s-i") (lambda ()
-                              (interactive)
-                              (find-file (concat user-emacs-directory "Emacs.org"))))
 
 (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
   ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")

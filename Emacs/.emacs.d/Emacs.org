@@ -226,6 +226,60 @@ Show line numbers in ~prog-mode~.
   (setq show-paren-mode 1)
 #+end_src
 
+** Key Bindings
+*** Inserting Special Symbols
+~typo-mode~ allows the user to insert typographical symbols using a regular keyboard. For example, pressing the minus/underscore key will cycle between the hyphen (-), the en dash (–), and the em dash (—). An equivalent of ~eldoc-prog-mode~ for ~typo~ would be useful.
+#+begin_src emacs-lisp
+  (use-package typo :defer 3)
+#+end_src
+
+*** Major Mode Hydra
+#+begin_src emacs-lisp
+  (use-package major-mode-hydra)
+#+end_src
+
+*** which-key
+#+begin_src emacs-lisp
+  (use-package which-key :config (which-key-mode))
+#+end_src
+
+*** New Empty Buffer
+#+begin_src emacs-lisp
+  (defun xah/new-empty-buffer ()
+    "Create a new empty buffer.
+  New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+
+  It returns the buffer (for elisp programing).
+
+  URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+  Version 2017-11-01"
+    (interactive)
+    (let (($buf (generate-new-buffer "untitled")))
+      (switch-to-buffer $buf)
+      (funcall initial-major-mode)
+      (setq buffer-offer-save t)
+      $buf))
+
+  (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
+#+end_src
+
+*** Open The Configuration File
+#+begin_src emacs-lisp
+  (global-set-key (kbd "s-i") (lambda ()
+                                (interactive)
+                                (find-file (concat user-emacs-directory "Emacs.org"))))
+#+end_src
+
+*** Evil
+I used Evil for a while (as a former Vim user), but was frustrated by its lack of compatibility with certain Emacs packages. Now that I’m using the default Emacs bindings, I no longer have to check whether a package has been added to ~evil-collection~ before I install it.
+
+*** Other Key Binding Systems
+Soon I will switch from QWERTY to the more ergonomic Colemak-DH layout. Since Emacs was designed for QWERTY, it would be more comfortable to change some of the default bindings, especially those for point movement (~C-<F/B/P/N>~).
+
+I'm planning to use Meow, which provides modal editing for Emacs, and claims to have minimal interference with the default key bindings (unlike Evil).
+
+Another option with Colemak-DH support is ~xah-fly-keys~, which I might try in the future.
+
 ** Completions
 I use Helm as my completion framework. The configuration file used by Helm’s maintainer is a useful reference, and can be found [[https://github.com/thierryvolpiatto/emacs-config/blob/main/init-helm.el][here]].
 #+begin_src emacs-lisp
@@ -328,60 +382,6 @@ See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this
 
   (use-package good-scroll :config (good-scroll-mode 1))
 #+end_src
-
-** Key Bindings
-*** Inserting Special Symbols
-~typo-mode~ allows the user to insert typographical symbols using a regular keyboard. For example, pressing the minus/underscore key will cycle between the hyphen (-), the en dash (–), and the em dash (—). An equivalent of ~eldoc-prog-mode~ for ~typo~ would be useful.
-#+begin_src emacs-lisp
-  (use-package typo :defer 3)
-#+end_src
-
-*** Major Mode Hydra
-#+begin_src emacs-lisp
-  (use-package major-mode-hydra)
-#+end_src
-
-*** which-key
-#+begin_src emacs-lisp
-  (use-package which-key :config (which-key-mode))
-#+end_src
-
-*** New Empty Buffer
-#+begin_src emacs-lisp
-  (defun xah/new-empty-buffer ()
-    "Create a new empty buffer.
-  New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
-
-  It returns the buffer (for elisp programing).
-
-  URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
-  Version 2017-11-01"
-    (interactive)
-    (let (($buf (generate-new-buffer "untitled")))
-      (switch-to-buffer $buf)
-      (funcall initial-major-mode)
-      (setq buffer-offer-save t)
-      $buf))
-
-  (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
-#+end_src
-
-*** Open The Configuration File
-#+begin_src emacs-lisp
-  (global-set-key (kbd "s-i") (lambda ()
-                                (interactive)
-                                (find-file (concat user-emacs-directory "Emacs.org"))))
-#+end_src
-
-*** Evil
-I used Evil for a while (as a former Vim user), but was frustrated by its lack of compatibility with certain Emacs packages. Now that I’m using the default Emacs bindings, I no longer have to check whether a package has been added to ~evil-collection~ before I install it.
-
-*** Other Key Binding Systems
-Soon I will switch from QWERTY to the more ergonomic Colemak-DH layout. Since Emacs was designed for QWERTY, it would be more comfortable to change some of the default bindings, especially those for point movement (~C-<F/B/P/N>~).
-
-I'm planning to use Meow, which provides modal editing for Emacs, and claims to have minimal interference with the default key bindings (unlike Evil).
-
-Another option with Colemak-DH support is ~xah-fly-keys~, which I might try in the future.
 
 * Applications
 ** Hydra
