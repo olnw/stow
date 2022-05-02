@@ -1,5 +1,6 @@
 ! option = symbols
-  au_custom:au_custom_modifiers = +au_custom(au_custom_modifiers)
+  olnw:space_cadet = +olnw(space_cadet)
+  olnw:ralt = +olnw(ralt)
 
 ! include %S/evdev
 
