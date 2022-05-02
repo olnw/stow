@@ -4,6 +4,7 @@ export VISUAL=$EDITOR
 export BROWSER=firefox
 export PATH=$HOME/.local/bin:$PATH
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
+export MOZ_ENABLE_WAYLAND=1 # Enable Wayland for Firefox
 
 # FCITX
 export GLFW_IM_MODULE=ibus
