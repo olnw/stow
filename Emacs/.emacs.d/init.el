@@ -620,14 +620,6 @@ minibuffer with something like `exit-minibuffer'."
   (add-hook 'dap-stopped-hook
             (lambda (arg) (call-interactively #'dap-hydra))))
 
-(use-package web-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (setq web-mode-markup-indent-offset tab-width))
-
-(setq sgml-basic-offset tab-width)
-(setq css-indent-offset tab-width)
-
 ;;(load "latexmk-mode.el")
 ;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
 

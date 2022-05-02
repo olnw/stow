@@ -788,17 +788,6 @@ This will display documentation in the echo area (below the mode line).
               (lambda (arg) (call-interactively #'dap-hydra))))
 #+end_src
 
-** Web Development
-#+begin_src emacs-lisp
-  (use-package web-mode
-    :config
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (setq web-mode-markup-indent-offset tab-width))
-
-  (setq sgml-basic-offset tab-width)
-  (setq css-indent-offset tab-width)
-#+end_src
-
 * Writing and Productivity
 ** LaTeX
 I use ~latexmk-mode~, which I found [[https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/][here]]. Maybe I’ll try to improve it in the future.
