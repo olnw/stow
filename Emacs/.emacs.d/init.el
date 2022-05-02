@@ -259,9 +259,9 @@ Version 2017-11-01"
 
 (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
   ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
-                  ("e" elfeed "Elfeed")
-                  ("v" vterm-other-window "vterm")
-                  ("q" nil "Quit"))))
+                   ("e" elfeed "Elfeed")
+                   ("v" vterm-other-window "vterm")
+                   ("q" nil "Quit"))))
 
 (global-set-key (kbd "s-a") 'hydra-applications/body)
 

@@ -389,9 +389,9 @@ This hydra serves as a launcher for applications that I frequently use.
 #+begin_src emacs-lisp
   (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
     ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
-                    ("e" elfeed "Elfeed")
-                    ("v" vterm-other-window "vterm")
-                    ("q" nil "Quit"))))
+                     ("e" elfeed "Elfeed")
+                     ("v" vterm-other-window "vterm")
+                     ("q" nil "Quit"))))
 
   (global-set-key (kbd "s-a") 'hydra-applications/body)
 #+end_src
