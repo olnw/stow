@@ -682,9 +682,30 @@ I use emacs-libvterm as a terminal emulator within Emacs.
 
 ** Indentation
 #+begin_src emacs-lisp
+  ;; Display tab characters with a max width of 8 columns.
+  ;; This is unaffected by indent-tabs-mode.
   (setq-default tab-width 8)
-  (setq-default indent-tabs-mode 1)
-  (electric-indent-mode -1)
+
+  ;; By default, don't allow indentation to insert tabs.
+  (setq-default indent-tabs-mode nil)
+
+  ;; Auto-indentation
+  (electric-indent-mode 1)
+
+  ;; Indent with tabs for HTML and CSS
+  (setq sgml-basic-offset tab-width)
+  (setq css-indent-offset tab-width)
+  (add-hook 'html-mode-hook (lambda () (setq indent-tabs-mode t)))
+  (add-hook 'css-mode-hook (lambda () (setq indent-tabs-mode t)))
+
+  ;; [[https://stackoverflow.com/questions/39894233/extract-emacs-c-style-options-from-clang-format-style][Getting CC mode style options from a clang-format file]]:
+  ;; https://stackoverflow.com/q/39894233
+
+  ;; Set the indentation style for CC mode.
+  (setq c-default-style
+    '((java-mode . "java")
+      (awk-mode  . "awk")
+      (other     . "gnu")))
 
   (use-package aggressive-indent
     :hook ((emacs-lisp-mode . aggressive-indent-mode)
@@ -709,18 +730,17 @@ This will display documentation in the echo area (below the mode line).
   (require 'org-eldoc)
 #+end_src
 
+** Insert Parentheses In Pairs
+#+begin_src emacs-lisp
+  (electric-pair-mode)
+#+end_src
+
 ** Git Integration
 #+begin_src emacs-lisp
   (use-package magit :defer 3)
 #+end_src
 
 ** Language-Specific Settings
-*** C
-Use the Linux kernel coding style for C.
-#+begin_src emacs-lisp
-  (setq c-default-style "linux")
-#+end_src
-
 *** Lisp
 #+begin_src emacs-lisp
   (setq inferior-lisp-program "clisp")
@@ -737,7 +757,6 @@ Use the Linux kernel coding style for C.
     (sly-setup))
 
   (defun olnw/lisp-setup ()
-    (setq indent-tabs-mode nil)
     (setq fill-column 100))
 
   (add-hook 'lisp-mode-hook #'olnw/lisp-setup)
@@ -747,7 +766,6 @@ Use the Linux kernel coding style for C.
 *** Python
 #+begin_src emacs-lisp
   (use-package lpy :hook (python-mode . lpy-mode))
-  (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 #+end_src
 
 ** LSP and DAP

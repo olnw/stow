@@ -536,9 +536,30 @@ minibuffer with something like `exit-minibuffer'."
 
 (setq backward-delete-char-untabify-method 'hungry)
 
+;; Display tab characters with a max width of 8 columns.
+;; This is unaffected by indent-tabs-mode.
 (setq-default tab-width 8)
-(setq-default indent-tabs-mode 1)
-(electric-indent-mode -1)
+
+;; By default, don't allow indentation to insert tabs.
+(setq-default indent-tabs-mode nil)
+
+;; Auto-indentation
+(electric-indent-mode 1)
+
+;; Indent with tabs for HTML and CSS
+(setq sgml-basic-offset tab-width)
+(setq css-indent-offset tab-width)
+(add-hook 'html-mode-hook (lambda () (setq indent-tabs-mode t)))
+(add-hook 'css-mode-hook (lambda () (setq indent-tabs-mode t)))
+
+;; [[https://stackoverflow.com/questions/39894233/extract-emacs-c-style-options-from-clang-format-style][Getting CC mode style options from a clang-format file]]:
+;; https://stackoverflow.com/q/39894233
+
+;; Set the indentation style for CC mode.
+(setq c-default-style
+  '((java-mode . "java")
+    (awk-mode  . "awk")
+    (other     . "gnu")))
 
 (use-package aggressive-indent
   :hook ((emacs-lisp-mode . aggressive-indent-mode)
@@ -557,9 +578,9 @@ minibuffer with something like `exit-minibuffer'."
 (use-package org-contrib)
 (require 'org-eldoc)
 
-(use-package magit :defer 3)
+(electric-pair-mode)
 
-(setq c-default-style "linux")
+(use-package magit :defer 3)
 
 (setq inferior-lisp-program "clisp")
 
@@ -575,14 +596,12 @@ minibuffer with something like `exit-minibuffer'."
   (sly-setup))
 
 (defun olnw/lisp-setup ()
-  (setq indent-tabs-mode nil)
   (setq fill-column 100))
 
 (add-hook 'lisp-mode-hook #'olnw/lisp-setup)
 (add-hook 'emacs-lisp-mode-hook #'olnw/lisp-setup)
 
 (use-package lpy :hook (python-mode . lpy-mode))
-(add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (use-package lsp-mode
   :init
