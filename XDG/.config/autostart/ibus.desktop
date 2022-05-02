@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=LXTerminal
+Type=Application
+Exec=ibus-daemon -dr
+Terminal=false
+
