@@ -1,14 +1,11 @@
+// This file contains some custom XKB options.
+
 // Re-map modifier keys to be placed similarly to where
 // they are on the Space Cadet keyboard.
-// I bind caps lock to Hyper_L/Mod4,
-// and use it exclusively for GNOME shortcuts.
-
-default partial alphanumeric_keys modifier_keys
-xkb_symbols "au_custom_modifiers" {
-    include "au"
-    name[Group1] = "English (Custom Australian Layout)";
-
-    key <CAPS> { [ Hyper_L, Hyper_L ] };
+// Bind caps lock to Hyper_L/Mod4,
+// so it can be used for window manager shortcuts.
+partial modifier_keys
+xkb_symbols "space_cadet" {
     replace key <LALT> { [ Control_L, Control_L ] };
     replace key <LWIN> { [ Alt_L, Meta_L ] };
     replace key <LCTL> { [ Super_L ] };
@@ -25,7 +22,15 @@ xkb_symbols "au_custom_modifiers" {
     key <SUPR> { [ NoSymbol, Super_L ] };
     modifier_map Mod3 { <SUPR> };
 
+    key <CAPS> { [ Hyper_L, Hyper_L ] };
     key <HYPR> { [ NoSymbol, Hyper_L ] };
     modifier_map Mod4 { <HYPR> };
+};
+
+// Make sure the right alt key isn't set to
+// something else with the Colemak-DH layout.
+partial modifier_keys
+xkb_symbols "ralt" {
+    replace key <RALT> { [ Alt_R ] };
 };
 
