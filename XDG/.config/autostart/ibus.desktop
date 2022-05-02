@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=LXTerminal
+Name=IBus
 Type=Application
 Exec=ibus-daemon -dr
 Terminal=false
