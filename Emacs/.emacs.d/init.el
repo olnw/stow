@@ -178,30 +178,224 @@ Version 2017-11-01"
                               (interactive)
                               (find-file (concat user-emacs-directory "Emacs.org"))))
 
-(use-package helm
-  :preface (require 'helm-config)
-  :init (setq helm-command-prefix-key "s-h")
+;; Minimalistic minibuffer completion UI
+(use-package vertico :init (vertico-mode))
+
+;; Persist history over Emacs restarts.
+;; Vertico sorts by history position.
+(use-package savehist
+  :straight nil
+  :init (savehist-mode))
+
+;; Add marginalia to minibuffer completions
+(use-package marginalia
+  :after vertico
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+;; 'orderless' is a completion style that can match multiple
+;; space-separated components in any order
+(use-package orderless
+  :init
+  ;; partial-completion allows multiple files to be opened at once
+  ;; with find-file, if a wildcard is entered.
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;; Additional completion-at-point functions
+(use-package cape
+  ;; Ensure that orderless comes first in completion-styles
+  :after orderless
   :config
-  ;; Open Helm buffer inside current window
-  (setq helm-split-window-inside-p t)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
-  (setq helm-show-completion-display-function #'helm-display-buffer-in-own-frame
-        helm-apropos-fuzzy-match t
-        helm-lisp-fuzzy-completion t
-        helm-completion-in-region-fuzzy-match t)
+;; Bookmarks, buffer-switching, searching, grep...
+(use-package consult
+  ;; Replace bindings. Lazily loaded by 'use-package'.
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+         ;; M-g bindings (goto-map)
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s m" . consult-multi-occur)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
-  (helm-mode 1)
-  :bind (("M-x"   . helm-M-x)
-         ("s-b"   . helm-bookmarks)
-         ("s-f"   . helm-find-files)
-         :map helm-map
-         ("<tab>" . helm-execute-persistent-action)
-         ("C-i"   . helm-execute-persistent-action)
-         ("C-z"   . helm-select-action)))
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
 
-(use-package ace-window
-  :defer 3
-  :bind (("s-o" . ace-window)))
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+
+  ;; Configure the register formatting. This improves the register
+  ;; preview for 'consult-register', 'consult-register-load',
+  ;; 'consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Replace 'completing-read-multiple' with an enhanced version.
+  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  )
+
+;; 'Collection of functions to operate org-roam with the help of
+;; consult and its live preview feature.'
+(use-package consult-org-roam
+  :after (consult org-roam)
+  :init
+  (require 'consult-org-roam)
+  (consult-org-roam-mode 1)
+  :custom
+  (consult-org-roam-grep-func #'consult-ripgrep)
+  :config
+  ;; Eventually suppress previewing for certain functions
+  (consult-customize
+   consult-org-roam-forward-links
+   :preview-key (kbd "M-."))
+  :bind
+  ("C-c n f" . consult-org-roam-file-find)
+  ("C-c n b" . consult-org-roam-backlinks)
+  ("C-c n s" . consult-org-roam-search))
+
+(use-package consult-lsp
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
+
+;; Menu that provides context-specific actions
+(use-package embark
+  :bind
+  (("C-."   . embark-act)
+   ("C-;"   . embark-dwim)      ;; Good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; Alternative for 'describe-bindings'
+
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Integration for embark and consult.
+;; 'It provides exporters for several Consult commands and also
+;; tweaks the behavior of many Consult commands when used as actions
+;; with embark-act in subtle ways that you may not even notice, but
+;; make for a smoother experience.'
+(use-package embark-consult
+  :after (embark consult)
+  :demand t ; Only necessary if you have the hook below
+  ;; If you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+;; In-buffer completions (similar to company)
+(use-package corfu
+  :init (global-corfu-mode)
+  :config
+  ;; This means Corfu will be used for completions when running
+  ;; M-: (eval-expression). Vertico doesn't support completions
+  ;; for this.
+  (defun corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+  (unless (or (bound-and-true-p mct--active)
+            (bound-and-true-p vertico--input))
+  ;; (setq-local corfu-auto nil) Enable/disable auto completion
+  (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to 'completing-read-multiple'.
+  ;; Alternatively try 'consult-completing-read-multiple'.
+  (defun crm-indicator (args)
+    (cons (concat "[CRM] " (car args)) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  (setq read-extended-command-predicate
+        #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t)
+
+  ;; Disable case-sensitivity for file and buffer matching
+  ;; with built-in completion styles.
+  (setq read-file-name-completion-ignore-case t
+        read-buffer-completion-ignore-case t
+        completion-ignore-case t)
+
+  ;; Enable indentation+completion using the TAB key.
+  (setq tab-always-indent 'complete))
+
+(use-package ace-window :bind (("H-o" . ace-window)))
 
 (use-package avy
   :config (avy-setup-default)
@@ -215,41 +409,7 @@ Version 2017-11-01"
   :defer 3
   :config
   (projectile-global-mode)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
-
-(use-package helm-projectile
-  :defer 3
-  :init
-  (setq projectile-completion-system 'helm)
-  :hook
-  (after-init . helm-projectile-on))
-
-(pretty-hydra-define hydra-projectile (:title "Projectile" :quit-key "q" :color teal)
-  ("This Frame/Window" (("s" helm-projectile-switch-project "Switch Projects")
-                        ("f" helm-projectile-find-file "Find File In Project")
-                        ("n" helm-projectile-find-file-in-known-projects "Find File In All Projects")
-                        ("d" helm-projectile-find-dir "Find Dir In Project")
-                        ("p" helm-projectile-find-file-dwim "Find File At Point")
-                        ("r" helm-projectile-recentf "Find Recent Files")
-                        ("b" helm-projectile-switch-to-buffer "Switch Buffers")
-                        ("a" helm-projectile-ag "Search Project"))
-   "Other Frame/Window" (("F" projectile-find-file-other-frame "Find File Other Frame")
-                         ("w" projectile-find-file-other-window "Find File Other Window")
-                         ("o" projectile-find-other-file-other-window "Find Other Other Window")
-                         ("B" projectile-switch-to-buffer-other-window "Switch Buffer Other Window")
-                         ("m" projectile-multi-occur "Search Multi Occurances"))
-   "Actions" (("c" projectile-edit-dir-locals "Add Project Config")
-              ("I" projectile-invalidate-cache "Clear Projectile Cache")
-              ("S" projectile-run-shell "Run Shell")
-              ("v" projectile-save-project-buffers "Save Project Buffers")
-              ("k" projectile-kill-project-buffers "kill Project Buffers")
-              ("t" projectile-toggle-read-only "Toggle Project Read Only")
-              ("D" projectile-discover-projects-in-directory "Discover Projects Directory")
-              ("q" nil "Quit" :color blue))))
-
-(bind-key "s-p H" 'hydra-projectile/body)
-
-(use-package helm-ag :defer 3)
+  (define-key projectile-mode-map (kbd "H-p") 'projectile-command-map))
 
 (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling (see the wiki page)
 (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
@@ -407,6 +567,8 @@ minibuffer with something like `exit-minibuffer'."
                           (emacs-lisp-mode . lispy-mode)))
 
 (use-package sly
+  ;; Disable Sly's completion UI. I use Corfu instead.
+  :hook (sly-mrepl . (lambda () (sly-symbol-completion-mode -1)))
   :config
   (require 'sly-autoloads)
   (setq sly-contribs '(sly-mrepl))
@@ -429,13 +591,10 @@ minibuffer with something like `exit-minibuffer'."
   :hook ((python-mode . lsp)
          (c-mode      . lsp)
          (c++-mode    . lsp)
-         (lsp-mode    . lsp-enable-which-key-integration)))
+         (lsp-mode    . lsp-enable-which-key-integration))
+  :bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)))
 
 (use-package lsp-ui)
-
-(use-package helm-lsp
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
 (use-package dap-mode
   :config
