@@ -204,13 +204,12 @@ Version 2017-11-01"
   :bind (("s-o" . ace-window)))
 
 (use-package avy
-  :defer 3
   :config (avy-setup-default)
-  :bind (("C-:"   . 'avy-goto-char)
-         ("C-'"   . 'avy-goto-char-2)
-         ("M-g f" . 'avy-goto-line)
-         ("M-g w" . 'avy-goto-word-1)
-         ("M-g e" . 'avy-goto-word-0)))
+  :bind (("H-:"   . 'avy-goto-char)
+         ("H-'"   . 'avy-goto-char-2)
+         ("H-g f" . 'avy-goto-line)
+         ("H-g w" . 'avy-goto-word-1)
+         ("H-g e" . 'avy-goto-word-0)))
 
 (use-package projectile
   :defer 3
@@ -263,7 +262,7 @@ Version 2017-11-01"
                    ("v" vterm-other-window "vterm")
                    ("q" nil "Quit"))))
 
-(global-set-key (kbd "s-a") 'hydra-applications/body)
+(global-set-key (kbd "H-a") 'hydra-applications/body)
 
 (use-package erc
   :defer 3

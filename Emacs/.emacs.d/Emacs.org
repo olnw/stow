@@ -308,21 +308,18 @@ I use Helm as my completion framework. The configuration file used by Helm’s m
 ** Navigation
 *** ace-window
 #+begin_src emacs-lisp
-  (use-package ace-window
-    :defer 3
-    :bind (("s-o" . ace-window)))
+  (use-package ace-window :bind (("H-o" . ace-window)))
 #+end_src
 
 *** avy
 #+begin_src emacs-lisp
   (use-package avy
-    :defer 3
     :config (avy-setup-default)
-    :bind (("C-:"   . 'avy-goto-char)
-           ("C-'"   . 'avy-goto-char-2)
-           ("M-g f" . 'avy-goto-line)
-           ("M-g w" . 'avy-goto-word-1)
-           ("M-g e" . 'avy-goto-word-0)))
+    :bind (("H-:"   . 'avy-goto-char)
+           ("H-'"   . 'avy-goto-char-2)
+           ("H-g f" . 'avy-goto-line)
+           ("H-g w" . 'avy-goto-word-1)
+           ("H-g e" . 'avy-goto-word-0)))
 #+end_src
 
 *** Projectile
@@ -393,7 +390,7 @@ This hydra serves as a launcher for applications that I frequently use.
                      ("v" vterm-other-window "vterm")
                      ("q" nil "Quit"))))
 
-  (global-set-key (kbd "s-a") 'hydra-applications/body)
+  (global-set-key (kbd "H-a") 'hydra-applications/body)
 #+end_src
 
 ** IRC Client
