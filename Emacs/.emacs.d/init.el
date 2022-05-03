@@ -586,12 +586,13 @@ minibuffer with something like `exit-minibuffer'."
                           (emacs-lisp-mode . lispy-mode)))
 
 (use-package sly
-  ;; Disable Sly's completion UI. I use Corfu instead.
-  :hook (sly-mrepl . (lambda () (sly-symbol-completion-mode -1)))
   :config
   (require 'sly-autoloads)
   (setq sly-contribs '(sly-mrepl))
-  (sly-setup))
+  (sly-setup)
+
+  ;; Disable Sly's completion UI. I use Corfu instead.
+  (sly-symbol-completion-mode -1))
 
 (defun olnw/lisp-setup ()
   (setq fill-column 100))
