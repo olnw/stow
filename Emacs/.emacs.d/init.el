@@ -300,8 +300,8 @@ Version 2017-11-01"
 (use-package consult-org-roam
   :init
   (require 'consult-org-roam)
-  :hook
-  (org-mode . consult-org-roam-mode)
+  ;; Activate the minor-mode
+  (consult-org-roam-mode 1)
   :custom
   (consult-org-roam-grep-func #'consult-ripgrep)
   :config
