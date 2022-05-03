@@ -910,8 +910,3 @@ I use ~org-roam~ for Zettelkasten note-taking and daily journaling.
     (org-roam-db-autosync-mode))
 #+end_src
 
-** Spell-Checking
-#+begin_src emacs-lisp
-  (add-hook 'text-mode-hook #'flyspell-mode)
-  (add-hook 'prog-mode-hook #'flyspell-prog-mode)
-#+end_src
