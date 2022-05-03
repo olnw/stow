@@ -721,8 +721,6 @@ I use emacs-libvterm as a terminal emulator within Emacs.
 ** Eldoc
 This will display documentation in the echo area (below the mode line).
 #+begin_src emacs-lisp
-  (global-eldoc-mode 1)
-
   ;; Doesn't seem to be working, even though org-eldoc-documentation-function
   ;; is added to eldoc-documentation-functions when in Org mode. I'll just
   ;; leave this here until it starts working or I know how to fix it.

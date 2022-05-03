@@ -570,8 +570,6 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
-(global-eldoc-mode 1)
-
 ;; Doesn't seem to be working, even though org-eldoc-documentation-function
 ;; is added to eldoc-documentation-functions when in Org mode. I'll just
 ;; leave this here until it starts working or I know how to fix it.
