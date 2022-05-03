@@ -321,9 +321,9 @@ Version 2017-11-01"
 ;; Menu that provides context-specific actions
 (use-package embark
   :bind
-  (("C-."   . embark-act)
-   ("C-;"   . embark-dwim)      ;; Good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; Alternative for 'describe-bindings'
+  ("C-."   . embark-act)
+  ("C-;"   . embark-dwim)      ;; Good alternative: M-.
+  ("C-h B" . embark-bindings)  ;; Alternative for 'describe-bindings'
 
   :init
   ;; Optionally replace the key help with a completing-read interface
@@ -395,15 +395,16 @@ Version 2017-11-01"
   ;; Enable indentation+completion using the TAB key.
   (setq tab-always-indent 'complete))
 
-(use-package ace-window :bind (("H-o" . ace-window)))
+(use-package ace-window :bind ("H-o" . ace-window))
 
 (use-package avy
   :config (avy-setup-default)
-  :bind (("H-:"   . 'avy-goto-char)
-         ("H-'"   . 'avy-goto-char-2)
-         ("H-g f" . 'avy-goto-line)
-         ("H-g w" . 'avy-goto-word-1)
-         ("H-g e" . 'avy-goto-word-0)))
+  :bind
+  ("H-:"   . 'avy-goto-char)
+  ("H-'"   . 'avy-goto-char-2)
+  ("H-g f" . 'avy-goto-line)
+  ("H-g w" . 'avy-goto-word-1)
+  ("H-g e" . 'avy-goto-word-0))
 
 (use-package projectile
   :defer 3
