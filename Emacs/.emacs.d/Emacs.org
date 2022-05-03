@@ -527,13 +527,15 @@ Another option with Colemak-DH support is ~xah-fly-keys~, which I might try in t
 #+end_src
 
 ** Improved Scrolling
-I found that scrolling was 'jumpy' when I used ~good-scroll-mode~ without any further customisations to the scrolling behaviour of Emacs. The following settings seem to make for a smoother scrolling experience.
+Recently, scrolling within Emacs has been quite laggy for me. I have disabled good-scroll mode for the moment, to see if this changes anything.
 See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this topic.
 #+begin_src emacs-lisp
-  (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling (see the wiki page)
+  (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
   (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
+  (setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
+  (setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
 
-  (use-package good-scroll :config (good-scroll-mode 1))
+  ;;(use-package good-scroll :config (good-scroll-mode 1))
 #+end_src
 
 * Applications
