@@ -404,7 +404,8 @@ Another option with Colemak-DH support is ~xah-fly-keys~, which I might try in t
   (use-package consult-org-roam
     :init
     (require 'consult-org-roam)
-    (consult-org-roam-mode 1)
+    :hook
+    (org-mode . consult-org-roam-mode)
     :custom
     (consult-org-roam-grep-func #'consult-ripgrep)
     :config

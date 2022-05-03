@@ -300,7 +300,8 @@ Version 2017-11-01"
 (use-package consult-org-roam
   :init
   (require 'consult-org-roam)
-  (consult-org-roam-mode 1)
+  :hook
+  (org-mode . consult-org-roam-mode)
   :custom
   (consult-org-roam-grep-func #'consult-ripgrep)
   :config
