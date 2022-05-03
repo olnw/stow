@@ -298,7 +298,6 @@ Version 2017-11-01"
 ;; 'Collection of functions to operate org-roam with the help of
 ;; consult and its live preview feature.'
 (use-package consult-org-roam
-  :after (consult org-roam)
   :init
   (require 'consult-org-roam)
   (consult-org-roam-mode 1)
@@ -704,9 +703,9 @@ minibuffer with something like `exit-minibuffer'."
   (org-roam-directory "/mnt/hdd/org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert))
+  :bind
+  ("C-c n l" . org-roam-buffer-toggle)
+  ("C-c n i" . org-roam-node-insert)
   :config
   (setq org-roam-capture-templates '(("d" "default" plain "%?"
     :target (file+head "${slug}.org.gpg"
