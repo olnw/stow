@@ -273,12 +273,8 @@ Show line numbers in ~prog-mode~.
 *** Evil
 I used Evil for a while (as a former Vim user), but was frustrated by its lack of compatibility with certain Emacs packages. Now that I’m using the default Emacs bindings, I no longer have to check whether a package has been added to ~evil-collection~ before I install it.
 
-*** Other Key Binding Systems
-Soon I will switch from QWERTY to the more ergonomic Colemak-DH layout. Since Emacs was designed for QWERTY, it would be more comfortable to change some of the default bindings, especially those for point movement (~C-<F/B/P/N>~).
-
-I'm planning to use Meow, which provides modal editing for Emacs, and claims to have minimal interference with the default key bindings (unlike Evil).
-
-Another option with Colemak-DH support is ~xah-fly-keys~, which I might try in the future.
+*** Making Better Use of Caps Lock
+The Caps Lock key is easily accessible from the home row on an ANSI keyboard. As such, I believe it should be re-mapped to serve a more useful purpose. It's common for Emacs users to bind it to Control, however there is a better option. With tools such as KMonad, xcape, keyd, Xremap and Interception Tools, it is possible to assign multiple functions to a single physical key. Since Control is only useful as a leader key, I have assigned the Caps Lock key to function as Escape when tapped, and Control when held. This is useful for Vim/Neovim, to avoid moving my left hand from the home row when I want to exit Insert Mode.
 
 ** Completions
 #+begin_src emacs-lisp
