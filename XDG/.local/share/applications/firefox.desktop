@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Firefox
+GenericName=Firefox
+Exec=/opt/firefox/firefox %u
+Icon=/opt/firefox/browser/chrome/icons/default/default128.png
+Type=Application
+Categories=Application;Network;
+Comment=Firefox Web Browser
+StartupWMClass=Firefox
