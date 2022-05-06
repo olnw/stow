@@ -1,9 +1,27 @@
 // This file contains some custom XKB options.
 
+// I think it's better to use KMonad,
+// since it's cross-platform and more customisable.
+// Nevertheless, I'm not deleting this file in case I need it in the future.
+
+// Follow these instructions for GNOME:
+// https://www.beatworm.co.uk/blog/keyboards/gnome-wayland-xkb
+// This should work for X11 and Wayland.
+
+// Note: this file doesn't need to be placed in /usr/share/X11/xkb/symbols/
+// Instead, it can be placed in $XDG_CONFIG_HOME/xkb/symbols/
+
+// Apply these options with gsettings or with GNOME's Dconf Editor tool,
+// so that the changes will persist after a reboot.
+
+// Note for Colemak-DH users:
+// When using the Colemak-DH ANSI layout from xkeyboard-config,
+// the Right Alt key is set to ISO_Level3_Shift.
+// To make it function as a normal Alt key, use the lv3:ralt_alt XKB option.
+
+
 // Re-map modifier keys to be placed similarly to where
 // they are on the Space Cadet keyboard.
-// Bind caps lock to Hyper_L/Mod4,
-// so it can be used for window manager shortcuts.
 partial modifier_keys
 xkb_symbols "space_cadet" {
     replace key <LALT> { [ Control_L, Control_L ] };
@@ -12,25 +30,5 @@ xkb_symbols "space_cadet" {
     replace key <RALT> { [ Control_R, Control_R ] };
     replace key <MENU> { [ Alt_R, Meta_R ] };
     replace key <RCTL> { [ Super_R ] };
-    //modifier_map Mod1 { <LWIN> };
-    //modifier_map Mod3 { Hyper_L };
-    //modifier_map Mod4 { <LCTL> };
-    //modifier_map Control { <LALT> };
-
-    modifier_map Mod3 { Super_L, Super_R };
-
-    key <SUPR> { [ NoSymbol, Super_L ] };
-    modifier_map Mod3 { <SUPR> };
-
-    key <CAPS> { [ Hyper_L, Hyper_L ] };
-    key <HYPR> { [ NoSymbol, Hyper_L ] };
-    modifier_map Mod4 { <HYPR> };
-};
-
-// Make sure the right alt key isn't set to
-// something else with the Colemak-DH layout.
-partial modifier_keys
-xkb_symbols "ralt" {
-    replace key <RALT> { [ Alt_R ] };
 };
 

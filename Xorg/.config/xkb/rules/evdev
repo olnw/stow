@@ -1,6 +1,5 @@
 ! option = symbols
   olnw:space_cadet = +olnw(space_cadet)
-  olnw:ralt = +olnw(ralt)
 
 ! include %S/evdev
 
