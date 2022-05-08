@@ -614,6 +614,10 @@ minibuffer with something like `exit-minibuffer'."
 ;; Auto-indentation
 (electric-indent-mode 1)
 
+;; Disable in Org mode. It was behaving weirdly for me.
+(add-hook 'org-mode-hook
+          (lambda () (electric-indent-local-mode -1)))
+
 ;; Indent with tabs for HTML and CSS
 (setq sgml-basic-offset tab-width)
 (setq css-indent-offset tab-width)
