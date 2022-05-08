@@ -379,25 +379,6 @@ Version 2017-11-01"
   ;; after lazily loading the package.
   )
 
-;; 'Collection of functions to operate org-roam with the help of
-;; consult and its live preview feature.'
-(use-package consult-org-roam
-  :init
-  (require 'consult-org-roam)
-  ;; Activate the minor-mode
-  (consult-org-roam-mode 1)
-  :custom
-  (consult-org-roam-grep-func #'consult-ripgrep)
-  :config
-  ;; Eventually suppress previewing for certain functions
-  (consult-customize
-   consult-org-roam-forward-links
-   :preview-key (kbd "M-."))
-  :bind
-  ("C-c n f" . consult-org-roam-file-find)
-  ("C-c n b" . consult-org-roam-backlinks)
-  ("C-c n s" . consult-org-roam-search))
-
 (use-package consult-lsp
   :config
   (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
@@ -789,12 +770,30 @@ minibuffer with something like `exit-minibuffer'."
   (org-roam-directory "/mnt/hdd/org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
-  :bind
-  ("C-c n l" . org-roam-buffer-toggle)
-  ("C-c n i" . org-roam-node-insert)
   :config
   (setq org-roam-capture-templates '(("d" "default" plain "%?"
     :target (file+head "${slug}.org.gpg"
                        "#+title: ${title}\n")
     :unnarrowed t)))
   (org-roam-db-autosync-mode))
+
+;; 'Collection of functions to operate org-roam with the help of
+;; consult and its live preview feature.'
+(use-package consult-org-roam
+  :init
+  (require 'consult-org-roam)
+  ;; Activate the minor-mode
+  (consult-org-roam-mode 1)
+  :custom
+  (consult-org-roam-grep-func #'consult-ripgrep)
+  :config
+  ;; Eventually suppress previewing for certain functions
+  (consult-customize
+   consult-org-roam-forward-links
+   :preview-key (kbd "M-."))
+  :bind
+  ("C-c n f" . org-roam-node-find) ; Can't create new nodes with consult-org-roam-file-find?
+  ("C-c n b" . consult-org-roam-backlinks)
+  ("C-c n s" . consult-org-roam-search)
+  ("C-c n l" . org-roam-buffer-toggle)
+  ("C-c n i" . org-roam-node-insert))
