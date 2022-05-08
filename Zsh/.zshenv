@@ -2,7 +2,7 @@ export EDITOR=emacsclient
 export SUDO_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export BROWSER=firefox
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$PATH:$HOME/.local/bin:$HOME/.roswell/bin
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/keyring/ssh"
 export MOZ_ENABLE_WAYLAND=1 # Enable Wayland for Firefox
 
