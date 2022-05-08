@@ -815,7 +815,7 @@ This will display documentation in the echo area (below the mode line).
 ** Language-Specific Settings
 *** Lisp
 #+begin_src emacs-lisp
-  (setq inferior-lisp-program "clisp")
+  (setq inferior-lisp-program "ros -Q run")
 
   (use-package lispy :hook ((lisp-mode       . lispy-mode)
                             (emacs-lisp-mode . lispy-mode)))

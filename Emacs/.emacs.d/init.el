@@ -652,7 +652,7 @@ minibuffer with something like `exit-minibuffer'."
 
 (use-package magit :defer 3)
 
-(setq inferior-lisp-program "clisp")
+(setq inferior-lisp-program "ros -Q run")
 
 (use-package lispy :hook ((lisp-mode       . lispy-mode)
                           (emacs-lisp-mode . lispy-mode)))
