@@ -271,6 +271,7 @@ I used Evil for a while (as a former Vim user), but was frustrated by its lack o
 The Caps Lock key is easily accessible from the home row on an ANSI keyboard. As such, I believe it should be re-mapped to serve a more useful purpose. It's common for Emacs users to bind it to Control, however there is a better option. With tools such as KMonad, xcape, keyd, Xremap and Interception Tools, it is possible to assign multiple functions to a single physical key. Since Control is only useful as a leader key, I have assigned the Caps Lock key to function as Escape when tapped, and Control when held. This is useful for Vim/Neovim, to avoid moving my left hand from the home row when I want to exit Insert Mode.
 
 ** Completions
+I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that these packages have better integration with Emacs.
 #+begin_src emacs-lisp
   ;; Minimalistic minibuffer completion UI
   (use-package vertico :init (vertico-mode))
