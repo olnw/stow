@@ -17,12 +17,6 @@ Improve startup speed by increasing ~gc-cons-threshold~. Its original value is r
   (add-hook 'after-init-hook (lambda ()
                                ;; Restore value after startup
                                (setq gc-cons-threshold 800000)))
-
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (message "*** Emacs loaded in %s seconds with %d garbage collections."
-                       (emacs-init-time "%.2f")
-                       gcs-done)))
 #+end_src
 
 ** Default Coding System

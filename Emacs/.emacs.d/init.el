@@ -5,12 +5,6 @@
                              ;; Restore value after startup
                              (setq gc-cons-threshold 800000)))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "*** Emacs loaded in %s seconds with %d garbage collections."
-                     (emacs-init-time "%.2f")
-                     gcs-done)))
-
 (set-default-coding-systems 'utf-8)
 
 (setq user-emacs-directory "~/stow/Emacs/.emacs.d/")
