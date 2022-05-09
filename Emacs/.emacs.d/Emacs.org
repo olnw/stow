@@ -807,11 +807,6 @@ This will display documentation in the echo area (below the mode line).
   (require 'org-eldoc)
 #+end_src
 
-** Insert Parentheses In Pairs
-#+begin_src emacs-lisp
-  (electric-pair-mode)
-#+end_src
-
 ** Git Integration
 #+begin_src emacs-lisp
   (use-package magit :defer 3)

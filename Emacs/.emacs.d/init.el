@@ -652,8 +652,6 @@ minibuffer with something like `exit-minibuffer'."
 (use-package org-contrib)
 (require 'org-eldoc)
 
-(electric-pair-mode)
-
 (use-package magit :defer 3)
 
 (setq inferior-lisp-program "ros -Q run")
