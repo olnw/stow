@@ -88,8 +88,8 @@ Some functions for managing the systemd user service for Emacs.
 *** Themes
 #+begin_src emacs-lisp
   (use-package moe-theme
-    :init
-    (defvar moe-theme-mode-line-color 'yellow)
+    ;;:init
+    ;;(defvar moe-theme-mode-line-color 'yellow)
     :config
     (setq moe-theme-highlight-buffer-id t))
 
@@ -98,15 +98,19 @@ Some functions for managing the systemd user service for Emacs.
     ;; Add customisations prior to loading the themes
     (setq modus-themes-italic-constructs t
           modus-themes-bold-constructs nil
-          modus-themes-region '(bg-only no-extend)
-          modus-themes-fringes nil)
+          modus-themes-region '(bg-only no-extend))
 
     ;; Treat all themes as safe
-    (setq custom-safe-themes t)
-    :config
-    (load-theme 'modus-vivendi)
-    ;; Make comments more visible
-    (set-face-foreground 'font-lock-comment-face "pink"))
+    (setq custom-safe-themes t))
+
+  ;; Make comments more visible
+  ;;(set-face-foreground 'font-lock-comment-face "pink")
+
+  ;; Packaged version of the Modus themes, for older Emacs versions
+  ;; that don't have them installed by default.
+  (use-package modus-themes
+    :init (modus-themes-load-themes)
+    :config (modus-themes-load-vivendi))
 #+end_src
 
 *** Reduce Visual Clutter
