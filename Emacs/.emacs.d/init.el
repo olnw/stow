@@ -464,7 +464,7 @@ Version 2017-11-01"
   ;; Enable indentation+completion using the TAB key.
   (setq tab-always-indent 'complete))
 
-(use-package ace-window :bind ("H-o" . ace-window))
+(use-package ace-window)
 
 (use-package avy
   :config (avy-setup-default)

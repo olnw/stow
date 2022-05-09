@@ -573,8 +573,9 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
 
 ** Navigation
 *** ace-window
+~ace-window~ is an Emacs package for efficient window-management — just bind the ~ace-window~ function to a convenient key. (I have done this in my configuration for Meow.)
 #+begin_src emacs-lisp
-  (use-package ace-window :bind ("H-o" . ace-window))
+  (use-package ace-window)
 #+end_src
 
 *** avy
