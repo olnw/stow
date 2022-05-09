@@ -147,7 +147,7 @@
 
 (setq show-paren-delay 0)
 (setq show-paren-style 'expression)
-(setq show-paren-mode 1)
+(show-paren-mode 1)
 
 (use-package typo :defer 3)
 
