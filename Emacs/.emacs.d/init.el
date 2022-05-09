@@ -656,8 +656,14 @@ minibuffer with something like `exit-minibuffer'."
 
 (setq inferior-lisp-program "ros -Q run")
 
-(use-package lispy :hook ((lisp-mode       . lispy-mode)
-                          (emacs-lisp-mode . lispy-mode)))
+(use-package paredit
+  :hook ((emacs-lisp-mode                  . enable-paredit-mode)
+         (eval-expression-minibuffer-setup . enable-paredit-mode)
+         (ielm-mode                        . enable-paredit-mode)
+         (lisp-mode                        . enable-paredit-mode)
+         (lisp-interaction-mode            . enable-paredit-mode)
+         (scheme-mode                      . enable-paredit-mode)
+         (sly-mrepl                        . enable-paredit-mode)))
 
 (use-package sly
   :config
@@ -673,8 +679,6 @@ minibuffer with something like `exit-minibuffer'."
 
 (add-hook 'lisp-mode-hook #'olnw/lisp-setup)
 (add-hook 'emacs-lisp-mode-hook #'olnw/lisp-setup)
-
-(use-package lpy :hook (python-mode . lpy-mode))
 
 (use-package lsp-mode
   :init
