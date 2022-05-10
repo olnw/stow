@@ -184,10 +184,9 @@ Version 2017-11-01"
     ;; No cheatsheet for Colemak-DH :(
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
     (meow-motion-overwrite-define-key
-     ;; Use e to move up, n to move down.
-     ;; Since special modes usually use n to move down, we only overwrite e here.
-     '("e" . meow-prev)
-     '("<escape>" . ignore))
+     '("<escape>" . ignore)
+     '("e" . meow-next)
+     '("i" . meow-prev))
     (meow-leader-define-key
      '("?" . meow-cheatsheet)
      ;; To execute the originally e in MOTION state, use SPC e.
