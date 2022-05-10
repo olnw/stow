@@ -273,7 +273,7 @@ Show line numbers in ~prog-mode~.
 I used Evil for a while (as a former Vim user), but was frustrated by its lack of compatibility with certain Emacs packages. Now that I’m using the default Emacs bindings, I no longer have to check whether a package has been added to ~evil-collection~ before I install it.
 
 **** Meow
-I use Meow for modal editing. Perhaps I can combine it [[https://karthinks.com/software/avy-can-do-anything/][Avy]] for increased efficiency, although it already seems quite powerful by itself. My keyboard layout is the standard ANSI variant of Colemak-DH.
+I use Meow for modal editing. Perhaps I can combine it with [[https://karthinks.com/software/avy-can-do-anything/][Avy]] for increased efficiency, although it already seems quite powerful by itself. My keyboard layout is the standard ANSI variant of Colemak-DH.
 #+begin_src emacs-lisp
   (use-package meow
     :config
@@ -326,25 +326,25 @@ I use Meow for modal editing. Perhaps I can combine it [[https://karthinks.com/s
        '("B" . meow-back-symbol)
        '("c" . meow-change)
        '("d" . meow-delete)
-       '("e" . meow-prev)
-       '("E" . meow-prev-expand)
+       '("e" . meow-next)
+       '("E" . meow-next-expand)
        '("f" . meow-find)
        '("g" . meow-cancel-selection)
        '("G" . meow-grab)
-       '("h" . meow-mark-word)
-       '("H" . meow-mark-symbol)
-       '("i" . meow-right)
-       '("I" . meow-right-expand)
+       '("h" . execute-extended-command)
+       '("H" . repeat)
+       '("i" . meow-prev)
+       '("I" . meow-prev-expand)
        '("j" . meow-join)
        '("k" . meow-kill)
        '("l" . meow-line)
        '("L" . meow-goto-line)
-       '("m" . meow-left)
-       '("M" . meow-left-expand)
-       '("n" . meow-next)
-       '("N" . meow-next-expand)
-       '("o" . meow-block)
-       '("O" . meow-to-block)
+       '("m" . meow-mark-word)
+       '("M" . meow-mark-symbol)
+       '("n" . meow-left)
+       '("N" . meow-left-expand)
+       '("o" . meow-right)
+       '("O" . meow-right-expand)
        '("p" . meow-yank)
        '("q" . meow-quit)
        '("r" . meow-replace)
@@ -360,7 +360,8 @@ I use Meow for modal editing. Perhaps I can combine it [[https://karthinks.com/s
        '("X" . meow-backward-delete)
        '("y" . meow-save)
        '("z" . meow-pop-selection)
-       '("'" . repeat)
+       '("'" . meow-block)
+       '("\"" . meow-to-block)
        '("<escape>" . ignore)))
     (meow-setup)
     (meow-global-mode))
