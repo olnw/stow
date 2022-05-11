@@ -189,7 +189,6 @@ Show line numbers in ~prog-mode~.
 *** Pulsar
 #+begin_src emacs-lisp
   (use-package pulsar
-    :defer 3
     :config
     (setq pulsar-face 'pulsar-magenta)
     (pulsar-global-mode 1))
@@ -228,7 +227,7 @@ Show line numbers in ~prog-mode~.
 *** Inserting Special Symbols
 ~typo-mode~ allows the user to insert typographical symbols using a regular keyboard. For example, pressing the minus/underscore key will cycle between the hyphen (-), the en dash (–), and the em dash (—). An equivalent of ~eldoc-prog-mode~ for ~typo~ would be useful.
 #+begin_src emacs-lisp
-  (use-package typo :defer 3)
+  (use-package typo)
 #+end_src
 
 *** Major Mode Hydra
@@ -593,7 +592,6 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
 *** Projectile
 #+begin_src emacs-lisp
   (use-package projectile
-    :defer 3
     :config
     (projectile-global-mode)
     (define-key projectile-mode-map (kbd "H-p") 'projectile-command-map))
@@ -632,7 +630,6 @@ This hydra serves as a launcher for applications that I frequently use.
 ** IRC Client
 #+begin_src emacs-lisp
   (use-package erc
-    :defer 3
     :straight (:type built-in)
     :config
     (setq erc-nick "olnw")
@@ -648,7 +645,6 @@ This hydra serves as a launcher for applications that I frequently use.
 ** PDF Viewer
 #+begin_src emacs-lisp
   (use-package pdf-tools
-    :defer 3
     :config
     (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
                                      ,(face-attribute 'default :background)))
@@ -660,7 +656,6 @@ This hydra serves as a launcher for applications that I frequently use.
                                     (auto-revert-mode)))) ; Display changes live
   
   (use-package pdf-view-restore
-    :defer 3
     :after pdf-tools
     :config
     (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
@@ -722,7 +717,6 @@ The functions beginning with ~prot-~ are from [[https://protesilaos.com/emacs/do
       (elfeed-search-update :force)))
   
   (use-package elfeed
-    :defer 3
     :config
     ;; Load my feeds from a separate file
     (load "olnw-elfeed-feeds.el")
@@ -751,7 +745,7 @@ The functions beginning with ~prot-~ are from [[https://protesilaos.com/emacs/do
 ** Terminal Emulator
 I use emacs-libvterm as a terminal emulator within Emacs.
 #+begin_src emacs-lisp
-  (use-package vterm :defer 3)
+  (use-package vterm)
 #+end_src
 
 * Editing Behaviour
@@ -814,7 +808,7 @@ This will display documentation in the echo area (below the mode line).
 
 ** Git Integration
 #+begin_src emacs-lisp
-  (use-package magit :defer 3)
+  (use-package magit)
 #+end_src
 
 ** Language-Specific Settings

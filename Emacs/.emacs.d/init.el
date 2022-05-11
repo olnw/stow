@@ -121,7 +121,6 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 (use-package pulsar
-  :defer 3
   :config
   (setq pulsar-face 'pulsar-magenta)
   (pulsar-global-mode 1))
@@ -149,7 +148,7 @@
 (setq show-paren-style 'expression)
 (show-paren-mode 1)
 
-(use-package typo :defer 3)
+(use-package typo)
 
 (use-package major-mode-hydra)
 
@@ -476,7 +475,6 @@ Version 2017-11-01"
   ("H-g e" . 'avy-goto-word-0))
 
 (use-package projectile
-  :defer 3
   :config
   (projectile-global-mode)
   (define-key projectile-mode-map (kbd "H-p") 'projectile-command-map))
@@ -499,7 +497,6 @@ Version 2017-11-01"
 (global-set-key (kbd "H-a") 'hydra-applications/body)
 
 (use-package erc
-  :defer 3
   :straight (:type built-in)
   :config
   (setq erc-nick "olnw")
@@ -512,7 +509,6 @@ Version 2017-11-01"
                  :port   "6697")))
 
 (use-package pdf-tools
-  :defer 3
   :config
   (setq pdf-view-midnight-colors `(,(face-attribute 'default :foreground) .
                                    ,(face-attribute 'default :background)))
@@ -524,7 +520,6 @@ Version 2017-11-01"
                                   (auto-revert-mode)))) ; Display changes live
 
 (use-package pdf-view-restore
-  :defer 3
   :after pdf-tools
   :config
   (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
@@ -581,7 +576,6 @@ minibuffer with something like `exit-minibuffer'."
     (elfeed-search-update :force)))
 
 (use-package elfeed
-  :defer 3
   :config
   ;; Load my feeds from a separate file
   (load "olnw-elfeed-feeds.el")
@@ -606,7 +600,7 @@ minibuffer with something like `exit-minibuffer'."
               ("C-c C-o" . olnw/play-with-mpv)
               ("s"       . prot-elfeed-search-tag-filter)))
 
-(use-package vterm :defer 3)
+(use-package vterm)
 
 (setq backward-delete-char-untabify-method 'hungry)
 
@@ -654,7 +648,7 @@ minibuffer with something like `exit-minibuffer'."
 (use-package org-contrib)
 (require 'org-eldoc)
 
-(use-package magit :defer 3)
+(use-package magit)
 
 (setq inferior-lisp-program "ros -Q run")
 
