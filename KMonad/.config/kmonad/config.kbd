@@ -10,7 +10,7 @@
   fallthrough true
   allow-cmd true
   input (device-file "/dev/input/by-id/usb-SONiX_PURI_TKL-event-kbd")
-  output (uinput-sink "My KMonad output"))
+  output (uinput-sink "KMonad keyboard"))
 
 ;; Caps Lock when tapped, Left Control when held.
 (defalias xcp (tap-next esc lctl))
