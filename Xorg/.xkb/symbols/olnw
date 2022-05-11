@@ -1,18 +1,11 @@
 // This file contains some custom XKB options.
 
-// I think it's better to use KMonad,
-// since it's cross-platform and more customisable.
-// Nevertheless, I'm not deleting this file in case I need it in the future.
-
 // Follow these instructions for GNOME:
 // https://www.beatworm.co.uk/blog/keyboards/gnome-wayland-xkb
 // This should work for X11 and Wayland.
 
 // Note: this file doesn't need to be placed in /usr/share/X11/xkb/symbols/
 // Instead, it can be placed in $XDG_CONFIG_HOME/xkb/symbols/
-
-// Apply these options with gsettings or with GNOME's Dconf Editor tool,
-// so that the changes will persist after a reboot.
 
 // Note for Colemak-DH users:
 // When using the Colemak-DH ANSI layout from xkeyboard-config,
@@ -22,6 +15,8 @@
 
 // Re-map modifier keys to be placed similarly to where
 // they are on the Space Cadet keyboard.
+// Now I do this with KMonad.
+
 partial modifier_keys
 xkb_symbols "space_cadet" {
     replace key <LALT> { [ Control_L, Control_L ] };
