@@ -1,5 +1,5 @@
-;; See this repo for details on how to run KMonad without root + with systemd:
-;; https://git.sr.ht/~b6d/kmonad-config
+;; See below for details on how to run KMonad without superuser permissions:
+;; https://github.com/kmonad/kmonad/blob/master/doc/faq.md#q-how-do-i-get-uinput-permissions
 
 ;; Note for Colemak-DH users:
 ;; When using the Colemak-DH ANSI layout from xkeyboard-config,
