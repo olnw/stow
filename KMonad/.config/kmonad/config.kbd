@@ -24,12 +24,31 @@
   lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght
 )
 
-(deflayer modifiers
+;; Template for a layer
+;;(deflayer template
+;;  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+;;  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _
+;;  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _
+;;  _    _    _    _    _    _    _    _    _    _    _    _    _
+;;  _    _    _    _    _    _    _    _    _    _    _    _                    _
+;;  _    _    _              _              _    _    _    _               _    _    _
+;;)
+
+(deflayer base
   caps _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _
   @xcp _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _                    _
   lmet lalt lctl           _              rctl _    ralt rmet            _    _    _
+)
+
+(deflayer colemak-dh
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+  _    1    2    3    4    5    6    7    8    9    0    -    =    _     _    _    _
+  _    q    w    f    p    b    j    l    u    y    ;    [    ]    \     _    _    _
+  _    a    r    s    t    g    m    n    e    i    o    '    _
+  _    x    c    d    v    z    k    h    ,    .    /    _                    _
+  _    _    _              spc            _    _    _    _               _    _    _
 )
 
