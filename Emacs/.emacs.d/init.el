@@ -488,6 +488,8 @@ Version 2017-11-01"
 
 ;;(use-package good-scroll :config (good-scroll-mode 1))
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
   ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
                    ("e" elfeed "Elfeed")
