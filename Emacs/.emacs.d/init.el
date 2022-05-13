@@ -428,7 +428,20 @@ Version 2017-11-01"
             (bound-and-true-p vertico--input))
   ;; (setq-local corfu-auto nil) Enable/disable auto completion
   (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+
+  ;; TAB-and-Go customizations
+  :custom
+  (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
+  (corfu-preselect-first nil) ;; Disable candidate preselection
+
+  ;; Use TAB for cycling, default is 'corfu-complete'.
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous)))
 
 ;; A few more useful configurations...
 (use-package emacs
