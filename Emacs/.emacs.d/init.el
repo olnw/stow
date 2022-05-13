@@ -183,9 +183,7 @@ Version 2017-11-01"
     ;; No cheatsheet for Colemak-DH :(
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
     (meow-motion-overwrite-define-key
-     '("<escape>" . ignore)
-     '("e" . meow-next)
-     '("i" . meow-prev))
+     '("<escape>" . ignore))
     (meow-leader-define-key
      '("?" . meow-cheatsheet)
      ;; To execute the originally e in MOTION state, use SPC e.
