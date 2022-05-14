@@ -190,7 +190,8 @@ Version 2017-11-01"
     ;; No cheatsheet for Colemak-DH :(
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
     (meow-motion-overwrite-define-key
-     '("<escape>" . ignore))
+     '("<escape>" . ignore)
+     '("`" . ace-window))
     (meow-leader-define-key
      '("?" . meow-cheatsheet)
      ;; To execute the originally e in MOTION state, use SPC e.
@@ -205,8 +206,7 @@ Version 2017-11-01"
      '("8" . meow-digit-argument)
      '("9" . meow-digit-argument)
      '("0" . meow-digit-argument)
-     ;; Custom bindings
-     '("&" . +change-theme)
+     ;; Commonly used
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
      '("d" . dired)
@@ -214,10 +214,8 @@ Version 2017-11-01"
      '("f" . find-file)
      '("i" . imenu)
      '("a" . execute-extended-command)
-     '("p" . project-find-file)
-     '("j" . project-switch-to-buffer)
+     '("p" . "C-x p") ; project.el functions
      '("t" . tab-bar-switch-to-tab)
-     '("l" . project-switch-project)
      '("y" . magit))
     (meow-normal-define-key
      '("`" . ace-window)
