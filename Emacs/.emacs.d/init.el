@@ -199,11 +199,12 @@ Version 2017-11-01"
      '("9" . meow-digit-argument)
      '("0" . meow-digit-argument)
      ;; Commonly used
+     '("r" . "C-x r")
      '("e" . eval-last-sexp)
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
      '("d" . dired)
-     '("b" . switch-to-buffer)
+     '("b" . consult-buffer)
      '("f" . find-file)
      '("i" . imenu)
      '("a" . execute-extended-command)
