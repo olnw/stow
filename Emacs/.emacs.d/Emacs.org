@@ -819,16 +819,6 @@ I use emacs-libvterm as a terminal emulator within Emacs.
 #+end_src
 
 * Software Development
-** Eldoc
-This will display documentation in the echo area (below the mode line).
-#+begin_src emacs-lisp
-  ;; Doesn't seem to be working, even though org-eldoc-documentation-function
-  ;; is added to eldoc-documentation-functions when in Org mode. I'll just
-  ;; leave this here until it starts working or I know how to fix it.
-  (use-package org-contrib)
-  (require 'org-eldoc)
-#+end_src
-
 ** Git Integration
 #+begin_src emacs-lisp
   (use-package magit)

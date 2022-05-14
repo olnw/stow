@@ -663,12 +663,6 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
-;; Doesn't seem to be working, even though org-eldoc-documentation-function
-;; is added to eldoc-documentation-functions when in Org mode. I'll just
-;; leave this here until it starts working or I know how to fix it.
-(use-package org-contrib)
-(require 'org-eldoc)
-
 (use-package magit)
 
 (setq inferior-lisp-program "ros -Q run")
