@@ -128,8 +128,10 @@
 
 (use-package rainbow-delimiters
   :hook
-  ((prog-mode . rainbow-delimiters-mode)
-   (sly-mrepl . rainbow-delimiters-mode))
+  ((eval-expression-minibuffer-setup . rainbow-delimiters-mode)
+   (ielm-mode                        . rainbow-delimiters-mode)
+   (prog-mode                        . rainbow-delimiters-mode)
+   (sly-mrepl                        . rainbow-delimiters-mode))
   :custom-face
   (rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
   (rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
