@@ -197,6 +197,7 @@ Version 2017-11-01"
      '("9" . meow-digit-argument)
      '("0" . meow-digit-argument)
      ;; Commonly used
+     '("e" . eval-last-sexp)
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
      '("d" . dired)
