@@ -84,6 +84,18 @@ Some functions for managing the systemd user service for Emacs.
 #+end_src
 
 * User Interface
+** Improved Scrolling
+Recently, scrolling within Emacs has been quite laggy for me. I have disabled good-scroll mode for the moment, to see if this changes anything.
+See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this topic.
+#+begin_src emacs-lisp
+  (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
+  (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
+  (setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
+  (setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
+
+  ;;(use-package good-scroll :config (good-scroll-mode 1))
+#+end_src
+
 ** Visual
 *** Themes
 #+begin_src emacs-lisp
@@ -614,24 +626,10 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
     ("H-g e" . 'avy-goto-word-0))
 #+end_src
 
-*** Projectile
+*** project.el
+For some reason I didn't have the latest project.el installed, and ~project-prefix-map~ wasn't getting bound to ~C-x p~. In fact, ~project-prefix-map~ wasn't even defined in project.el.
 #+begin_src emacs-lisp
-  (use-package projectile
-    :config
-    (projectile-global-mode)
-    (define-key projectile-mode-map (kbd "H-p") 'projectile-command-map))
-#+end_src
-
-** Improved Scrolling
-Recently, scrolling within Emacs has been quite laggy for me. I have disabled good-scroll mode for the moment, to see if this changes anything.
-See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this topic.
-#+begin_src emacs-lisp
-  (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
-  (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
-  (setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
-  (setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
-
-  ;;(use-package good-scroll :config (good-scroll-mode 1))
+  (use-package project :bind ("C-x p b" . consult-project-buffer))
 #+end_src
 
 ** Short Answers For Yes/No Questions

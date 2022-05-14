@@ -48,6 +48,13 @@
   (save-some-buffers)
   (shell-command "systemctl --user stop emacs"))
 
+(setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
+(setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
+(setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
+(setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
+
+;;(use-package good-scroll :config (good-scroll-mode 1))
+
 (use-package moe-theme
   ;;:init
   ;;(defvar moe-theme-mode-line-color 'yellow)
@@ -499,17 +506,7 @@ Version 2017-11-01"
   ("H-g w" . 'avy-goto-word-1)
   ("H-g e" . 'avy-goto-word-0))
 
-(use-package projectile
-  :config
-  (projectile-global-mode)
-  (define-key projectile-mode-map (kbd "H-p") 'projectile-command-map))
-
-(setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
-(setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
-(setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
-(setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
-
-;;(use-package good-scroll :config (good-scroll-mode 1))
+(use-package project :bind ("C-x p b" . consult-project-buffer))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
