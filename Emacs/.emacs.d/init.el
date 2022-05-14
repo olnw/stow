@@ -197,7 +197,21 @@ Version 2017-11-01"
      '("7" . meow-digit-argument)
      '("8" . meow-digit-argument)
      '("9" . meow-digit-argument)
-     '("0" . meow-digit-argument))
+     '("0" . meow-digit-argument)
+     ;; Custom bindings
+     '("&" . +change-theme)
+     '(";" . comment-dwim)
+     '("k" . kill-this-buffer)
+     '("d" . dired)
+     '("b" . switch-to-buffer)
+     '("f" . find-file)
+     '("i" . imenu)
+     '("a" . execute-extended-command)
+     '("p" . project-find-file)
+     '("j" . project-switch-to-buffer)
+     '("t" . tab-bar-switch-to-tab)
+     '("l" . project-switch-project)
+     '("y" . magit))
     (meow-normal-define-key
      '("`" . ace-window)
      '("0" . meow-expand-0)
@@ -228,8 +242,8 @@ Version 2017-11-01"
      '("f" . meow-find)
      '("g" . meow-cancel-selection)
      '("G" . meow-grab)
-     '("h" . execute-extended-command)
-     '("H" . repeat)
+     '("h" . repeat)
+     '("H" . nil)
      '("i" . meow-prev)
      '("I" . meow-prev-expand)
      '("j" . meow-join)
@@ -709,12 +723,7 @@ minibuffer with something like `exit-minibuffer'."
 
 (use-package org
   :straight (:type built-in)
-  :bind (:map global-map
-              ("\C-cl" . org-store-link)
-              ("\C-ca" . org-agenda)
-         :map org-mode-map
-              ("C-'"   . nil)) ; I use this binding for avy-goto-char-2
-
+  :bind ("C-c l" . org-store-link)
   :config
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
