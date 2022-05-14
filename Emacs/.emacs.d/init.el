@@ -38,16 +38,6 @@
 ;; Store the custom file in the etc/directory
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
 
-(defun olnw/systemd-restart-emacs ()
-  (interactive)
-  (save-some-buffers)
-  (shell-command "systemctl --user restart emacs"))
-
-(defun olnw/systemd-stop-emacs ()
-  (interactive)
-  (save-some-buffers)
-  (shell-command "systemctl --user stop emacs"))
-
 (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
 (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
 (setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
@@ -507,6 +497,16 @@ Version 2017-11-01"
 (use-package project :bind ("C-x p b" . consult-project-buffer))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(defun olnw/systemd-restart-emacs ()
+  (interactive)
+  (save-some-buffers)
+  (shell-command "systemctl --user restart emacs"))
+
+(defun olnw/systemd-stop-emacs ()
+  (interactive)
+  (save-some-buffers)
+  (shell-command "systemctl --user stop emacs"))
 
 (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
   ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")

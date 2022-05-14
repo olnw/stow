@@ -69,20 +69,6 @@ I use Straight instead of the built-in ~package.el~.
   (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
 #+end_src
 
-** systemd Emacs Service
-Some functions for managing the systemd user service for Emacs.
-#+begin_src emacs-lisp
-  (defun olnw/systemd-restart-emacs ()
-    (interactive)
-    (save-some-buffers)
-    (shell-command "systemctl --user restart emacs"))
-
-  (defun olnw/systemd-stop-emacs ()
-    (interactive)
-    (save-some-buffers)
-    (shell-command "systemctl --user stop emacs"))
-#+end_src
-
 * User Interface
 ** Improved Scrolling
 Recently, scrolling within Emacs has been quite laggy for me. I have disabled good-scroll mode for the moment, to see if this changes anything.
@@ -634,6 +620,20 @@ For some reason I didn't have the latest project.el installed, and ~project-pref
 The user need only type ~y~ or ~n~, intead of ~yes~ or ~no~, in response to yes-or-no questions.
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+** systemd Emacs Service
+Some functions for managing the systemd user service for Emacs.
+#+begin_src emacs-lisp
+  (defun olnw/systemd-restart-emacs ()
+    (interactive)
+    (save-some-buffers)
+    (shell-command "systemctl --user restart emacs"))
+
+  (defun olnw/systemd-stop-emacs ()
+    (interactive)
+    (save-some-buffers)
+    (shell-command "systemctl --user stop emacs"))
 #+end_src
 
 * Applications
