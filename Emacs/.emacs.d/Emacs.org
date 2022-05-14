@@ -634,7 +634,8 @@ See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this
   ;;(use-package good-scroll :config (good-scroll-mode 1))
 #+end_src
 
-** Short Answers
+** Short Answers For Yes/No Questions
+The user need only type ~y~ or ~n~, intead of ~yes~ or ~no~, in response to yes-or-no questions.
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
