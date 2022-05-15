@@ -205,7 +205,7 @@ Version 2017-11-01"
      '("E" . elfeed)
      '("V" . vterm-other-window)
      '("S" . sly)
-     '("r" . "C-x r")
+     '("r" . bookmark-map)
      '("e" . eval-last-sexp)
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
@@ -369,7 +369,9 @@ Version 2017-11-01"
          ;; Minibuffer history
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+         ("M-r" . consult-history)                 ;; orig. previous-matching-history-element
+         ; Need this so consult-bookmark can be used from the Meow keypad
+         :map bookmark-map ("b" . consult-bookmark))
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
