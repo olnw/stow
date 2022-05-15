@@ -709,6 +709,7 @@ minibuffer with something like `exit-minibuffer'."
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
   (setq org-log-done t)
+  (setq org-imenu-depth 1000)
 
   (setq org-directory "/mnt/hdd/org")
 
