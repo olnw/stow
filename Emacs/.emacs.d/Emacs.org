@@ -230,11 +230,6 @@ Show line numbers in ~prog-mode~.
   (use-package typo)
 #+end_src
 
-*** Major Mode Hydra
-#+begin_src emacs-lisp
-  (use-package major-mode-hydra)
-#+end_src
-
 *** which-key
 #+begin_src emacs-lisp
   (use-package which-key :config (which-key-mode))
@@ -602,18 +597,6 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
   (use-package ace-window)
 #+end_src
 
-*** avy
-#+begin_src emacs-lisp
-  (use-package avy
-    :config (avy-setup-default)
-    :bind
-    ("H-:"   . 'avy-goto-char)
-    ("H-'"   . 'avy-goto-char-2)
-    ("H-g f" . 'avy-goto-line)
-    ("H-g w" . 'avy-goto-word-1)
-    ("H-g e" . 'avy-goto-word-0))
-#+end_src
-
 *** project.el
 For some reason I didn't have the latest project.el installed, and ~project-prefix-map~ wasn't getting bound to ~C-x p~. In fact, ~project-prefix-map~ wasn't even defined in project.el.
 #+begin_src emacs-lisp
@@ -641,18 +624,6 @@ Some functions for managing the systemd user service for Emacs.
 #+end_src
 
 * Applications
-** Hydra
-This hydra serves as a launcher for applications that I frequently use.
-#+begin_src emacs-lisp
-  (pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
-    ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
-                     ("e" elfeed "Elfeed")
-                     ("v" vterm-other-window "vterm")
-                     ("q" nil "Quit"))))
-
-  (global-set-key (kbd "H-a") 'hydra-applications/body)
-#+end_src
-
 ** IRC Client
 #+begin_src emacs-lisp
   (use-package erc

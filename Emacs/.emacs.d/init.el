@@ -149,8 +149,6 @@
 
 (use-package typo)
 
-(use-package major-mode-hydra)
-
 (use-package which-key :config (which-key-mode))
 
 (defun xah/new-empty-buffer ()
@@ -489,15 +487,6 @@ Version 2017-11-01"
 
 (use-package ace-window)
 
-(use-package avy
-  :config (avy-setup-default)
-  :bind
-  ("H-:"   . 'avy-goto-char)
-  ("H-'"   . 'avy-goto-char-2)
-  ("H-g f" . 'avy-goto-line)
-  ("H-g w" . 'avy-goto-word-1)
-  ("H-g e" . 'avy-goto-word-0))
-
 (use-package project :bind ("C-x p b" . consult-project-buffer))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -511,14 +500,6 @@ Version 2017-11-01"
   (interactive)
   (save-some-buffers)
   (shell-command "systemctl --user stop emacs"))
-
-(pretty-hydra-define hydra-applications (:quit-key "q" :color teal)
-  ("Applications" (("l" libera-chat "Connect to Libera Chat with ERC")
-                   ("e" elfeed "Elfeed")
-                   ("v" vterm-other-window "vterm")
-                   ("q" nil "Quit"))))
-
-(global-set-key (kbd "H-a") 'hydra-applications/body)
 
 (use-package erc
   :straight (:type built-in)
