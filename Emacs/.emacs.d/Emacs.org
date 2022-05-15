@@ -255,9 +255,16 @@ Show line numbers in ~prog-mode~.
   (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
 #+end_src
 
+*** Window Management
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<f6>") #'delete-other-windows)
+  (global-set-key (kbd "<f7>") #'split-window-below)
+  (global-set-key (kbd "<f8>") #'split-window-right)
+ #+end_src
+
 *** Open The Configuration File
 #+begin_src emacs-lisp
-  (global-set-key (kbd "s-i") (lambda ()
+  (global-set-key (kbd "<f9>") (lambda ()
                                 (interactive)
                                 (find-file (concat user-emacs-directory "Emacs.org"))))
 #+end_src
@@ -294,6 +301,10 @@ I use Meow for modal editing. Perhaps I can combine it with [[https://karthinks.
        '("9" . meow-digit-argument)
        '("0" . meow-digit-argument)
        ;; Commonly used
+       '("A" . org-agenda)
+       '("E" . elfeed)
+       '("V" . vterm-other-window)
+       '("S" . sly)
        '("r" . "C-x r")
        '("e" . eval-last-sexp)
        '(";" . comment-dwim)

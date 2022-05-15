@@ -168,7 +168,11 @@ Version 2017-11-01"
 
 (global-set-key (kbd "<f5>") #'xah/new-empty-buffer)
 
-(global-set-key (kbd "s-i") (lambda ()
+(global-set-key (kbd "<f6>") #'delete-other-windows)
+(global-set-key (kbd "<f7>") #'split-window-below)
+(global-set-key (kbd "<f8>") #'split-window-right)
+
+(global-set-key (kbd "<f9>") (lambda ()
                               (interactive)
                               (find-file (concat user-emacs-directory "Emacs.org"))))
 
@@ -197,6 +201,10 @@ Version 2017-11-01"
      '("9" . meow-digit-argument)
      '("0" . meow-digit-argument)
      ;; Commonly used
+     '("A" . org-agenda)
+     '("E" . elfeed)
+     '("V" . vterm-other-window)
+     '("S" . sly)
      '("r" . "C-x r")
      '("e" . eval-last-sexp)
      '(";" . comment-dwim)
