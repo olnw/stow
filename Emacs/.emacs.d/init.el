@@ -690,15 +690,28 @@ minibuffer with something like `exit-minibuffer'."
 (add-hook 'lisp-mode-hook #'olnw/lisp-setup)
 (add-hook 'emacs-lisp-mode-hook #'olnw/lisp-setup)
 
+;; I haven't added this to the Meow leader keymap, because it wasn't
+;; displaying the function names. I believe it was replacing them with
+;; <prefix>.
 (use-package lsp-mode
-  :init
-  ;; Set prefix for lsp-command-keymap
-  (setq lsp-keymap-prefix "s-l")
-  :hook ((python-mode . lsp)
-         (c-mode      . lsp)
-         (c++-mode    . lsp)
-         (lsp-mode    . lsp-enable-which-key-integration))
-  :bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)))
+  :init (setq lsp-keymap-prefix "C-c l")
+  :config
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  (define-key lsp-mode-map (kbd "<tab>") #'indent-for-tab-command)
+
+  (add-hook 'python-mode-hook #'lsp)
+  (add-hook 'c-mode-hook #'lsp)
+  (add-hook 'c++-mode-hook #'lsp)
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+;; I previously used the following code, but started to get an
+;; "Autoloading file [...] failed to define function [...]" error.
+;; This is probably because lsp-mode was being deferred.
+;;:hook ((python-mode . lsp)
+;;       (c-mode      . lsp)
+;;       (c++-mode    . lsp)
+;;       (lsp-mode    . lsp-enable-which-key-integration))
+;;:bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)
+;;                         ("C-c l" . lsp-command-map)))
 
 (use-package lsp-ui)
 
