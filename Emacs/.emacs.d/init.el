@@ -212,7 +212,7 @@ Version 2017-11-01"
      '("d" . dired)
      '("b" . consult-buffer)
      '("f" . find-file)
-     '("i" . imenu)
+     '("i" . consult-imenu)
      '("a" . execute-extended-command)
      '("p" . "C-x p") ; project.el functions
      '("t" . tab-bar-switch-to-tab)

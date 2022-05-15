@@ -312,7 +312,7 @@ I use Meow for modal editing. Perhaps I can combine it with [[https://karthinks.
        '("d" . dired)
        '("b" . consult-buffer)
        '("f" . find-file)
-       '("i" . imenu)
+       '("i" . consult-imenu)
        '("a" . execute-extended-command)
        '("p" . "C-x p") ; project.el functions
        '("t" . tab-bar-switch-to-tab)
