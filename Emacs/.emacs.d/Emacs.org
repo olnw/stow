@@ -314,7 +314,7 @@ I use Meow for modal editing. Perhaps I can combine it with [[https://karthinks.
        '("f" . find-file)
        '("i" . consult-imenu)
        '("a" . execute-extended-command)
-       '("p" . "C-x p") ; project.el functions
+       '("p" . project-prefix-map) ; project.el functions
        '("t" . tab-bar-switch-to-tab)
        '("y" . magit))
       (meow-normal-define-key
@@ -611,9 +611,14 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
 #+end_src
 
 *** project.el
-For some reason I didn't have the latest project.el installed, and ~project-prefix-map~ wasn't getting bound to ~C-x p~. In fact, ~project-prefix-map~ wasn't even defined in project.el.
+For some reason, ~project-prefix-map~ wasn't getting bound to ~C-x p~. In fact, ~project-prefix-map~ wasn't even defined in project.el. Adding a use-package declaration seems to have fixed the problem. Perhaps I had an old version installed?
 #+begin_src emacs-lisp
-  (use-package project :bind ("C-x p b" . consult-project-buffer))
+  ;; Can't define these keys inside the use-package form, becaus this
+  ;; will defer loading of the package and potentially cause this error:
+  ;; https://old.reddit.com/r/emacs/comments/t1zfgj/file_mode_specification_error_failed_to_define/
+  (use-package project)
+  (global-set-key (kbd "C-c p") project-prefix-map)
+  (define-key project-prefix-map "b" #'consult-project-buffer)
 #+end_src
 
 ** Short Answers For Yes/No Questions

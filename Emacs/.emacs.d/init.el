@@ -214,7 +214,7 @@ Version 2017-11-01"
      '("f" . find-file)
      '("i" . consult-imenu)
      '("a" . execute-extended-command)
-     '("p" . "C-x p") ; project.el functions
+     '("p" . project-prefix-map) ; project.el functions
      '("t" . tab-bar-switch-to-tab)
      '("y" . magit))
     (meow-normal-define-key
@@ -497,7 +497,12 @@ Version 2017-11-01"
 
 (use-package ace-window)
 
-(use-package project :bind ("C-x p b" . consult-project-buffer))
+;; Can't define these keys inside the use-package form, becaus this
+;; will defer loading of the package and potentially cause this error:
+;; https://old.reddit.com/r/emacs/comments/t1zfgj/file_mode_specification_error_failed_to_define/
+(use-package project)
+(global-set-key (kbd "C-c p") project-prefix-map)
+(define-key project-prefix-map "b" #'consult-project-buffer)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
