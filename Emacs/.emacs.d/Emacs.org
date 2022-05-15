@@ -872,8 +872,7 @@ I use ~latexmk-mode~, which I found [[https://reddit.com/r/emacs/comments/k7sx2n
 Org is a major mode for Emacs. It does a lot of things — I use it for note-taking, writing, to manage my personal projects, and to track my daily habits with the ~org-habit~ module. These habits pop up on my agenda each day, with a little coloured graph that shows my consistency.
 #+begin_src emacs-lisp
   (use-package org
-    :straight (:type built-in)
-    :bind ("C-c l" . org-store-link)
+    ;;:straight (:type built-in)
     :config
     (setq org-hide-emphasis-markers t)
     (setq org-startup-indented t) ; Globally turn on Org Indent mode

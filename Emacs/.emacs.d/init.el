@@ -704,8 +704,7 @@ minibuffer with something like `exit-minibuffer'."
 ;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
 
 (use-package org
-  :straight (:type built-in)
-  :bind ("C-c l" . org-store-link)
+  ;;:straight (:type built-in)
   :config
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
