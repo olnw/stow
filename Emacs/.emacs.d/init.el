@@ -710,15 +710,18 @@ minibuffer with something like `exit-minibuffer'."
   (add-hook 'c-mode-hook #'lsp)
   (add-hook 'c++-mode-hook #'lsp)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
 ;; I previously used the following code, but started to get an
 ;; "Autoloading file [...] failed to define function [...]" error.
 ;; This is probably because lsp-mode was being deferred.
-;;:hook ((python-mode . lsp)
-;;       (c-mode      . lsp)
-;;       (c++-mode    . lsp)
-;;       (lsp-mode    . lsp-enable-which-key-integration))
-;;:bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)
-;;                         ("C-c l" . lsp-command-map)))
+;; (use-package lsp-mode
+;;   :init (setq lsp-keymap-prefix "C-c l")
+;;   :hook ((python-mode . lsp)
+;;          (c-mode      . lsp)
+;;          (c++-mode    . lsp)
+;;          (lsp-mode    . lsp-enable-which-key-integration))
+;;   :bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)
+;;                            ("C-c l" . lsp-command-map)))
 
 (use-package lsp-ui)
 
