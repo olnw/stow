@@ -208,6 +208,7 @@ Version 2017-11-01"
      '("V" . vterm-other-window)
      '("S" . sly)
      '("r" . bookmark-map)
+     '("s" . search-map)
      '("e" . eval-last-sexp)
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
@@ -283,6 +284,9 @@ Version 2017-11-01"
      '("<escape>" . ignore)))
   (meow-setup)
   (meow-global-mode))
+
+;; Necessary for the binding in the Meow leader keymap to work.
+(global-set-key (kbd "C-c s") search-map)
 
 ;; Minimalistic minibuffer completion UI
 (use-package vertico :init (vertico-mode))
