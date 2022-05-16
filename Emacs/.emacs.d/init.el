@@ -503,10 +503,11 @@ Version 2017-11-01"
 
 (use-package ace-window)
 
-;; Can't define these keys inside the use-package form, becaus this
+;; (use-package project)
+
+;; Can't define these keys with the :bind keyword, because this
 ;; will defer loading of the package and potentially cause this error:
 ;; https://old.reddit.com/r/emacs/comments/t1zfgj/file_mode_specification_error_failed_to_define/
-(use-package project)
 (global-set-key (kbd "C-c p") project-prefix-map)
 (define-key project-prefix-map "b" #'consult-project-buffer)
 

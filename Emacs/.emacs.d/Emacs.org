@@ -616,13 +616,14 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
   (use-package ace-window)
 #+end_src
 
-*** project.el
-For some reason, ~project-prefix-map~ wasn't getting bound to ~C-x p~. In fact, ~project-prefix-map~ wasn't even defined in project.el. Adding a use-package declaration seems to have fixed the problem. Perhaps I had an old version installed?
+*** Managing Projects
+When I was running Emacs 27.1, ~project-prefix-map~ was not defined in ~project.el~, so I couldn’t bind it to a key sequence. I fixed this by adding the following ~use-package~ form, although I no longer have this issue with Emacs 29.0.50.
 #+begin_src emacs-lisp
-  ;; Can't define these keys inside the use-package form, becaus this
+  ;; (use-package project)
+
+  ;; Can't define these keys with the :bind keyword, because this
   ;; will defer loading of the package and potentially cause this error:
   ;; https://old.reddit.com/r/emacs/comments/t1zfgj/file_mode_specification_error_failed_to_define/
-  (use-package project)
   (global-set-key (kbd "C-c p") project-prefix-map)
   (define-key project-prefix-map "b" #'consult-project-buffer)
 #+end_src
