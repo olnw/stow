@@ -59,16 +59,18 @@
         modus-themes-region '(bg-only no-extend))
 
   ;; Treat all themes as safe
-  (setq custom-safe-themes t))
+  (setq custom-safe-themes t)
+
+  :config (load-theme 'modus-vivendi))
 
 ;; Make comments more visible
 ;;(set-face-foreground 'font-lock-comment-face "pink")
 
 ;; Packaged version of the Modus themes, for older Emacs versions
 ;; that don't have them installed by default.
-(use-package modus-themes
-  :init (modus-themes-load-themes)
-  :config (modus-themes-load-vivendi))
+;;(use-package modus-themes
+;;  :init (modus-themes-load-themes)
+;;  :config (modus-themes-load-vivendi))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
