@@ -845,4 +845,5 @@ minibuffer with something like `exit-minibuffer'."
   ("C-c n b" . consult-org-roam-backlinks)
   ("C-c n s" . consult-org-roam-search)
   ("C-c n l" . org-roam-buffer-toggle)
-  ("C-c n i" . org-roam-node-insert))
+  ("C-c n i" . org-roam-node-insert)
+  ("C-c n d" . org-roam-dailies-goto-today))
