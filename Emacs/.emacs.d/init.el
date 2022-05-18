@@ -212,6 +212,7 @@ Version 2017-11-01"
      '("E" . elfeed)
      '("V" . vterm-other-window)
      '("S" . sly)
+     '("." . embark-act)
      '("r" . bookmark-map)
      '("s" . search-map)
      '("e" . eval-last-sexp)
