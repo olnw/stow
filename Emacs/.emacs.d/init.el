@@ -671,6 +671,8 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
+(use-package cmake-mode :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
+
 (use-package magit)
 
 (setq inferior-lisp-program "ros -Q run")
@@ -711,6 +713,7 @@ minibuffer with something like `exit-minibuffer'."
   (add-hook 'python-mode-hook #'lsp)
   (add-hook 'c-mode-hook #'lsp)
   (add-hook 'c++-mode-hook #'lsp)
+  (add-hook 'cmake-mode-hook #'lsp)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 ;; I previously used the following code, but started to get an
@@ -721,6 +724,7 @@ minibuffer with something like `exit-minibuffer'."
 ;;   :hook ((python-mode . lsp)
 ;;          (c-mode      . lsp)
 ;;          (c++-mode    . lsp)
+;;          (cmake-mode  . lsp)
 ;;          (lsp-mode    . lsp-enable-which-key-integration))
 ;;   :bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)
 ;;                            ("C-c l" . lsp-command-map)))

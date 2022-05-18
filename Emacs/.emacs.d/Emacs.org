@@ -819,6 +819,11 @@ I use emacs-libvterm as a terminal emulator within Emacs.
 #+end_src
 
 * Software Development
+** CMake
+#+begin_src emacs-lisp
+  (use-package cmake-mode :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
+#+end_src
+
 ** Git Integration
 #+begin_src emacs-lisp
   (use-package magit)
@@ -869,6 +874,7 @@ I don't use Lispy, because I don't imagine it would work well with Meow.
     (add-hook 'python-mode-hook #'lsp)
     (add-hook 'c-mode-hook #'lsp)
     (add-hook 'c++-mode-hook #'lsp)
+    (add-hook 'cmake-mode-hook #'lsp)
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
   ;; I previously used the following code, but started to get an
@@ -879,6 +885,7 @@ I don't use Lispy, because I don't imagine it would work well with Meow.
   ;;   :hook ((python-mode . lsp)
   ;;          (c-mode      . lsp)
   ;;          (c++-mode    . lsp)
+  ;;          (cmake-mode  . lsp)
   ;;          (lsp-mode    . lsp-enable-which-key-integration))
   ;;   :bind (:map lsp-mode-map ("<tab>" . indent-for-tab-command)
   ;;                            ("C-c l" . lsp-command-map)))
