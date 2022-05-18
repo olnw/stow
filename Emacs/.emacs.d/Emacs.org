@@ -910,11 +910,14 @@ I don't use Lispy, because I don't imagine it would work well with Meow.
 #+end_src
 
 ** Tree Sitter
-I use ~tree-sitter-hl-mode~, which should be faster than the default regexp-based syntax highlighting, especially when editing large files.
+I use ~tree-sitter-hl-mode~ for syntax-highlighting, which is faster than the default regexp-based ~font-lock-mode~; this is especially noticable while editing large files. If the value of ~tree-sitter-hl-default-patterns~ in a given buffer is ~nil~, ~tree-sitter-hl-mode~ will /not/ provide syntax highlighting.
 #+begin_src emacs-lisp
-  (use-package tree-sitter :hook (tree-sitter-after-on . tree-sitter-hl-mode))
-  (use-package tree-sitter-langs)
-  (global-tree-sitter-mode 1)
+  (use-package tree-sitter
+    :init (global-tree-sitter-mode 1)
+    :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+
+  ;; Necessary to load after tree-sitter
+  (use-package tree-sitter-langs :after tree-sitter)
 #+end_src
 
 * Writing and Productivity

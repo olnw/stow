@@ -746,9 +746,12 @@ minibuffer with something like `exit-minibuffer'."
   (add-hook 'dap-stopped-hook
             (lambda (arg) (call-interactively #'dap-hydra))))
 
-(use-package tree-sitter :hook (tree-sitter-after-on . tree-sitter-hl-mode))
-(use-package tree-sitter-langs)
-(global-tree-sitter-mode 1)
+(use-package tree-sitter
+  :init (global-tree-sitter-mode 1)
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+
+;; Necessary to load after tree-sitter
+(use-package tree-sitter-langs :after tree-sitter)
 
 ;; (load "latexmk-mode.el")
 ;; (add-hook 'LaTeX-mode-hook #'latexmk-mode)
