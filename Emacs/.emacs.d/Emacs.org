@@ -898,6 +898,14 @@ I don't use Lispy, because I don't imagine it would work well with Meow.
               (lambda (arg) (call-interactively #'dap-hydra))))
 #+end_src
 
+** Tree Sitter
+I use ~tree-sitter-hl-mode~, which should be faster than the default regexp-based syntax highlighting, especially when editing large files.
+#+begin_src emacs-lisp
+  (use-package tree-sitter :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+  (use-package tree-sitter-langs)
+  (global-tree-sitter-mode 1)
+#+end_src
+
 * Writing and Productivity
 ** LaTeX
 I use ~latexmk-mode~, which I found [[https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/][here]]. Maybe I’ll try to improve it in the future.
