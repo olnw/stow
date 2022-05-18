@@ -71,15 +71,16 @@ I use Straight instead of the built-in ~package.el~.
 
 * User Interface
 ** Improved Scrolling
-Recently, scrolling within Emacs has been quite laggy for me. I have disabled good-scroll mode for the moment, to see if this changes anything.
-See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for more details on this topic.
+See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for details on this topic.
 #+begin_src emacs-lisp
   (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
   (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
-  (setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
-  (setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
 
-  ;;(use-package good-scroll :config (good-scroll-mode 1))
+  ;; If using a mouse instead of a touchpad
+  (setq pixel-scroll-precision-large-scroll-height 40.0)
+  (setq pixel-scroll-precision-interpolation-factor 30)
+
+  (pixel-scroll-precision-mode 1)
 #+end_src
 
 ** Visual

@@ -40,10 +40,12 @@
 
 (setq auto-window-vscroll nil) ; Potentially fixes jumpy scrolling
 (setq scroll-conservatively 1000) ; Don't recenter the point if it moves off screen
-(setq mouse-wheel-scroll-amount '(4)) ; Scroll four lines at a time with the mouse wheel
-(setq mouse-wheel-progressive-speed nil) ; Non-accelerated mouse wheel scrolling
 
-;;(use-package good-scroll :config (good-scroll-mode 1))
+;; If using a mouse instead of a touchpad
+(setq pixel-scroll-precision-large-scroll-height 40.0)
+(setq pixel-scroll-precision-interpolation-factor 30)
+
+(pixel-scroll-precision-mode 1)
 
 (use-package moe-theme
   ;;:init
