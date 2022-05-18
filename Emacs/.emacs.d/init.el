@@ -699,6 +699,15 @@ minibuffer with something like `exit-minibuffer'."
   ;; Disable Sly's completion UI. I use Corfu instead.
   (sly-symbol-completion-mode -1))
 
+;; Common Lisp HyperSpec (CLHS) interface from within Emacs.
+(use-package clhs
+  :after embark
+  :custom
+  (tags-apropos-additional-actions '(("Common Lisp" clhs-doc clhs-symbols)))
+
+  ;; Embark integration
+  :bind (:map embark-symbol-map ("Xc" . clhs-doc)))
+
 (defun olnw/lisp-setup ()
   (setq fill-column 100))
 
