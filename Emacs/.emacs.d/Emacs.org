@@ -160,7 +160,7 @@ This mode automatically decides whether regions of a buffer should be displayed 
     (setq mixed-pitch-set-height t))
 #+end_src
 
-*** All The Icons
+*** Icons in Dired
 For this to work, run ~M-x all-the-icons-install-fonts~.
 #+begin_src emacs-lisp
   (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
