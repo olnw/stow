@@ -48,8 +48,8 @@
 (pixel-scroll-precision-mode 1)
 
 (use-package moe-theme
-  ;;:init
-  ;;(defvar moe-theme-mode-line-color 'yellow)
+  ;; :init
+  ;; (defvar moe-theme-mode-line-color 'yellow)
   :config
   (setq moe-theme-highlight-buffer-id t))
 
@@ -66,13 +66,13 @@
   :config (load-theme 'modus-vivendi))
 
 ;; Make comments more visible
-;;(set-face-foreground 'font-lock-comment-face "pink")
+;; (set-face-foreground 'font-lock-comment-face "pink")
 
 ;; Packaged version of the Modus themes, for older Emacs versions
 ;; that don't have them installed by default.
-;;(use-package modus-themes
-;;  :init (modus-themes-load-themes)
-;;  :config (modus-themes-load-vivendi))
+;; (use-package modus-themes
+;;   :init (modus-themes-load-themes)
+;;   :config (modus-themes-load-vivendi))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -732,8 +732,8 @@ minibuffer with something like `exit-minibuffer'."
   (add-hook 'dap-stopped-hook
             (lambda (arg) (call-interactively #'dap-hydra))))
 
-;;(load "latexmk-mode.el")
-;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
+;; (load "latexmk-mode.el")
+;; (add-hook 'LaTeX-mode-hook #'latexmk-mode)
 
 (use-package org
   ;;:straight (:type built-in)

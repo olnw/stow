@@ -87,8 +87,8 @@ See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for details on this topi
 *** Themes
 #+begin_src emacs-lisp
   (use-package moe-theme
-    ;;:init
-    ;;(defvar moe-theme-mode-line-color 'yellow)
+    ;; :init
+    ;; (defvar moe-theme-mode-line-color 'yellow)
     :config
     (setq moe-theme-highlight-buffer-id t))
 
@@ -105,13 +105,13 @@ See [[https://www.emacswiki.org/emacs/SmoothScrolling]] for details on this topi
     :config (load-theme 'modus-vivendi))
 
   ;; Make comments more visible
-  ;;(set-face-foreground 'font-lock-comment-face "pink")
+  ;; (set-face-foreground 'font-lock-comment-face "pink")
 
   ;; Packaged version of the Modus themes, for older Emacs versions
   ;; that don't have them installed by default.
-  ;;(use-package modus-themes
-  ;;  :init (modus-themes-load-themes)
-  ;;  :config (modus-themes-load-vivendi))
+  ;; (use-package modus-themes
+  ;;   :init (modus-themes-load-themes)
+  ;;   :config (modus-themes-load-vivendi))
 #+end_src
 
 *** Reduce Visual Clutter
@@ -263,7 +263,7 @@ Show line numbers in ~prog-mode~.
   (global-set-key (kbd "<f6>") #'delete-other-windows)
   (global-set-key (kbd "<f7>") #'split-window-below)
   (global-set-key (kbd "<f8>") #'split-window-right)
- #+end_src
+#+end_src
 
 *** Open The Configuration File
 #+begin_src emacs-lisp
@@ -895,8 +895,8 @@ I don't use Lispy, because I don't imagine it would work well with Meow.
 ** LaTeX
 I use ~latexmk-mode~, which I found [[https://reddit.com/r/emacs/comments/k7sx2n/latexpreviewpane_and_latexmk/][here]]. Maybe I’ll try to improve it in the future.
 #+begin_src emacs-lisp
-  ;;(load "latexmk-mode.el")
-  ;;(add-hook 'LaTeX-mode-hook #'latexmk-mode)
+  ;; (load "latexmk-mode.el")
+  ;; (add-hook 'LaTeX-mode-hook #'latexmk-mode)
 #+end_src
 
 ** Org Mode
