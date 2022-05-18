@@ -107,10 +107,7 @@
   :config
   (setq mixed-pitch-set-height t))
 
-(use-package all-the-icons)
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package doom-modeline :config (doom-modeline-mode 1))
 
 ;; Display the column number in the mode line
 (column-number-mode 1)
