@@ -1,9 +1,12 @@
-;; Use 100MB of consing between garbage collections
-(setq gc-cons-threshold (* 100 1000 1000))
+;; -*- lexical-binding: t -*-
 
-(add-hook 'after-init-hook (lambda ()
-                             ;; Restore value after startup
-                             (setq gc-cons-threshold 800000)))
+(let ((default-gc-cons-threshold gc-cons-threshold))
+  ;; Use 100MB of consing between garbage collections
+  (setq gc-cons-threshold (* 100 1000 1000))
+
+  (add-hook 'after-init-hook (lambda ()
+                               ;; Restore value after startup
+                               (setq gc-cons-threshold default-gc-cons-threshold))))
 
 (set-default-coding-systems 'utf-8)
 

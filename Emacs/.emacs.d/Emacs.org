@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 #+TITLE: My GNU Emacs Configuration
 #+AUTHOR: Oliver Nikolas Winspear
 #+DATE: <2022-03-31 Thu>
@@ -9,14 +11,17 @@ This is my GNU Emacs configuration, written in Org Mode. Upon saving this file, 
 
 * Basic Configuration
 ** Startup
-Improve startup speed by increasing ~gc-cons-threshold~. Its original value is restored after startup for safety.
+Improve startup speed by reducing the number of garbage collections during startup. The value of ~gc-cons-threshold~ is restored after startup for safety. See [[https://nullprogram.com/blog/2016/12/22/][this]] article for the advantages of lexical scope in Emacs Lisp.
 #+begin_src emacs-lisp
-  ;; Use 100MB of consing between garbage collections
-  (setq gc-cons-threshold (* 100 1000 1000))
+  ;; -*- lexical-binding: t -*-
 
-  (add-hook 'after-init-hook (lambda ()
-                               ;; Restore value after startup
-                               (setq gc-cons-threshold 800000)))
+  (let ((default-gc-cons-threshold gc-cons-threshold))
+    ;; Use 100MB of consing between garbage collections
+    (setq gc-cons-threshold (* 100 1000 1000))
+
+    (add-hook 'after-init-hook (lambda ()
+                                 ;; Restore value after startup
+                                 (setq gc-cons-threshold default-gc-cons-threshold))))
 #+end_src
 
 ** Default Coding System
