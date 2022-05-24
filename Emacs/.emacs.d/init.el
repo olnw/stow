@@ -392,7 +392,7 @@ Version 2017-11-01"
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ("M-r" . consult-history)                 ;; orig. previous-matching-history-element
-         ; Need this so consult-bookmark can be used from the Meow keypad
+         ;; Need this so consult-bookmark can be used from the Meow keypad
          :map bookmark-map ("b" . consult-bookmark))
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
