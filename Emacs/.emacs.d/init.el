@@ -423,6 +423,8 @@ Version 2017-11-01"
   ;; after lazily loading the package.
   )
 
+(use-package consult-ag)
+
 (use-package consult-lsp
   :config
   (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))

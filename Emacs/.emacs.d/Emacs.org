@@ -554,6 +554,8 @@ Vertico is an extensible minibuffer completion UI. Completion candidates will be
     ;; after lazily loading the package.
     )
 
+  (use-package consult-ag)
+
   (use-package consult-lsp
     :config
     (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
