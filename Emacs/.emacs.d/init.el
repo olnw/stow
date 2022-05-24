@@ -46,8 +46,9 @@
 
 ;; If using a mouse instead of a touchpad
 (setq pixel-scroll-precision-large-scroll-height 40.0)
-(setq pixel-scroll-precision-interpolation-factor 30)
+(setq pixel-scroll-precision-interpolation-factor 12.0)
 
+;; Requires Emacs 29.1 or newer.
 (pixel-scroll-precision-mode 1)
 
 (use-package moe-theme
