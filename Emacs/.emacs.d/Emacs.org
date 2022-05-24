@@ -400,28 +400,57 @@ I use Meow for modal editing. Perhaps I can combine it with [[https://karthinks.
 *** Making Better Use of Caps Lock
 The Caps Lock key is easily accessible from the home row on an ANSI keyboard. As such, I believe it should be re-mapped to serve a more useful purpose. It's common for Emacs users to bind it to Control, however there is a better option. With tools such as KMonad, xcape, keyd, Xremap and Interception Tools, it is possible to assign multiple functions to a single physical key. Since Control is only useful as a leader key, I have assigned the Caps Lock key to function as Escape when tapped, and Control when held. This is useful for Vim/Neovim, to avoid moving my left hand from the home row when I want to exit Insert Mode.
 
-** Completion Framework
-I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that these packages have better integration with Emacs.
+** Embark
+Embark provides a keyboard-operated context menu, which is activated by calling the ~embark-act~ function. This will open the ~*Embark Actions*~ buffer, which lists the actions that can be performed on the current target. An action will be executed when its corresponding key sequence is pressed. A target could be a URL, sentence, file path, symbol, buffer, etc. See [[https://github.com/oantolin/embark]] for more details.
 #+begin_src emacs-lisp
-  ;; Minimalistic minibuffer completion UI
-  (use-package vertico :init (vertico-mode))
+  (use-package embark
+    :bind
+    ("C-."   . embark-act)
+    ("C-;"   . embark-dwim)      ;; Good alternative: M-.
+    ("C-h B" . embark-bindings)  ;; Alternative for 'describe-bindings'
 
-  ;; Persist history over Emacs restarts.
-  ;; Vertico sorts by history position.
-  (use-package savehist
-    :straight nil
-    :init (savehist-mode))
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
 
-  ;; Add marginalia to minibuffer completions
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+#+end_src
+
+** Completion Framework
+*** Minibuffer
+**** Marginalia
+~marginalia-mode~ adds annotations to completion candidates in the minibuffer.
+#+begin_src emacs-lisp
   (use-package marginalia
     :after vertico
     :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
     (marginalia-mode))
+#+end_src
 
-  ;; 'orderless' is a completion style that can match multiple
-  ;; space-separated components in any order
+**** Save Minibuffer History
+When ~savehist-mode~ is enabled, minibuffer history will persist over Emacs restarts.
+#+begin_src emacs-lisp
+  (use-package savehist
+    :straight nil
+    :init (savehist-mode))
+#+end_src
+
+**** Vertico
+Vertico is an extensible minibuffer completion UI. Completion candidates will be sorted by their history positions when ~savehist-mode~ is enabled.
+#+begin_src emacs-lisp
+  (use-package vertico :init (vertico-mode))
+#+end_src
+
+*** Completion Styles
+~orderless~ is a completion style that can match multiple space-separated components in any order.
+#+begin_src emacs-lisp
   (use-package orderless
     :init
     ;; partial-completion allows multiple files to be opened at once
@@ -429,15 +458,18 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
     (setq completion-styles '(orderless basic)
           completion-category-defaults nil
           completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
 
-  ;; Additional completion-at-point functions
+*** Additional completion-at-point Functions
+#+begin_src emacs-lisp
   (use-package cape
-    ;; Ensure that orderless comes first in completion-styles
-    :after orderless
     :config
     (add-to-list 'completion-at-point-functions #'cape-file)
     (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+#+end_src
 
+*** Consult
+#+begin_src emacs-lisp
   ;; Bookmarks, buffer-switching, searching, grep...
   (use-package consult
     ;; Replace bindings. Lazily loaded by 'use-package'.
@@ -526,24 +558,6 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
     :config
     (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
 
-  ;; Menu that provides context-specific actions
-  (use-package embark
-    :bind
-    ("C-."   . embark-act)
-    ("C-;"   . embark-dwim)      ;; Good alternative: M-.
-    ("C-h B" . embark-bindings)  ;; Alternative for 'describe-bindings'
-
-    :init
-    ;; Optionally replace the key help with a completing-read interface
-    (setq prefix-help-command #'embark-prefix-help-command)
-
-    :config
-    ;; Hide the mode line of the Embark live/completions buffers
-    (add-to-list 'display-buffer-alist
-                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                   nil
-                   (window-parameters (mode-line-format . none)))))
-
   ;; Integration for embark and consult.
   ;; 'It provides exporters for several Consult commands and also
   ;; tweaks the behavior of many Consult commands when used as actions
@@ -556,36 +570,42 @@ I switched from Helm to Vertico, Consult, Orderless, etc., because it seems that
     ;; auto-updating embark collect buffer
     :hook
     (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
 
-  ;; In-buffer completions (similar to company)
-  (use-package corfu
-    :init (global-corfu-mode)
-    :config
-    ;; This means Corfu will be used for completions when running
-    ;; M-: (eval-expression). Vertico doesn't support completions
-    ;; for this.
-    (defun corfu-enable-always-in-minibuffer ()
-      "Enable Corfu in the minibuffer if Vertico/Mct are not active."
-    (unless (or (bound-and-true-p mct--active)
-              (bound-and-true-p vertico--input))
-    ;; (setq-local corfu-auto nil) Enable/disable auto completion
-    (corfu-mode 1)))
-    (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+*** In-Buffer Completions
+ #+begin_src emacs-lisp
+   (use-package corfu
+     :init (global-corfu-mode)
+     :config
+     ;; This means Corfu will be used for completions when running
+     ;; M-: (eval-expression). Vertico doesn't support completions
+     ;; for this.
+     (defun corfu-enable-always-in-minibuffer ()
+       "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+     (unless (or (bound-and-true-p mct--active)
+               (bound-and-true-p vertico--input))
+     ;; (setq-local corfu-auto nil) Enable/disable auto completion
+     (corfu-mode 1)))
+     (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+     :custom
+     (corfu-auto t))
 
-    ;; TAB-and-Go customizations
-    :custom
-    (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
-    (corfu-preselect-first nil) ;; Disable candidate preselection
+     ;; TAB-and-Go customizations
+     ;; :custom
+     ;; (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
+     ;; (corfu-preselect-first nil) ;; Disable candidate preselection
 
-    ;; Use TAB for cycling, default is 'corfu-complete'.
-    :bind
-    (:map corfu-map
-          ("TAB" . corfu-next)
-          ([tab] . corfu-next)
-          ("S-TAB" . corfu-previous)
-          ([backtab] . corfu-previous)))
+     ;; Use TAB for cycling, default is 'corfu-complete'.
+     ;; :bind
+     ;; (:map corfu-map
+     ;;       ("TAB" . corfu-next)
+     ;;       ([tab] . corfu-next)
+     ;;       ("S-TAB" . corfu-previous)
+     ;;       ([backtab] . corfu-previous)))
+#+end_src
 
-  ;; A few more useful configurations...
+*** Additional Customisations
+#+begin_src emacs-lisp
   (use-package emacs
     :init
     ;; Add prompt indicator to 'completing-read-multiple'.

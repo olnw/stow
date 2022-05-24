@@ -296,16 +296,23 @@ Version 2017-11-01"
 ;; Necessary for the binding in the Meow leader keymap to work.
 (global-set-key (kbd "C-c s") search-map)
 
-;; Minimalistic minibuffer completion UI
-(use-package vertico :init (vertico-mode))
+(use-package embark
+  :bind
+  ("C-."   . embark-act)
+  ("C-;"   . embark-dwim)      ;; Good alternative: M-.
+  ("C-h B" . embark-bindings)  ;; Alternative for 'describe-bindings'
 
-;; Persist history over Emacs restarts.
-;; Vertico sorts by history position.
-(use-package savehist
-  :straight nil
-  :init (savehist-mode))
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
 
-;; Add marginalia to minibuffer completions
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
 (use-package marginalia
   :after vertico
   :custom
@@ -313,8 +320,12 @@ Version 2017-11-01"
   :init
   (marginalia-mode))
 
-;; 'orderless' is a completion style that can match multiple
-;; space-separated components in any order
+(use-package savehist
+  :straight nil
+  :init (savehist-mode))
+
+(use-package vertico :init (vertico-mode))
+
 (use-package orderless
   :init
   ;; partial-completion allows multiple files to be opened at once
@@ -323,10 +334,7 @@ Version 2017-11-01"
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; Additional completion-at-point functions
 (use-package cape
-  ;; Ensure that orderless comes first in completion-styles
-  :after orderless
   :config
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
@@ -419,24 +427,6 @@ Version 2017-11-01"
   :config
   (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
 
-;; Menu that provides context-specific actions
-(use-package embark
-  :bind
-  ("C-."   . embark-act)
-  ("C-;"   . embark-dwim)      ;; Good alternative: M-.
-  ("C-h B" . embark-bindings)  ;; Alternative for 'describe-bindings'
-
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
 ;; Integration for embark and consult.
 ;; 'It provides exporters for several Consult commands and also
 ;; tweaks the behavior of many Consult commands when used as actions
@@ -450,7 +440,6 @@ Version 2017-11-01"
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;; In-buffer completions (similar to company)
 (use-package corfu
   :init (global-corfu-mode)
   :config
@@ -464,21 +453,22 @@ Version 2017-11-01"
   ;; (setq-local corfu-auto nil) Enable/disable auto completion
   (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+  :custom
+  (corfu-auto t))
 
   ;; TAB-and-Go customizations
-  :custom
-  (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
-  (corfu-preselect-first nil) ;; Disable candidate preselection
+  ;; :custom
+  ;; (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
+  ;; (corfu-preselect-first nil) ;; Disable candidate preselection
 
   ;; Use TAB for cycling, default is 'corfu-complete'.
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous)))
+  ;; :bind
+  ;; (:map corfu-map
+  ;;       ("TAB" . corfu-next)
+  ;;       ([tab] . corfu-next)
+  ;;       ("S-TAB" . corfu-previous)
+  ;;       ([backtab] . corfu-previous)))
 
-;; A few more useful configurations...
 (use-package emacs
   :init
   ;; Add prompt indicator to 'completing-read-multiple'.
