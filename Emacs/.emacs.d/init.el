@@ -667,6 +667,11 @@ minibuffer with something like `exit-minibuffer'."
   :config
   (setq highlight-indent-guides-method 'character))
 
+(use-package mouse-copy
+  :straight nil
+  :custom (mouse-yank-at-point t)
+  :config (mouse-copy-mode 1))
+
 (use-package cmake-mode :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 
 (use-package magit)
