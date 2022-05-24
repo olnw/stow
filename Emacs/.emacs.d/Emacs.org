@@ -169,6 +169,8 @@ For this to work, run ~M-x all-the-icons-install-fonts~.
 
 *** Mode Line
 #+begin_src emacs-lisp
+  (use-package doom-modeline :config (doom-modeline-mode 1))
+
   ;; Display the column number in the mode line
   (column-number-mode 1)
 
