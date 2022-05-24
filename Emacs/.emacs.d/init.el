@@ -216,11 +216,12 @@ Version 2017-11-01"
      '("." . embark-act)
      '("r" . bookmark-map)
      '("s" . search-map)
-     '("e" . eval-last-sexp)
+     '("e" . "C-x C-e") ; Also works for Sly
      '(";" . comment-dwim)
      '("k" . kill-this-buffer)
      '("d" . dired)
      '("b" . consult-buffer)
+     '("j" . consult-buffer-other-window)
      '("f" . find-file)
      '("i" . consult-imenu)
      '("a" . execute-extended-command)
