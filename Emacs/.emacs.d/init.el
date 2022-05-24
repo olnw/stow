@@ -186,6 +186,7 @@ Version 2017-11-01"
 (use-package meow
   :config
   (setq meow-expand-hint-remove-delay 100)
+  (setq meow-expand-exclude-mode-list '())
 
   (defun meow-setup ()
     ;; No cheatsheet for Colemak-DH :(
