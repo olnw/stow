@@ -45,7 +45,7 @@ return require("packer").startup(function(use)
 
   use "tpope/vim-sexp-mappings-for-regular-people"
 
-  use "kovisoft/slimv"
+  use "vlime/vlime"
 
   use {
     "nvim-treesitter/nvim-treesitter",
