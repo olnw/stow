@@ -4,7 +4,7 @@
 
 !/Emacs/.emacs.d/init.el
 !/Emacs/.emacs.d/early-init.el
-!/Emacs/.emacs.d/Emacs.org
+!/Emacs/.emacs.d/old-config.org
 
 # Ignore backup files
 *~
