@@ -62,8 +62,17 @@
 (use-package emacs
   :config
   (icomplete-vertical-mode 1)
-  (push 'flex completion-styles)
+  (savehist-mode 1)
+  ;; (push 'flex completion-styles)
   (setq tab-always-indent 'complete))
+
+(use-package orderless
+  :init
+  ;; partial-completion allows multiple files to be opened at once
+  ;; with find-file, if a wildcard is entered.
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Visual
 (use-package emacs
