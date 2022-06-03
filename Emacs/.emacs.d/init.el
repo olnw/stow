@@ -847,3 +847,14 @@ minibuffer with something like `exit-minibuffer'."
   ("C-c n l" . org-roam-buffer-toggle)
   ("C-c n i" . org-roam-node-insert)
   ("C-c n d" . org-roam-dailies-goto-today))
+
+(require 'notifications)
+
+(setq org-timer-default-timer "25")
+
+(add-hook 'org-timer-done-hook
+          (lambda ()
+            (notifications-notify :title "Pomodoro Timer"
+                                  :body "Time for a break!"
+                                  :app-name "Emacs: Org"
+                                  :sound-name "alarm-clock-elapsed")))

@@ -1077,3 +1077,18 @@ I use ~org-roam~ for Zettelkasten note-taking and daily journaling.
     ("C-c n i" . org-roam-node-insert)
     ("C-c n d" . org-roam-dailies-goto-today))
 #+end_src
+
+*** Pomodoro Timer
+Just call ~org-timer-set-timer~! I don't think there's a point in timing the break periods, since I'll probably be away from my workstation at these times.
+#+begin_src emacs-lisp
+  (require 'notifications)
+
+  (setq org-timer-default-timer "25")
+
+  (add-hook 'org-timer-done-hook
+            (lambda ()
+              (notifications-notify :title "Pomodoro Timer"
+                                    :body "Time for a break!"
+                                    :app-name "Emacs: Org"
+                                    :sound-name "alarm-clock-elapsed")))
+#+end_src
