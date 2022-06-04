@@ -855,7 +855,7 @@ I use emacs-libvterm as a terminal emulator within Emacs.
 ** Language-Specific Settings
 *** Lisp
 #+begin_src emacs-lisp
-  (setq inferior-lisp-program "ros -Q run")
+  (setq inferior-lisp-program "sbcl")
 
   (use-package paredit
     :hook ((emacs-lisp-mode                  . enable-paredit-mode)
