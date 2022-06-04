@@ -1,4 +1,4 @@
-XDG_DESKTOP_DIR="$HOME"
+XDG_DESKTOP_DIR="/mnt/hdd/desktop"
 XDG_DOWNLOAD_DIR="/mnt/hdd/downloads"
 XDG_TEMPLATES_DIR="/mnt/hdd/templates"
 XDG_PUBLICSHARE_DIR="/mnt/hdd/public"
