@@ -3,7 +3,6 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.expandtab = true
 
-vim.cmd "syntax enable"
 vim.cmd "filetype plugin indent on"
 vim.cmd "colorscheme modus-vivendi"
 
@@ -41,10 +40,6 @@ return require("packer").startup(function(use)
 
   use "tpope/vim-repeat"
 
-  use "guns/vim-sexp"
-
-  use "tpope/vim-sexp-mappings-for-regular-people"
-
   use "vlime/vlime"
 
   use {
@@ -60,3 +55,4 @@ return require("packer").startup(function(use)
     require("packer").sync()
   end
 end)
+
