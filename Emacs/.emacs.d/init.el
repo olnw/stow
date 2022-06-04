@@ -40,6 +40,8 @@
 
 ;;; Key bindings ;;;
 
+(use-package which-key :init (which-key-mode))
+
 (defun xah/new-empty-buffer ()
   "Create a new empty buffer.
   New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
