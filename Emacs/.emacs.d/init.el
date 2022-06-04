@@ -286,6 +286,12 @@
   ("C-c n i" . org-roam-node-insert)
   ("C-c n d" . org-roam-dailies-goto-today))
 
+(use-package visual-fill-column
+  :hook (org-mode . visual-fill-column-mode)
+  :init
+  (setq visual-fill-column-center-text t)
+  (setq visual-fill-column-width 100))
+
 ;;; Lisp programming ;;;
 
 (setq inferior-lisp-program "sbcl")
