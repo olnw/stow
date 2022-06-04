@@ -13,8 +13,7 @@
 
 (eval-when-compile
   (require 'use-package))
-;;(require 'diminish)
-;;(require 'bind-key)
+(require 'bind-key)
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
@@ -49,11 +48,13 @@
     (setq buffer-offer-save t)
     $buf))
 
-(global-set-key (kbd "<f5>") #'delete-window)
-(global-set-key (kbd "<f6>") #'delete-other-windows)
-(global-set-key (kbd "<f7>") #'split-window-below)
-(global-set-key (kbd "<f8>") #'split-window-right)
-(global-set-key (kbd "<f9>") #'xah/new-empty-buffer)
+(use-package emacs
+  :bind
+  ("<f5>" . xah/new-empty-buffer)
+  ("<f6>" . kill-buffer)
+  ("<f7>" . delete-window)
+  ("<f8>" . delete-other-windows)
+  ("<f9>" . other-window))
 
 ;; Scrolling
 (use-package emacs :config (setq scroll-conservatively 1000))
