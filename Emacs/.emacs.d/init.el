@@ -1,10 +1,7 @@
-;; Minimal Emacs config for Elfeed and Org/Org-roam.
+;;;; 'Minimal' GNU Emacs configuration
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -19,7 +16,6 @@
 
 (set-default-coding-systems 'utf-8)
 
-;; Load path
 (push (concat user-emacs-directory "lisp/") load-path)
 
 (use-package no-littering
@@ -32,7 +28,18 @@
   ;; Store the custom file in the etc/directory
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 
-;; Key bindings
+;;; Indentation ;;;
+
+;; By default, don't allow indentation to insert tab characters.
+(setq-default indent-tabs-mode nil)
+
+(setq c-default-style
+      '((java-mode . "java")
+        (awk-mode  . "awk")
+        (other     . "gnu")))
+
+;;; Key bindings ;;;
+
 (defun xah/new-empty-buffer ()
   "Create a new empty buffer.
   New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
@@ -56,16 +63,22 @@
   ("<f8>" . delete-other-windows)
   ("<f9>" . other-window))
 
-;; Scrolling
-(use-package emacs :config (setq scroll-conservatively 1000))
+;;; Scrolling ;;;
 
-;; Completions
+(setq scroll-conservatively 1000)
+
+;;; Completions ;;;
+
 (use-package emacs
-  :config
-  (icomplete-vertical-mode 1)
+  :init
   (savehist-mode 1)
-  ;; (push 'flex completion-styles)
-  (setq tab-always-indent 'complete))
+  (setq tab-always-indent 'complete)
+  
+  ;; Disable case-sensitivity for file and buffer matching
+  ;; with built-in completion styles.
+  (setq read-file-name-completion-ignore-case t
+        read-buffer-completion-ignore-case t
+        completion-ignore-case t))
 
 (use-package orderless
   :init
@@ -75,7 +88,95 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; Visual
+(use-package cape
+  :config
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+
+(use-package vertico :init (vertico-mode))
+
+(use-package marginalia :init (marginalia-mode))
+
+(use-package consult
+  ;; Replace bindings. Lazily loaded by use-package.
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x M-:" . consult-complex-command)     ; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ; orig. yank-pop
+         ("<help> a" . consult-apropos)            ; orig. apropos-command
+         ;; M-g bindings (goto-map)
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ; orig. goto-line
+         ("M-g o" . consult-outline)               ; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s m" . consult-multi-occur)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ; orig. next-matching-history-element
+         ("M-r" . consult-history))                ; orig. previous-matching-history-element
+
+  ;; The :init configuration is always executed. (Not lazy.)
+  :init
+  ;; Use 'consult-completion-in-region' if Vertico is enabled.
+  ;; Otherwise use the default 'completion--in-region' function.
+  (setq completion-in-region-function
+        (lambda (&rest args)
+          (apply (if vertico-mode
+                     #'consult-completion-in-region
+                   #'completion--in-region)
+                 args)))
+
+  ;; Configure the register formatting. This improves the register
+  ;; preview for 'consult-register', 'consult-register-load',
+  ;; 'consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+  
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
+
+;;; Visual ;;;
+
 (use-package emacs
   :init
   ;; Add customisations prior to loading the themes
@@ -85,11 +186,17 @@
 
   (setq custom-safe-themes t) ; Treat all themes as safe
   (setq show-paren-delay 0)
+  (setq show-paren-style 'expression)
   (setq inhibit-startup-screen t)
+  (setq whitespace-style '(tab-mark))
+  (global-whitespace-mode 1)
   (column-number-mode 1)
-  :config (load-theme 'modus-vivendi))
+  (tool-bar-mode -1)
+  :config
+  (load-theme 'modus-vivendi))
 
-;; RSS
+;;; RSS ;;;
+
 (use-package elfeed
   :config
   ;; Load my feeds from a separate file
@@ -113,6 +220,8 @@
   
   :bind (:map elfeed-search-mode-map
               ("C-c C-o" . olnw/play-with-mpv)))
+
+;;; Org mode ;;;
 
 (use-package org
   :ensure nil ; Use the built-in version of Org mode
@@ -175,3 +284,37 @@
   ("C-c n i" . org-roam-node-insert)
   ("C-c n d" . org-roam-dailies-goto-today))
 
+;;; Lisp programming ;;;
+
+(setq inferior-lisp-program "sbcl")
+
+(use-package paredit
+  :hook ((emacs-lisp-mode                  . enable-paredit-mode)
+         (eval-expression-minibuffer-setup . enable-paredit-mode)
+         (ielm-mode                        . enable-paredit-mode)
+         (lisp-mode                        . enable-paredit-mode)
+         (lisp-interaction-mode            . enable-paredit-mode)
+         (scheme-mode                      . enable-paredit-mode)
+         (sly-mrepl                        . enable-paredit-mode))
+
+  ;; Re-map paredit-splice-sexp from M-s to C-c s
+  ;; The default conflicts with Consult's M-s bindings
+  :bind (:map paredit-mode-map
+              ("M-s" . nil)
+              ("C-c s" . paredit-splice-sexp)))
+
+(use-package sly
+  :config
+  (require 'sly-autoloads)
+  (setq sly-contribs '(sly-mrepl))
+  (sly-setup)
+
+  ;; Disable Sly's completion UI.
+  (sly-symbol-completion-mode -1))
+
+;; Common Lisp HyperSpec (CLHS) interface from within Emacs.
+(use-package clhs
+  :custom
+  (tags-apropos-additional-actions '(("Common Lisp" clhs-doc clhs-symbols)))
+  :bind
+  ("C-c d" . clhs-doc))
