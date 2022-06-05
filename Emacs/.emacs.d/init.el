@@ -179,6 +179,30 @@
 
 ;;; Visual ;;;
 
+;; Highlight matching parens
+(use-package paren
+  :ensure nil
+  :init
+  (setq show-paren-delay 0)
+  (setq show-paren-style 'expression))
+
+;; Reduce clutter
+(use-package emacs
+  :init
+  (setq inhibit-startup-screen t)
+  :config
+  (column-number-mode 1)
+  (tool-bar-mode -1))
+
+;; Marker for tab characters
+(use-package whitespace
+   :ensure nil
+   :init
+   (setq whitespace-style '(tab-mark))
+   :config
+   (global-whitespace-mode 1))
+
+;; Themes
 (use-package emacs
   :init
   ;; Add customisations prior to loading the themes
@@ -187,15 +211,21 @@
         modus-themes-region '(bg-only no-extend))
 
   (setq custom-safe-themes t) ; Treat all themes as safe
-  (setq show-paren-delay 0)
-  (setq show-paren-style 'expression)
-  (setq inhibit-startup-screen t)
-  (setq whitespace-style '(tab-mark))
-  (global-whitespace-mode 1)
-  (column-number-mode 1)
-  (tool-bar-mode -1)
   :config
   (load-theme 'modus-vivendi))
+
+;; Custom faces
+(defun olnw/set-faces ()
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 120 :weight 'light)
+  (set-face-attribute 'fixed-pitch nil :family "JetBrains Mono" :height 120 :weight 'light)
+  (set-face-attribute 'variable-pitch nil :family "FiraGO" :height 120 :weight 'light)
+
+  ;; Make sure the faces are only set once
+  (remove-hook 'server-after-make-frame-hook #'olnw/set-faces))
+
+(if (daemonp)
+    (add-hook 'server-after-make-frame-hook #'olnw/set-faces)
+  (add-hook 'after-init-hook #'olnw/set-faces))
 
 ;;; RSS ;;;
 
