@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;;; 'Minimal' GNU Emacs configuration
 
 (require 'package)
