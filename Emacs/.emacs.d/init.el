@@ -374,3 +374,24 @@
   (rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
   (rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))
   (whitespace-tab ((t (:foreground "#636363")))))
+
+;;; LSP and DAP ;;;
+
+(use-package lsp-mode
+  :init (setq lsp-keymap-prefix "C-c l")
+  :config
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  (define-key lsp-mode-map (kbd "<tab>") #'indent-for-tab-command)
+
+  (add-hook 'python-mode-hook #'lsp)
+  (add-hook 'c-mode-hook #'lsp)
+  (add-hook 'c++-mode-hook #'lsp)
+  (add-hook 'cmake-mode-hook #'lsp)
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
+(use-package lsp-ui)
+
+(use-package dap-mode
+  :config
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra))))
