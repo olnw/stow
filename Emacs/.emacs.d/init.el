@@ -266,8 +266,9 @@
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
   (setq org-log-done t)
   (setq org-imenu-depth 1000)
-
   (setq org-directory "/mnt/hdd/org")
+  (setq org-habit-show-done-always-green t)
+  (setq org-habit-show-all-today t)
 
   ;; I can’t figure out how to match either .org or .org.gpg files
   ;; Fix this in the future
@@ -322,6 +323,14 @@
   :init
   (setq visual-fill-column-center-text t)
   (setq visual-fill-column-width 100))
+
+;; I use this for incrementing habit streaks
+(use-package org-edna :config (org-edna-mode 1))
+
+;; Displaying habit streaks in org agenda
+(use-package org-agenda-property
+  :config
+  (setq org-agenda-property-list '("STREAK")))
 
 ;;; Lisp programming ;;;
 
