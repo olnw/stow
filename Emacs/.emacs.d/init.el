@@ -229,32 +229,6 @@
     (add-hook 'server-after-make-frame-hook #'olnw/set-faces)
   (add-hook 'after-init-hook #'olnw/set-faces))
 
-;;; RSS ;;;
-
-(use-package elfeed
-  :config
-  ;; Load my feeds from a separate file
-  (load "olnw-elfeed-feeds.el")
-  
-  ;; Customise the default filter
-  (elfeed-search-set-filter "+unread")
-  (setq elfeed-search-title-max-width 100)
-  
-  (defun olnw/play-with-mpv ()
-    (interactive)
-    (let* ((entries (elfeed-search-selected))
-           (links (mapcar #'elfeed-entry-link entries)))
-      
-      ;; Mark selected entries as read
-      (elfeed-search-untag-all-unread)
-      
-      ;; Play all selected entries with mpv
-      (cl-loop for link in links
-               do (call-process-shell-command (concat "mpv '" link "' \&") nil 0))))
-  
-  :bind (:map elfeed-search-mode-map
-              ("C-c C-o" . olnw/play-with-mpv)))
-
 ;;; Org mode ;;;
 
 (use-package org
