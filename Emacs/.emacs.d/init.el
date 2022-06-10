@@ -362,9 +362,9 @@
 ;;; LSP and DAP ;;;
 
 (use-package lsp-mode
-  :init (setq lsp-keymap-prefix "C-c l")
+  :init (setq lsp-keymap-prefix "C-=")
   :config
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  (define-key lsp-mode-map (kbd "C-=") lsp-command-map)
   (define-key lsp-mode-map (kbd "<tab>") #'indent-for-tab-command)
 
   (add-hook 'python-mode-hook #'lsp)
