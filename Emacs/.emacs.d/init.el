@@ -214,7 +214,7 @@
 
   (setq custom-safe-themes t) ; Treat all themes as safe
   :config
-  (load-theme 'modus-vivendi))
+  (load-theme 'modus-operandi))
 
 ;; Custom faces
 (defun olnw/set-faces ()
@@ -377,9 +377,9 @@
   :custom-face
   (rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
   (rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
-  (rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse")))) ; dark red
+  (rainbow-delimiters-depth-3-face ((t (:foreground "dark red")))) ; chartreuse
   (rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
-  (rainbow-delimiters-depth-5-face ((t (:foreground "yellow")))) ; black
+  (rainbow-delimiters-depth-5-face ((t (:foreground "black")))) ; yellow
   (rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
   (rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
   (rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))
