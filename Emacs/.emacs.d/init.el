@@ -193,6 +193,7 @@
   (setq inhibit-startup-screen t)
   :config
   (column-number-mode 1)
+  (tab-bar-mode 1)
   (tool-bar-mode -1))
 
 ;; Marker for tab characters
