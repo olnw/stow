@@ -187,7 +187,7 @@
   (setq show-paren-delay 0)
   (setq show-paren-style 'expression))
 
-;; Reduce clutter
+;; Reduce UI clutter
 (use-package emacs
   :init
   (setq inhibit-startup-screen t)
@@ -241,9 +241,9 @@
   (setq org-startup-indented t) ; Globally turn on Org Indent mode
   (setq org-log-done t)
   (setq org-imenu-depth 1000)
-  (setq org-directory "/mnt/hdd/org")
+  (setq org-directory "E:\\org")
   (setq org-habit-show-done-always-green t)
-  (setq org-habit-show-all-today t)
+  ;; (setq org-habit-show-all-today t)
 
   ;; I can’t figure out how to match either .org or .org.gpg files
   ;; Fix this in the future
@@ -278,7 +278,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "/mnt/hdd/org-roam")
+  (org-roam-directory "E:\\Org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
   :config
@@ -328,10 +328,6 @@
 
 (use-package sly
   :config
-  (require 'sly-autoloads)
-  (setq sly-contribs '(sly-mrepl))
-  (sly-setup)
-
   ;; Disable Sly's completion UI.
   (sly-symbol-completion-mode -1))
 
