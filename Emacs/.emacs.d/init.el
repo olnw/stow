@@ -273,7 +273,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "E:\\Org-roam")
+  (org-roam-directory "E:\\Org\\Org-roam")
   ;; Completion without using double square brackets
   (org-roam-completion-everywhere t)
   :config
