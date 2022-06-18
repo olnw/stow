@@ -244,12 +244,7 @@
   (setq org-directory "E:\\org")
   (setq org-habit-show-done-always-green t)
   ;; (setq org-habit-show-all-today t)
-
-  ;; I can’t figure out how to match either .org or .org.gpg files
-  ;; Fix this in the future
-  (setq org-agenda-file-regexp "\\`[^.].*\\.org.gpg\\'")
   (setq org-agenda-files (list org-directory))
-
   (push 'org-habit org-modules) ; Add org-habit to the list of modules
 
   (add-hook 'org-mode-hook (lambda ()
