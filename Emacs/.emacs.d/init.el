@@ -294,14 +294,6 @@
   (setq visual-fill-column-center-text t)
   (setq visual-fill-column-width 100))
 
-;; I use this for incrementing habit streaks
-(use-package org-edna :config (org-edna-mode 1))
-
-;; Displaying habit streaks in org agenda
-(use-package org-agenda-property
-  :config
-  (setq org-agenda-property-list '("STREAK")))
-
 ;;; Lisp programming ;;;
 
 (setq inferior-lisp-program "sbcl")
